@@ -1,0 +1,388 @@
+    <link rel="stylesheet" href="dist/css/formValidation.css"/>
+    <link rel="stylesheet" href="dist/css/select2.css"/>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
+
+    <script src="vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="dist/js/select2.min.js"></script>
+    <script src="dist/js/formValidation.js"></script>
+    <script src="dist/js/framework/bootstrap.js"></script>
+
+<div class="page">
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Wizard Form</strong></div>
+        <div class="panel-body" >
+         <form id="bookForm" method="post" class="form-horizontal" data-ng-controller="EmpresaController as cc">
+         <button   type="button" ng-click="cc.buscaRCep('38082243')"  class="btn btn-success">Add</button>
+            <div class="data-ui-wizard-form">
+
+ <button   type="button" ng-click="cc.buscaRCep('38082243')"  class="btn btn-success">Add</button>
+
+                <h1>Informação Empresa</h1>
+                <div class="form-empresa">Informação Empresa
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <label for="exampleInputPassword1">Digite seu CNPJ</label>
+                            <input type="text" class="form-control col-sm-8" placeholder="col-sm-8">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="exampleInputPassword1">Informe o Numero de Funcionarios</label>
+                            <input type="text" class="form-control col-sm-4" placeholder="col-sm-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="exampleInputPassword1">Informe a Razão Social</label>
+                            <input type="text" class="form-control col-sm-8" placeholder="col-sm-8">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <dl class="dl-horizontal">
+                                <dt>Sua Empresa Esta Ativa?</dt><br>
+                                <dd>
+                                    <label class="ui-radio"><input name="radio1" type="radio" value="option1" ><span>Sim</span></label>
+                                    <label class="ui-radio"><input name="radio1" type="radio" value="option2" checked><span>Não</span></label>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-6">
+                            <dl class="dl-horizontal">
+                                <dt>Selecione o regime Tributario da Empresa</dt><br>
+                                <dd>
+                                    <label class="ui-radio"><input name="radio1" type="radio" value="option1" checked ><span>Simples Nacional</span></label>
+                                    <label class="ui-radio"><input name="radio1" type="radio" value="option2" ><span>Lucro Real</span></label>
+                                    <label class="ui-radio"><input name="radio1" type="radio" value="option2" ><span>Lucro Presumido</span></label>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                        <label for="exampleInputPassword1">CEP</label>
+                            <div class="input-group">
+
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+
+                                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"> </i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <label for="exampleInputPassword1">Logradouro</label>
+                            <input type="text" class="form-control col-sm-8" placeholder="col-sm-8">
+                        </div>
+                        <div class="col-sm-9">
+                            <label for="exampleInputPassword1">Numero</label>
+                            <input type="text" class="form-control col-sm-4" placeholder="col-sm-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="exampleInputPassword1">Complemento</label>
+                            <input type="text" class="form-control col-sm-8" placeholder="col-sm-8">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="exampleInputPassword1">Bairro</label>
+                            <input type="text" class="form-control col-sm-4" placeholder="col-sm-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="exampleInputPassword1">Estado</label>
+                            <input type="text" class="form-control col-sm-8" placeholder="col-sm-8">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="exampleInputPassword1">Municipio</label>
+                            <input type="text" class="form-control col-sm-4" placeholder="col-sm-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                        <label for="exampleInputPassword1">Atividade Principal da Empresa</label>
+                            <select id="atividade1" name="atividade1" class="form-control">
+                                <option> teste 001</option>
+                                <option> teste 002</option>
+                                <option> teste 003</option>
+                                <option> teste 004</option>
+                                <option> teste 005</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                                <div class="col-sm-5">
+                                    <label for="exampleInputPassword1">Atividade Secundaria da Empresa</label>
+                                    <select id="mySel" name="cnae" class="form-control">
+                                        <option> teste 001</option>
+                                        <option> teste 002</option>
+                                        <option> teste 003</option>
+                                        <option> teste 004</option>
+                                        <option> teste 005</option>
+
+                                    </select>
+
+                                    <button type="button" class="btn btn-default addButton1"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                        <div class="row">
+                            <div class="form-group hide" id="bookTemplate1">
+                                <div class="col-sm-6">
+                                <label for="exampleInputPassword1">Outras Atividades</label>
+                                    <select id="mySel" class="form-control">
+                                        <option> teste 001</option>
+                                        <option> teste 002</option>
+                                        <option> teste 003</option>
+                                        <option> teste 004</option>
+                                        <option> teste 005</option>
+
+                                    </select>
+
+                                <div class="col-xs-1">
+                                    <button type="button" class="btn btn-default removeButton1"><i class="fa fa-minus"></i></button>
+                                </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                <h1>Socios</h1>
+                <div>
+                <div class="row">
+                        <div class="col-sm-2">
+                            <label for="exampleInputPassword1">CPF Socio</label>
+                            <input type="text" class="form-control" name="book[0].title" placeholder="CPF Socio" />
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="exampleInputPassword1">Nome Socio</label>
+                            <input type="text" class="form-control" name="book[0].isbn" placeholder="Nome Socio" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="exampleInputPassword1">Porcentagem</label>
+                            <input type="text" class="form-control" name="book[0].price" placeholder="%" />
+                        </div>
+                        <div class="col-sm-3" style="margin-top:18px">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="receiver" value="0" checked /> Socio Administrador ?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-1" style="margin-top:18px">
+                            <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h1>Escolha Plano</h1>
+                <div>
+                    <section class="mbr-section mbr-section--relative mbr-section--fixed-size" id="pricing-table1-10" style="background-color: rgb(240, 240, 240);">
+
+    <div class="mbr-section__container mbr-section__container--std-top-padding container" style="padding-top: 93px; margin-bottom: 0px;">
+        <div class="row">
+            <div class="mbr-plan col-xs-12 mbr-plan--first col-md-3 col-sm-6">
+                <div class="mbr-plan__box">
+                    <div class="mbr-plan__header">
+                        <div class="mbr-header mbr-header--reduce mbr-header--center mbr-header--wysiwyg">
+                            <h3 class="mbr-header__text">STANDARD</h3>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__number">
+                        <div class="mbr-number mbr-number--price">
+                            <div class="mbr-number__num">
+                                <div class="mbr-number__group">
+                                    <sup class="mbr-number__left">$</sup><span class="mbr-number__value">0</span>
+                                </div>
+                            </div>
+                            <div class="mbr-number__caption">per month</div>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__details"><ul><li><strong>32 GB</strong> Storage</li><li><strong>Unlimited</strong> Users</li><li><strong>15 GB</strong> Bandwidth</li></ul></div>
+                    <div class="mbr-plan__buttons">
+                        <div class="mbr-buttons mbr-buttons--center"><a href="https://mobirise.com" class="mbr-buttons__btn btn btn-wrap btn-xs-lg btn-default">DEMO LINK</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mbr-plan col-xs-12 mbr-plan--success col-md-3 col-sm-6">
+                <div class="mbr-plan__box">
+                    <div class="mbr-plan__header">
+                        <div class="mbr-header mbr-header--reduce mbr-header--center mbr-header--wysiwyg">
+                            <h3 class="mbr-header__text">BUSINESS</h3>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__number">
+                        <div class="mbr-number mbr-number--price">
+                            <div class="mbr-number__num">
+                                <div class="mbr-number__group">
+                                    <sup class="mbr-number__left">$</sup><span class="mbr-number__value">0</span>
+                                </div>
+                            </div>
+                            <div class="mbr-number__caption">per month</div>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__details"><ul><li><strong>80 GB</strong> Storage</li><li><strong>Unlimited</strong> Users</li><li><strong>20 GB</strong> Bandwidth</li></ul></div>
+                    <div class="mbr-plan__buttons">
+                        <div class="mbr-buttons mbr-buttons--center"><a href="https://mobirise.com" class="mbr-buttons__btn btn btn-wrap btn-xs-lg btn-default">DEMO LINK</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mbr-plan col-xs-12 mbr-plan--danger mbr-plan--favorite col-md-3 col-sm-6">
+                <div class="mbr-plan__box">
+                    <div class="mbr-plan__header">
+                        <div class="mbr-header mbr-header--reduce mbr-header--center mbr-header--wysiwyg">
+                            <h3 class="mbr-header__text">PREMIUM</h3>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__number">
+                        <div class="mbr-number mbr-number--price">
+                            <div class="mbr-number__num">
+                                <div class="mbr-number__group">
+                                    <sup class="mbr-number__left">$</sup><span class="mbr-number__value">0</span>
+                                </div>
+                            </div>
+                            <div class="mbr-number__caption">per month</div>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__details"><ul><li><strong>100 GB</strong> Storage</li><li><strong>Unlimited</strong> Users</li><li><strong>50 GB</strong> Bandwidth</li></ul></div>
+                    <div class="mbr-plan__buttons">
+                        <div class="mbr-buttons mbr-buttons--center"><a href="https://mobirise.com" class="mbr-buttons__btn btn btn-wrap btn-xs-lg btn-default">DEMO LINK</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mbr-plan col-xs-12 mbr-plan--warning mbr-plan--last col-md-3 col-sm-6">
+                <div class="mbr-plan__box">
+                    <div class="mbr-plan__header">
+                        <div class="mbr-header mbr-header--reduce mbr-header--center mbr-header--wysiwyg">
+                            <h3 class="mbr-header__text">ULTIMATE</h3>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__number">
+                        <div class="mbr-number mbr-number--price">
+                            <div class="mbr-number__num">
+                                <div class="mbr-number__group">
+                                    <sup class="mbr-number__left">$</sup><span class="mbr-number__value">0</span>
+                                </div>
+                            </div>
+                            <div class="mbr-number__caption">per month</div>
+                        </div>
+                    </div>
+                    <div class="mbr-plan__details"><ul><li><strong>Unlimited</strong> Storage</li><li><strong>Unlimited</strong> Users</li><li><strong>1 TB</strong> Bandwidth</li></ul></div>
+                    <div class="mbr-plan__buttons">
+                        <div class="mbr-buttons mbr-buttons--center"><a href="https://mobirise.com" class="mbr-buttons__btn btn btn-wrap btn-xs-lg btn-default">DEMO LINK</a></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+                </div>
+
+                <h1>Pagamento</h1>
+                <div>Pagamento</div>
+            </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script>
+    $( document ).ready(function() {
+
+    $('#dashboard-nav').hide();
+    $('#dashboard-header').hide();
+    $('#teste').hide();
+
+    var titleValidators = {
+            row: '#nome-completo',   // The title is placed inside a <div class="col-xs-4"> element
+            validators: {
+                notEmpty: {
+                    message: 'The title is required'
+                }
+            }
+        },
+        isbnValidators = {
+            row: '#cpf',
+            validators: {
+                notEmpty: {
+                    message: 'The ISBN is required'
+                },
+                isbn: {
+                    message: 'The ISBN is not valid'
+                }
+            }
+        },
+        priceValidators = {
+            row: '#email',
+            validators: {
+                notEmpty: {
+                    message: 'The price is required'
+                },
+                numeric: {
+                    message: 'The price must be a numeric number'
+                }
+            }
+        },
+        bookIndex = 0;
+
+    $('#bookForm')
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'book[0].nome-completo': titleValidators,
+                'book[0].cpf': isbnValidators,
+                'book[0].telefone': priceValidators,
+                'book[0].cnae': titleValidators
+            }
+        }).on('click', '.addButton1', function() {
+            bookIndex++;
+
+            var $template = $('#bookTemplate1'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('data-book-index', bookIndex)
+                                .insertBefore($template);
+
+            // Update the name attributes
+            $clone
+                .find('[name="cnae1"]').attr('name', 'book[' + bookIndex + '].cnae').end();
+
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            $('#bookForm')
+                .formValidation('addField', 'book[' + bookIndex + '].cnae', titleValidators);
+
+
+        })
+
+        // Remove button click handler
+        .on('click', '.removeButton1', function() {
+            var $row  = $(this).parents('.form-group'),
+                index = $row.attr('data-book-index');
+
+            // Remove fields
+            $('#bookForm')
+                .formValidation('removeField', $row.find('[name="book[' + index + '].cnae"]'));
+
+            // Remove element containing the fields
+            $row.remove();
+        }).on('change', 'BR', function(e) {
+            $('#bookForm').formValidation('revalidateField', 'phoneNumber');
+        });
+        $("select").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+
+    });
+</script>
