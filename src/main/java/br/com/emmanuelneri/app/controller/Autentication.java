@@ -33,14 +33,14 @@ import br.com.emmanuelneri.app.model.ModelToken;
 public class Autentication {
 
 
-	public static Properties getProp() throws IOException {
-		Properties props = new Properties();
-		FileInputStream file = new FileInputStream(
-				"./properties/dados.properties");
-		props.load(file);
-		return props;
-
-	}
+//	public static Properties getProp() throws IOException {
+//		Properties props = new Properties();
+//		FileInputStream file = new FileInputStream(
+//				"././properties/dados.properties");
+//		props.load(file);
+//		return props;
+//
+//	}
 
 
     @ResponseBody
@@ -48,10 +48,10 @@ public class Autentication {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ModelToken fetchtoken(@RequestBody String username, String password) throws JsonParseException, JsonMappingException, IOException {
 
-			Properties prop = getProp();
+		//	Properties prop = getProp();
 
-			System.out.println();
-			System.out.println("[" + prop.getProperty("prop.version") + "]");
+//			System.out.println();
+//			System.out.println("[" + prop.getProperty("prop.version") + "]");
 
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.set("Header", "value");
@@ -62,8 +62,8 @@ public class Autentication {
 		    RestTemplate rest = new RestTemplate();
 		    rest.setMessageConverters(Arrays.asList(new StringHttpMessageConverter(), new FormHttpMessageConverter()));
 		    MultiValueMap<String, String> paramss = new LinkedMultiValueMap<String, String>();
-		    paramss.set("username", "taz@qat.com");
-		    paramss.set("password", "devil");
+		    paramss.set("username", username);
+		    paramss.set("password", password);
 		   /// URI tgtUrl = rest.postForLocation("http://localhost:8080/qat-sysmgmt-controller-rest/auth/api/authenticate", paramss, Collections.emptyMap());
 
 		    ResponseEntity<String> st = rest.postForEntity("http://localhost:8080/qat-sysmgmt-controller-rest/auth/api/authenticate", paramss, String.class);
