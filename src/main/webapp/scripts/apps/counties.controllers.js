@@ -1,33 +1,33 @@
 (function() {
   angular.module('wdApp.apps.counties', []).controller('CountiesController',
-  ['$scope', 'SysMgmtData', 'toastr', 'toastrConfig',
-	function($scope, SysMgmtData, toastr, toastrConfig) {
+  ['$scope', 'SysMgmtData', 'toastr', 'toastrConfig','$rootScope',
+	function($scope, SysMgmtData, toastr, toastrConfig,$rootScope) {
 		var cvm = this;
 		var initLoad = true; //used to ensure not calling server multiple times
-		var fetch_url = "cidade/api/fetchByRequestBAS";
-		var refresh_url =  "qat-webdaptive/cidade/api/refreshBAS";
-		var create_url =  "cidade/api/insertBAS";
-		var update_url =  "qat-webdaptive/cidade/api/updateBAS";
-		var delete_url =  "qat-webdaptive/cidade/api/deleteBAS";
+		var fetch_url = WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.fetch_url;
+		var refresh_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.refresh_url;
+		var create_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.create_url;
+		var update_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.update_url;
+		var delete_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.delete_url;
 		cvm.isActive = false;
 		toastrConfig.closeButton = true;
 
 		//form model data
 		cvm.county = {
 			id: '',
-			nome: ''
+			description: ''
 		};
 
 		//grid column defs
 		var countyColumnDefs = [
 			{headerName: "County Id", field: "id", width: 270},
-			{headerName: "County Description", field: "nome", width: 450}
+			{headerName: "County Description", field: "description", width: 450}
 		];
 
 		//grid row select function
 		function rowSelectedFunc(event) {
 			cvm.county.id = event.node.data.id;
-			cvm.county.nome = event.node.data.nome;
+			cvm.county.description = event.node.data.description;
 		};
 
 		//grid options
@@ -45,12 +45,11 @@
 			var countyDataSource = {
 				pageSize: 20, //using default paging of 20
 				getRows: function (params) {
-				debugger
 					if (initLoad){
 						//console.log("getRows() initLoad=true: " + resIn);
 						initLoad=false;
 						cvm.isActive = false;
-						var dataThisPage = resIn.cidadeList;
+						var dataThisPage = resIn.counties;
 						cvm.gList =  dataThisPage;
 						var lastRow = (resIn) ? resIn.resultsSetInfo.totalRowsAvailable : 0;
 						params.successCallback(dataThisPage, lastRow);
@@ -58,7 +57,7 @@
 					}
 					else{
 						//console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-						SysMgmtData.processPostPageData(fetch_url, new qat.model.pagedInquiryRequest(  params.startRow/20, true), function(res){
+						SysMgmtData.processPostPageData("/main/api/request", {url : WebDaptiveAppConfig.fetch_url, token : $rootScope.authToken , request : new qat.model.pagedInquiryRequest(  params.startRow/20, true)}, function(res){
 							var dataThisPage = res.counties;
 							cvm.gList =  dataThisPage;
 							var lastRow = res.resultsSetInfo.totalRowsAvailable;
@@ -71,7 +70,8 @@
 		};
 
 		//initial data load
-		processPostData(fetch_url, new qat.model.pagedInquiryRequest( 0, true), false);
+		//debugger
+		processPostData("main/api/request/", {url : "county/api/fetchPage", token :$rootScope.authToken, request : new qat.model.pagedInquiryRequest()}, false);
 
 		//reusable data methods
 		//reusable processGetData (refresh,delete)
@@ -123,7 +123,7 @@
 		cvm.clearForm = function (){
 			//clear data
 			cvm.county.id = "";
-			cvm.county.nome = "";
+			cvm.county.description = "";
 			//clear grid selection
 			cvm.countyGridOptions.api.deselectAll();
 			//set form to pristine
@@ -138,11 +138,11 @@
 				switch (_btnType) {
 				//Add Button
 				case 'A':
-					processPostData(create_url,  new qat.model.reqCounty( new qat.model.county(cvm.county.id, cvm.county.nome),true, true), true);
+					processPostData(create_url,  new qat.model.reqCounty( new qat.model.county(cvm.county.id, cvm.county.description),true, true), true);
 					break;
 				//Update Button
 				case 'U':
-					processPostData(update_url,  new qat.model.reqCounty( new qat.model.county(cvm.county.id, cvm.county.nome),true, true), true);
+					processPostData(update_url,  new qat.model.reqCounty( new qat.model.county(cvm.county.id, cvm.county.description),true, true), true);
 					break;
 				//Delete Button
 				case 'D':

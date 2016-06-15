@@ -18,6 +18,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestTemplate;
@@ -44,9 +45,9 @@ public class Autentication {
 
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ModelToken fetchtoken(@RequestBody String username, String password) throws JsonParseException, JsonMappingException, IOException {
+	public ModelToken fetchtoken(@RequestParam("username") String username,
+			@RequestParam("password") String password) throws JsonParseException, JsonMappingException, IOException {
 
 		//	Properties prop = getProp();
 
