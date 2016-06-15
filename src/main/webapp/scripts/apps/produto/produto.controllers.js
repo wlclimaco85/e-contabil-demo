@@ -1,6 +1,6 @@
 angular.module("wdApp.apps.produto", ["ngTable","datatables"]);
 
-
+/*
 
 (function() {
 angular.module('wdApp.apps.produto', ['datatables'])
@@ -8,6 +8,7 @@ angular.module('wdApp.apps.produto', ['datatables'])
 
 function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
+    debugger
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withOption('stateSave', true)
         .withPaginationType('full_numbers');
@@ -16,7 +17,7 @@ function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-    vm.newSource = 'data.json';
+    vm.newSource = 'data1.json';
     vm.reloadData = reloadData;
     vm.dtInstance = {};
 
@@ -30,7 +31,7 @@ function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
     }
 }
 })();
-/*
+
 (function() {
   angular.module('wdApp.apps.produto', ['datatables', 'datatables.tabletools'])
 .controller('WithTableToolsCtrl', WithTableToolsCtrl);
@@ -58,6 +59,60 @@ function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
 }
 })();
 */
+(function() {
+angular.module('wdApp.apps.produto', ['datatables', 'datatables.buttons', 'datatables.light-columnfilter'])
+    .controller('WithButtonsCtrl', WithButtonsCtrl);
+
+function WithButtonsCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withDOM('frtip')
+        .withPaginationType('full_numbers')
+        .withLightColumnFilter({
+            '0' : {
+                type : 'text'
+            },
+            '1' : {
+                type : 'text'
+            },
+            '2' : {
+                type : 'select',
+                values: [{
+                    value: 'Yoda', label: 'Yoda foobar'
+                }, {
+                    value: 'Titi', label: 'Titi foobar'
+                }, {
+                    value: 'Kyle', label: 'Kyle foobar'
+                }, {
+                    value: 'Bar', label: 'Bar foobar'
+                }, {
+                    value: 'Whateveryournameis', label: 'Whateveryournameis foobar'
+                }]
+            }
+        })
+        // Active Buttons extension
+        .withButtons([
+            'columnsToggle',
+            'colvis',
+            'copy',
+            'print',
+            'excel',
+            {
+                text: 'Some button',
+                key: '1',
+                action: function (e, dt, node, config) {
+                    alert('Button activated');
+                }
+            }
+        ]);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+}
+})();
+
 (function() {
   "use strict";
 
@@ -237,3 +292,129 @@ function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ngTableDefaults.settings.counts = [];
   }
 })();
+
+
+/*
+
+
+var testTableApp = angular.module( 'testTableApp', ['ngRoute', 'ngResource', 'datatables', 'datatables.tabletools', 'datatables.bootstrap', 'datatables.fixedheader'] );
+console.log( testTableApp );
+testTableApp.controller("mainTable", 
+[ '$scope', 'DTOptionsBuilder', 'DTColumnBuilder',
+    function ( $scope, DTOptionsBuilder, DTColumnBuilder){
+        $scope.dataSource = "http://dt.ishraf.com/ajax.php";
+        $scope.start = 0;
+        $scope.end = 5000;
+        
+        
+        $scope.getDataSource = function(obj,prefix){
+            var src = $scope.dataSource;
+            
+            var str = [];
+            for(var p in obj) {
+                if (obj.hasOwnProperty(p)) {
+                    var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+                    str.push(typeof v == "object" ?
+                    serialize(v, k) :
+                    encodeURIComponent(k) + "=" + encodeURIComponent(v));
+                }
+            }
+            return src + "?" + str.join("&");
+        }
+        
+        var dsParams = {
+            start : $scope.start,
+            end : $scope.end
+        }
+        
+        $scope.dsString = $scope.getDataSource( dsParams );
+        
+        
+        $scope.buildTable = function(){
+            return DTOptionsBuilder
+                .newOptions()
+                .withOption('ajax', {
+                    // Either you specify the AjaxDataProp here
+                    dataSrc: 'data',
+                    url: $scope.dsString,
+                    type: 'POST'
+                }).
+                withOption( 'lengthMenu', [
+                    [10, 20, 50, 100, 150, 300, 500],
+                    [10, 20, 50, 100, 150, 300, 500]
+                ])                
+                .withTableTools('bower_components/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+                .withTableToolsButtons([
+                    {
+                        "sExtends": "copy",
+                        "sButtonText": "<i class='fa fa-copy'></i>&nbsp;|&nbsp;Copy",
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-success');
+                        }
+                    },
+                    {
+                        "sExtends": "print",
+                        "sButtonText": "<i class='fa fa-print'></i>&nbsp;|&nbsp;Print",
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-danger');
+                        }
+                    },
+                    {
+                        "sExtends": "csv",
+                        "sButtonText": "<i class='fa fa-file-o'></i>&nbsp;|&nbsp;CSV",
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-primary');
+                        }
+                    },
+                    {
+                        "sExtends": "pdf",
+                        "sButtonText": "<i class='fa fa-file-pdf-o'></i>&nbsp;|&nbsp;PDF",
+                        "fnInit": function (nButton, oConfig) {
+                            $(nButton).addClass('btn btn-warning');
+                        }
+                    }
+                ])
+                .withFixedHeader({
+                    bottom: true
+                })
+                .withDOM('<"clear"><"#top.hidden-print"<".row"<".col-md-6"i><".col-md-6"f>><".row"<".col-md-6"l><".col-md-6"p>><"clear">T>rt')
+                ;            
+        }
+        
+        
+        $scope.dtOptions = $scope.buildTable();
+            
+        $scope.buildColumns = function(){
+            return [
+                DTColumnBuilder.newColumn('id').withTitle('ID'),
+                DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+                DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
+                DTColumnBuilder.newColumn('city').withTitle('city'),
+                DTColumnBuilder.newColumn('state').withTitle('state'),
+                DTColumnBuilder.newColumn('zip').withTitle('zip'),
+                DTColumnBuilder.newColumn('country').withTitle('country'),
+                DTColumnBuilder.newColumn('phone').withTitle('phone'),
+                DTColumnBuilder.newColumn('email').withTitle('email')
+            ];
+        }
+        
+        $scope.dtColumns = $scope.buildColumns();
+        
+        
+        $scope.reloadData = reloadData;
+        $scope.dtInstance = {};
+
+        function reloadData() {
+            var resetPaging = false;
+            $scope.dtInstance.reloadData(callback, resetPaging);
+        }
+
+        function callback(json) {
+            console.log(json);
+        }
+        
+    }
+]);
+
+
+*/
