@@ -1,5 +1,63 @@
-angular.module("wdApp.apps.produto", ["ngTable"]);
+angular.module("wdApp.apps.produto", ["ngTable","datatables"]);
 
+
+
+(function() {
+angular.module('wdApp.apps.produto', ['datatables'])
+.controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
+
+function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withOption('stateSave', true)
+        .withPaginationType('full_numbers');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+    vm.newSource = 'data.json';
+    vm.reloadData = reloadData;
+    vm.dtInstance = {};
+
+    function reloadData() {
+        var resetPaging = false;
+        vm.dtInstance.reloadData(callback, resetPaging);
+    }
+
+    function callback(json) {
+        console.log(json);
+    }
+}
+})();
+/*
+(function() {
+  angular.module('wdApp.apps.produto', ['datatables', 'datatables.tabletools'])
+.controller('WithTableToolsCtrl', WithTableToolsCtrl);
+
+function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder
+        .fromSource('data.json')
+        // Add Table tools compatibility
+        .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+        .withTableToolsButtons([
+            'copy',
+            'print', {
+                'sExtends': 'collection',
+                'sButtonText': 'Save',
+                'aButtons': ['csv', 'xls', 'pdf']
+            }
+
+        ]);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID').withClass('text-danger'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+}
+})();
+*/
 (function() {
   "use strict";
 
@@ -65,6 +123,7 @@ angular.module("wdApp.apps.produto", ["ngTable"]);
     self.tableParams = new NgTableParams({}, {
       dataset: angular.copy(self.simpleList)
     });
+
 
 
 

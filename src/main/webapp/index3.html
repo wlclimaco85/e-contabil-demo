@@ -19,6 +19,27 @@
 
 		<link rel="stylesheet" href="thirdparty/angular-datatables-master/dist/plugins/bootstrap/datatables.bootstrap.css">
 		<link rel="stylesheet" href="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/font-awesome-animation/dist/font-awesome-animation.min.css">
+	    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables/media/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-colreorder/css/dataTables.colReorder.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-colvis/css/dataTables.colVis.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-tabletools/css/dataTables.tableTools.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-responsive/css/dataTables.responsive.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-scroller/css/dataTables.scroller.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-fixedcolumns/css/dataTables.fixedColumns.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-fixedheader/css/fixedHeader.dataTables.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-buttons/css/buttons.dataTables.css">
+		<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-select/css/select.dataTables.css">
+	    <link rel="stylesheet" href="thirdparty/angular-datatables/vendor/backtotop/backtotop.min.css">
+	    <link rel="stylesheet" href="thirdparty/angular-datatables/vendor/highlightjs/styles/github.css">
+	    <link rel="stylesheet" href="thirdparty/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css">
+	    <link rel="stylesheet" href="thirdparty/angular-datatables/styles/main.css">
+	    <link rel="stylesheet" href="thirdparty/angular-datatables/dist/css/angular-datatables.css">
+
 
     </head>
 	<div class="loader" ng-hide="initialized">
@@ -87,11 +108,56 @@
         <script src="thirdparty/angular-echarts/echarts-all.js"></script>
         <script src="thirdparty/angular-echarts/ngecharts.js"></script>
 
-		<script src="thirdparty/angular-datatables-master/ng-table.js"></script>
-        <script src="thirdparty/angular-datatables-master/ng-table-export.src.js"></script>
 
         <!-- datatables -->
-		<script src="thirdparty/angular-datatables-master/dist/angular-datatables.min.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/angular-highlightjs/angular-highlightjs.min.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/angular-resource/angular-resource.min.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/datatables/media/js/jquery.dataTables.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-colreorder/js/dataTables.colReorder.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/datatables-colvis/js/dataTables.colVis.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-responsive/js/dataTables.responsive.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-scroller/js/dataTables.scroller.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-columnfilter/js/dataTables.columnFilter.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.min.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-fixedheader/js/dataTables.fixedHeader.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-buttons/js/dataTables.buttons.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-buttons/js/buttons.colVis.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-buttons/js/buttons.flash.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-buttons/js/buttons.html5.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-buttons/js/buttons.print.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/datatables-select/js/dataTables.select.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	    <script src="thirdparty/angular-datatables/vendor/angular-translate/angular-translate.min.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.util.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.options.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.instances.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.factory.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.renderer.js"></script>
+	    <script src="thirdparty/angular-datatables/src/angular-datatables.directive.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/bootstrap/angular-datatables.bootstrap.options.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/bootstrap/angular-datatables.bootstrap.colvis.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/bootstrap/angular-datatables.bootstrap.tabletools.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/bootstrap/angular-datatables.bootstrap.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/colvis/angular-datatables.colvis.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/colreorder/angular-datatables.colreorder.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/tabletools/angular-datatables.tabletools.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/scroller/angular-datatables.scroller.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/columnfilter/angular-datatables.columnfilter.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/fixedcolumns/angular-datatables.fixedcolumns.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/fixedheader/angular-datatables.fixedheader.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/buttons/angular-datatables.buttons.js"></script>
+	    <script src="thirdparty/angular-datatables/src/plugins/select/angular-datatables.select.js"></script>
+	    		<script src="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+		<script src="thirdparty/angular-datatables/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="hirdparty/angular-datatables/demo/usages.js"></script>
+
 
         <!--webdaptive -->
         <script src="scripts/wdapp.js"></script>

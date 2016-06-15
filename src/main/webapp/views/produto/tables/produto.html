@@ -1,22 +1,22 @@
-<div class="page page-table" data-ng-controller="produtoController as demo"  >
-	<div class="row">
-		<div class="col-md-12">
-        <div class="col-md-12" ng-controller="produtoController as demo">
-          <h3>ngTableDynamic directive</h3>
-          <div style="margin-bottom: 20px">
-            <label class="checkbox-inline" ng-repeat="col in demo.cols">
-              <input type="checkbox" ng-model="col.show" /> {{col.title}}
-            </label>
-          </div>
-          <table ng-table-dynamic="demo.tableParams with demo.cols"
-                 class="table table-condensed table-bordered table-striped">
-            <tr ng-repeat="row in $data">
-              <td ng-repeat="col in $columns">{{row[col.field]}}</td>
-            </tr>
-          </table>
-        </div>
-
-		</div>
-	</div>
+<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-tabletools/css/dataTables.tableTools.css">
+<!-- ... 
+<div ng-controller="WithTableToolsCtrl as showCases">
+    <table datatable="" dt-options="showCases.dtOptions" dt-columns="showCases.dtColumns" class="row-border hover"></table>
 </div>
-	<div data-ui-footer></div>
+-->
+
+<div ng-controller="DataReloadWithAjaxCtrl as showCase">
+    <p>
+        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
+            <i class="fa fa-refresh"></i>&nbsp;Reload data
+        </button>
+        <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
+            <i class="fa fa-exchange"></i>&nbsp;Change data
+        </button>
+    </p>
+    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+</div>
+
+<!-- ... -->
+<script src="thirdparty/angular-datatables/vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
+<script src="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.min.js"></script>
