@@ -48,7 +48,7 @@ var WebDaptiveAppConfig = {
 				'wdApp.charts.flot.controllers', 'wdApp.charts.morris.controllers', 'wdApp.charts.chartjs.controllers',
 				'wdApp.charts.other.controllers', 'wdApp.charts.echarts.controllers', 'wdApp.charts.directives', 'wdApp.authentication',
 				'wdApp.pages.controllers', 'wdApp.demodata', 'wdApp.apps.stocks', 'wdApp.apps.stocksdata',
-				'wdApp.apps.counties', 'ngTable','datatables','datatables.bootstrap', 'wdApp.apps.estado', 'wdApp.apps.procedures','wdApp.apps.sysmgmt.data','wdApp.apps.site','wdApp.apps.empresa','wdApp.apps.produto']);
+				'wdApp.apps.counties', 'ngTable','datatables','datatables.bootstrap', 'wdApp.apps.estado', 'wdApp.apps.procedures','wdApp.apps.sysmgmt.data','wdApp.apps.site','wdApp.apps.empresa','wdApp.apps.produto','wdApp.apps.notaFiscal']);
 
 	wdApp.config(['$routeProvider',
 		function($routeProvider) {
@@ -63,7 +63,7 @@ var WebDaptiveAppConfig = {
 			'charts/charts', 'charts/flot', 'charts/morris', 'charts/chartjs', 'charts/echarts',
 			'pages/404', 'pages/500', 'pages/blank', 'pages/invoice', 'pages/profile',
 			'pages/signin', 'mail/compose', 'mail/inbox', 'mail/single', 'tasks/tasks','empresa/cadEmpresa',
-			'apps/stocks', 'apps/counties', 'apps/procedures', 'estado/apps/estado', 'produto/tables/produto', 'produto/forms/cadProduto'];
+			'apps/stocks', 'apps/counties', 'apps/procedures', 'estado/apps/estado', 'produto/tables/produto', 'notafiscal/forms/cadNotaFiscal'];
 
 			//geeric routeine for building route from array
 			setRoutes = function(route) {
