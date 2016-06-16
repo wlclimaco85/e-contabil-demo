@@ -1,6 +1,55 @@
+/*'use strict';
+angular.module('wdApp.apps.produto', ['datatables'])
+.controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
+
+function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.message = '';
+    vm.edit = edit;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.persons = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('data1.json')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
+        DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
+            .renderWith(actionsHtml)
+    ];
+
+    function edit(person) {
+        vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
+        // Edit some data and call server to make changes...
+        // Then reload the data so that DT is refreshed
+        vm.dtInstance.reloadData();
+    }
+    function deleteRow(person) {
+        vm.message = 'You are trying to remove the row: ' + JSON.stringify(person);
+        // Delete some data and call server to make changes...
+        // Then reload the data so that DT is refreshed
+        vm.dtInstance.reloadData();
+    }
+    function createdRow(row, data, dataIndex) {
+        // Recompiling so we can bind Angular directive to the DT
+        $compile(angular.element(row).contents())($scope);
+    }
+    function actionsHtml(data, type, full, meta) {
+        vm.persons[data.id] = data;
+        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
+            '   <i class="fa fa-edit"></i>' +
+            '</button>&nbsp;' +
+            '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
+            '   <i class="fa fa-trash-o"></i>' +
+            '</button>';
+    }
+}
+
 angular.module("wdApp.apps.produto", ["ngTable","datatables"]);
 
-/*
+
 
 (function() {
 angular.module('wdApp.apps.produto', ['datatables'])
@@ -63,10 +112,19 @@ function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
 angular.module('wdApp.apps.produto', ['datatables', 'datatables.buttons', 'datatables.light-columnfilter'])
     .controller('WithButtonsCtrl', WithButtonsCtrl);
 
-function WithButtonsCtrl(DTOptionsBuilder, DTColumnBuilder) {
+function WithButtonsCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
+
+    vm.message = '';
+    vm.edit = edit;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.persons = {};
+
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withDOM('frtip')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)
         .withPaginationType('full_numbers')
         .withLightColumnFilter({
             '0' : {
@@ -106,10 +164,76 @@ function WithButtonsCtrl(DTOptionsBuilder, DTColumnBuilder) {
             }
         ]);
     vm.dtColumns = [
-        DTColumnBuilder.newColumn('id').withTitle('ID'),
-        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
-        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+        DTColumnBuilder.newColumn('id').withTitle('id'),
+        DTColumnBuilder.newColumn('status').withTitle('status'),
+        DTColumnBuilder.newColumn('produto').withTitle('produto'),
+        DTColumnBuilder.newColumn('codigo').withTitle('codigo'),
+        DTColumnBuilder.newColumn('nCM').withTitle('nCM'),
+        DTColumnBuilder.newColumn('codbarra').withTitle('codbarra'),
+        DTColumnBuilder.newColumn('dataCadastro').withTitle('dataCadastro'),
+        DTColumnBuilder.newColumn('exceçãoIPI').withTitle('exceçãoIPI'),
+        DTColumnBuilder.newColumn('cEST').withTitle('cEST'),
+        DTColumnBuilder.newColumn('informAdicionaisParaNFe').withTitle('informAdicionaisParaNFe'),
+        DTColumnBuilder.newColumn('anotainternas').withTitle('anotainternas'),
+        DTColumnBuilder.newColumn('unidTributada').withTitle('unidTributada'),
+        DTColumnBuilder.newColumn('grupo').withTitle('grupo'),
+        DTColumnBuilder.newColumn('subGrupo').withTitle('subGrupo'),
+        DTColumnBuilder.newColumn('marca').withTitle('marca'),
+        DTColumnBuilder.newColumn('pesolíquido').withTitle('pesolíquido'),
+        DTColumnBuilder.newColumn('pesobruto').withTitle('pesobruto'),
+        DTColumnBuilder.newColumn('cFOPPadraoNFe').withTitle('cFOPPadraoNFe'),
+        DTColumnBuilder.newColumn('IcmsSitTributaria').withTitle('IcmsSitTributaria'),
+        DTColumnBuilder.newColumn('iCMSOrigem').withTitle('iCMSOrigem'),
+        DTColumnBuilder.newColumn('iPISitTributaria').withTitle('iPISitTributaria'),
+        DTColumnBuilder.newColumn('classeCigarrosBebidas').withTitle('classeCigarrosBebidas'),
+        DTColumnBuilder.newColumn('cNPJProdutor').withTitle('cNPJProdutor'),
+        DTColumnBuilder.newColumn('codControleIPI').withTitle('codControleIPI'),
+        DTColumnBuilder.newColumn('qtdSeloIPI').withTitle('qtdSeloIPI'),
+        DTColumnBuilder.newColumn('codEnquadramento').withTitle('codEnquadramento'),
+        DTColumnBuilder.newColumn('tipoCalculo').withTitle('tipoCalculo'),
+        DTColumnBuilder.newColumn('aliquotaIPI').withTitle('aliquotaIPI'),
+        DTColumnBuilder.newColumn('pISSituaTributaria').withTitle('pISSituaTributaria'),
+        DTColumnBuilder.newColumn('valorUnidtribPIS').withTitle('valorUnidtribPIS'),
+        DTColumnBuilder.newColumn('tipocalculoSubstTrib').withTitle('tipocalculoSubstTrib'),
+        DTColumnBuilder.newColumn('valorTribPISST').withTitle('valorTribPISST'),
+        DTColumnBuilder.newColumn('cOFINSSituatributaria').withTitle('cOFINSSituatributaria'),
+        DTColumnBuilder.newColumn('valorTribCOFINS').withTitle('valorTribCOFINS'),
+        DTColumnBuilder.newColumn('tipoCalculoSubstTrib').withTitle('tipoCalculoSubstTrib'),
+        DTColumnBuilder.newColumn('aliquotaCOFINSST').withTitle('aliquotaCOFINSST'),
+        DTColumnBuilder.newColumn('estMinimo').withTitle('estMinimo'),
+        DTColumnBuilder.newColumn('estAtual').withTitle('estAtual'),
+        DTColumnBuilder.newColumn('estMaximo').withTitle('estMaximo'),
+        DTColumnBuilder.newColumn('margemLucro').withTitle('margemLucro'),
+        DTColumnBuilder.newColumn('precoVenda').withTitle('precoVenda'),
+        DTColumnBuilder.newColumn('precoCusto').withTitle('precoCusto'),
+        DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml)
     ];
+
+    function edit(person) {
+        vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
+        // Edit some data and call server to make changes...
+        // Then reload the data so that DT is refreshed
+        vm.dtInstance.reloadData();
+    }
+    function deleteRow(person) {
+        vm.message = 'You are trying to remove the row: ' + JSON.stringify(person);
+        // Delete some data and call server to make changes...
+        // Then reload the data so that DT is refreshed
+        vm.dtInstance.reloadData();
+    }
+    function createdRow(row, data, dataIndex) {
+        // Recompiling so we can bind Angular directive to the DT
+        $compile(angular.element(row).contents())($scope);
+    }
+    function actionsHtml(data, type, full, meta) {
+        vm.persons[data.id] = data;
+        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
+            '   <i class="fa fa-edit"></i>' +
+            '</button>&nbsp;' +
+            '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
+            '   <i class="fa fa-trash-o"></i>' +
+            '</button>';
+    }
 }
 })();
 
