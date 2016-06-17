@@ -108,11 +108,11 @@ function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
 }
 })();
 */
-(function() {
-angular.module('wdApp.apps.produto', ['datatables', 'datatables.buttons', 'datatables.light-columnfilter'])
+'use strict';
+angular.module('wdApp.apps.produto', ['datatables', 'datatables.buttons', 'datatables.light-columnfilter', 'datatables.bootstrap'])
     .controller('WithButtonsCtrl', WithButtonsCtrl);
 
-function WithButtonsCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
+function WithButtonsCtrl($compile, $scope,  DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
 
     vm.message = '';
@@ -120,12 +120,124 @@ function WithButtonsCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
+    vm.selected = {};
+    vm.selectAll = false;
+   // vm.toggleAll = toggleAll;
+   // vm.toggleOne = toggleOne;
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
-        .withDOM('frtip')
+ //   var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
+ //       'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
+
+
+    vm.dtOptions = vm.dtOptions = DTOptionsBuilder
+        .fromSource('data.json')
+  //      .withDOM('<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>')
+       
+        .withDOM('<"row tablealign"<"col-sm-4  col-xs-12" T><"col-sm-1  col-xs-1" C> <"col-xs-6" f>>t<\'row\'<\'col-xs-5\'i><\'col-xs-3\'l><\'col-xs-4\'p>>')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
-        .withPaginationType('full_numbers')
+            //.withDataProp('data')
+            .withOption('serverSide', true)
+            .withOption('processing', true)
+            .withOption('language',{
+                paginate : {            // Set up pagination text
+                    first: "&laquo;",
+                    last: "&raquo;",
+                    next: "&rarr;",
+                    previous: "&larr;"
+                },
+                lengthMenu: "_MENU_ records per page" 
+            })
+        .withBootstrap()
+        .withBootstrapOptions({
+            TableTools: {
+                classes: {
+                    container: 'btn-group',
+                    buttons: {
+                        normal: 'btn btn-danger'
+                    }
+                }
+            },
+            ColVis: {
+                classes: {
+                    masterButton: 'btn btn-primary'
+                }
+            },
+            pagination: {
+                classes: {
+                    ul: 'pagination pagination-sm'
+                }
+            }
+        })
+        /*
+            .withColReorder()
+            .withColReorderOption('iFixedColumnsRight', 1)
+            .withColVis()
+            .withColVisOption('buttonText', '<i class="fa fa-cog fa-fw">') 
+            .withColVisOption('activate','mouseover')
+            .withColVisOption( 'label',function ( index, title, th ) {
+                    return (index+1) +'. '+ title;
+                })
+            .withColVisOption( 'align', 'left')
+            .withDOM('<"row tablealign" <"col-sm-2 col-xs-8 col-xs-offset-4 col-sm-offset-1" l><"col-sm-2  col-xs-5" T><"col-sm-3  col-xs-7" f><"col-sm-1  col-xs-1" C><"col-sm-3  col-xs-8" p>>t<"F"i>')
+            .withTableTools('vendor/datatables/datatables-tabletools/swf/copy_csv_xls_pdf.swf') //for copy, print, xls, pdf, csv
+            .withTableToolsButtons([{
+                'sExtends': 'print',
+                'sButtonText': '<i class="tabletoolicon fa fa-print"> '
+                },{
+                    'sExtends': 'copy',
+                    'sButtonText': '<i class="tabletoolicon fa fa-copy"> '
+                },{
+                    'sExtends': 'collection',
+                    'sButtonText': '<i class="glyphicon glyphicon-save">',
+                    'aButtons': [{
+                        'sExtends': 'csv',
+                        'sButtonText': '<i class="tabletoolicon fa fa-file-excel-o"> csv',
+                        'oSelectorOpts': {
+                            filter: 'applied'
+                        },
+                    'sCsvMessage': 'Client List'
+                }, {
+                    'sExtends': 'xls',
+                    'sButtonText': '<i class="tabletoolicon fa fa-file-excel-o"> xls',
+                    'oSelectorOpts': {
+                        filter: 'applied'
+                },
+                    'sXlsMessage': 'Client List'
+                }, {
+                    'sExtends': 'pdf',
+                    'sButtonText': '<i class="tabletoolicon fa fa-file-pdf-o"> pdf',
+                    'oSelectorOpts': {
+                        filter: 'applied'
+                    },
+                    'sPdfMessage': 'Client List'
+                }]
+            }])
+            .withBootstrap()             
+            .withBootstrapOptions({
+                TableTools: {
+                    classes: {
+                        container: 'btn-group',
+                    }
+                },
+                ColVis: {
+                    classes: {
+                        masterButton: 'btn btn-success'
+                    }
+                },
+                pagination: {
+                    classes: {
+                        ul: 'pagination pagination-sm'
+                    }
+                }
+            })
+
+
+
+        */
+
+        // Add ColVis compatibility
+
         .withLightColumnFilter({
             '0' : {
                 type : 'text'
@@ -149,30 +261,24 @@ function WithButtonsCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
             }
         })
         // Active Buttons extension
-        .withButtons([
-            'columnsToggle',
-            'colvis',
-            'copy',
-            'print',
-            'excel',
-            {
-                text: 'Some button',
-                key: '1',
-                action: function (e, dt, node, config) {
-                    alert('Button activated');
-                }
-            }
-        ]);
+        .withDisplayLength(10);
     vm.dtColumns = [
-        DTColumnBuilder.newColumn('id').withTitle('id'),
-        DTColumnBuilder.newColumn('status').withTitle('status'),
-        DTColumnBuilder.newColumn('produto').withTitle('produto'),
-        DTColumnBuilder.newColumn('codigo').withTitle('codigo'),
-        DTColumnBuilder.newColumn('nCM').withTitle('nCM'),
-        DTColumnBuilder.newColumn('codbarra').withTitle('codbarra'),
-        DTColumnBuilder.newColumn('dataCadastro').withTitle('dataCadastro'),
-        DTColumnBuilder.newColumn('exceçãoIPI').withTitle('exceçãoIPI'),
+      //  DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+      //      .renderWith(function(data, type, full, meta) {
+      //          vm.selected[full.id] = false;
+      //          return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
+      //      }),
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('codigo').withTitle('Codigo'),
+        DTColumnBuilder.newColumn('produto').withTitle('Nome Produto'),
+        DTColumnBuilder.newColumn('nCM').withTitle('NCM'),
+        DTColumnBuilder.newColumn('codbarra').withTitle('Cod Barra'),
+        DTColumnBuilder.newColumn('dataCadastro').withTitle('Data Cadastro'),
+        DTColumnBuilder.newColumn('estAtual').withTitle('Estoque Atual'),
+        DTColumnBuilder.newColumn('precoVenda').withTitle('Preço Venda'),
+        DTColumnBuilder.newColumn('status').withTitle('Status'),
         DTColumnBuilder.newColumn('cEST').withTitle('cEST'),
+        DTColumnBuilder.newColumn('exceçãoIPI').withTitle('exceçãoIPI'),
         DTColumnBuilder.newColumn('informAdicionaisParaNFe').withTitle('informAdicionaisParaNFe'),
         DTColumnBuilder.newColumn('anotainternas').withTitle('anotainternas'),
         DTColumnBuilder.newColumn('unidTributada').withTitle('unidTributada'),
@@ -200,14 +306,44 @@ function WithButtonsCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
         DTColumnBuilder.newColumn('valorTribCOFINS').withTitle('valorTribCOFINS'),
         DTColumnBuilder.newColumn('tipoCalculoSubstTrib').withTitle('tipoCalculoSubstTrib'),
         DTColumnBuilder.newColumn('aliquotaCOFINSST').withTitle('aliquotaCOFINSST'),
-        DTColumnBuilder.newColumn('estMinimo').withTitle('estMinimo'),
-        DTColumnBuilder.newColumn('estAtual').withTitle('estAtual'),
+        DTColumnBuilder.newColumn('estMinimo').withTitle('estMinimo'),       
         DTColumnBuilder.newColumn('estMaximo').withTitle('estMaximo'),
         DTColumnBuilder.newColumn('margemLucro').withTitle('margemLucro'),
         DTColumnBuilder.newColumn('precoVenda').withTitle('precoVenda'),
         DTColumnBuilder.newColumn('precoCusto').withTitle('precoCusto'),
         DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml)
     ];
+
+    vm.dtColumns[0].visible = false;
+    vm.dtColumns[9].visible = false;
+    vm.dtColumns[10].visible = false;
+    vm.dtColumns[11].visible = false;
+    vm.dtColumns[12].visible = false;
+    vm.dtColumns[13].visible = false;
+    vm.dtColumns[14].visible = false;
+    vm.dtColumns[15].visible = false;
+    vm.dtColumns[16].visible = false;
+    vm.dtColumns[17].visible = false;
+    vm.dtColumns[18].visible = false;
+    vm.dtColumns[19].visible = false;
+    vm.dtColumns[20].visible = false;
+    vm.dtColumns[21].visible = false;
+    vm.dtColumns[22].visible = false;
+    vm.dtColumns[23].visible = false;
+    vm.dtColumns[24].visible = false;
+    vm.dtColumns[25].visible = false;
+    vm.dtColumns[26].visible = false;
+    vm.dtColumns[27].visible = false;
+    vm.dtColumns[28].visible = false;
+    vm.dtColumns[29].visible = false;
+    vm.dtColumns[30].visible = false;
+    vm.dtColumns[31].visible = false;
+    vm.dtColumns[32].visible = false;
+    vm.dtColumns[33].visible = false;
+    vm.dtColumns[34].visible = false;
+    vm.dtColumns[35].visible = false;
+    vm.dtColumns[36].visible = false;
+    vm.dtColumns[37].visible = false;
 
     function edit(person) {
         vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
@@ -235,7 +371,70 @@ function WithButtonsCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
             '</button>';
     }
 }
-})();
+
+/*
+'use strict';
+angular.module('showcase.rowSelect', ['datatables'])
+.controller('RowSelectCtrl', RowSelect);
+
+function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.selected = {};
+    vm.selectAll = false;
+    vm.toggleAll = toggleAll;
+    vm.toggleOne = toggleOne;
+
+    var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
+        'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
+
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+            return $resource('data1.json').query().$promise;
+        })
+        .withOption('createdRow', function(row, data, dataIndex) {
+            // Recompiling so we can bind Angular directive to the DT
+            $compile(angular.element(row).contents())($scope);
+        })
+        .withOption('headerCallback', function(header) {
+            if (!vm.headerCompiled) {
+                // Use this headerCompiled field to only compile header once
+                vm.headerCompiled = true;
+                $compile(angular.element(header).contents())($scope);
+            }
+        })
+        .withPaginationType('full_numbers');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+            .renderWith(function(data, type, full, meta) {
+                vm.selected[full.id] = false;
+                return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
+            }),
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+
+    function toggleAll (selectAll, selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                selectedItems[id] = selectAll;
+            }
+        }
+    }
+    function toggleOne (selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if(!selectedItems[id]) {
+                    vm.selectAll = false;
+                    return;
+                }
+            }
+        }
+        vm.selectAll = true;
+    }
+}
+
+
+
 
 (function() {
   "use strict";
