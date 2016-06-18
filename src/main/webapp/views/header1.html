@@ -9,13 +9,13 @@
         <ul class="nav-left pull-right list-unstyled">
             <li class="dropdown text-normal nav-profile" uib-dropdown on-toggle="toggled(open)">
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle>
-                    <img src="images/taz.jpg" alt="" class="img-circle img30_30">
+                    <img src="images/anonymity.jpg" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
-                        <span data-i18n="Taz"></span>
+                        <span data-i18n="Washington"></span>
 						<span ng-show="user.user">({{user.user}})</span>
                     </span>
                 </a>
-				
+
                 <ul class="pull-right dropdown-menu with-arrow">
                     <li>
                         <a href="#/pages/profile">
@@ -34,7 +34,7 @@
                             <i class="fa fa-sign-in"></i>
                             <span data-i18n="Log In"></span>
                         </a>
-                    </li>					
+                    </li>
                     <li>
                         <a href="" ng-click="logout()">
                             <i class="fa fa-sign-out"></i>
@@ -43,33 +43,36 @@
                     </li>
                 </ul>
 			</li>
-            <li class="dropdown langs text-normal"  uib-dropdown on-toggle="toggled(open)" data-ng-controller="LangController">
+            <li class="dropdown langs text-normal"  uib-dropdown on-toggle="toggled(open)">
                 <a href class="dropdown-toggle active-flag" uib-dropdown-toggle>
-                    <div class="flag {{ getFlag() }}"></div>
+                    <img src="images/images.png" alt="" class="img-circle img30_30">
                 </a>
                 <ul class="pull-right dropdown-menu with-arrow list-langs" role="menu">
-                    <li data-ng-show="lang !== 'English' ">
-                        <a href="javascript:;" data-ng-click="setLang('English')"><div class="flag flags-american"></div> English</a></li>
-                    <li data-ng-show="lang !== 'Español' ">
-                        <a href="javascript:;" data-ng-click="setLang('Español')"><div class="flag flags-spain"></div> Español</a></li>
-                    <li data-ng-show="lang !== '日本語' ">
-                        <a href="javascript:;" data-ng-click="setLang('日本語')"><div class="flag flags-japan"></div> 日本語</a></li>
-                    <li data-ng-show="lang !== '中文' ">
-                        <a href="javascript:;" data-ng-click="setLang('中文')"><div class="flag flags-china"></div> 中文</a></li>
-                    <li data-ng-show="lang !== 'Deutsch' ">
-                        <a href="javascript:;" data-ng-click="setLang('Deutsch')"><div class="flag flags-germany"></div> Deutsch</a></li>
-                    <li data-ng-show="lang !== 'français' ">
-                        <a href="javascript:;" data-ng-click="setLang('français')"><div class="flag flags-france"></div> français</a></li>
-                    <li data-ng-show="lang !== 'Italiano' ">
-                        <a href="javascript:;" data-ng-click="setLang('Italiano')"><div class="flag flags-italy"></div> Italiano</a></li>
-                    <li data-ng-show="lang !== 'Portugal' ">
-                        <a href="javascript:;" data-ng-click="setLang('Portugal')"><div class="flag flags-portugal"></div> Portugal</a></li>
-                    <li data-ng-show="lang !== 'Русский язык' ">
-                        <a href="javascript:;" data-ng-click="setLang('Русский язык')"><div class="flag flags-russia"></div> Русский язык</a></li>
-                    <li data-ng-show="lang !== '한국어' ">
-                        <a href="javascript:;" data-ng-click="setLang('한국어')"><div class="flag flags-korea"></div> 한국어</a></li>
+                    <li>
+                        <a href="javascript:;"> Empresa</a></li>
+                    <li >
+                        <a href="javascript:;"> Configura�oes</a></li></li>
                 </ul>
-            </li>			
+            </li>
+            <li class="dropdown langs text-normal"  uib-dropdown on-toggle="toggled(open)">
+                <a href class="dropdown-toggle active-flag" uib-dropdown-toggle>
+                    <img src="images/yellow-alert.jpg" alt="" class="img-circle img30_30">
+                </a>
+                <ul class="pull-right dropdown-menu with-arrow list-langs" role="menu">
+                    <<li>
+                        <a href="#/tasks/tasks">
+                            <i class="fa fa-check"></i>
+                            <span data-i18n="Produtos abaixo Estoque"></span> <span class="badge badge-danger main-badge" data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/tasks/tasks">
+                            <i class="fa fa-check"></i>
+                            <span data-i18n="Erro Emiss�o NFE"></span> <span class="badge badge-danger main-badge" data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="dropdown hidden-xs" uib-dropdown on-toggle="toggled(open)">
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-cogs"></i></a>
                 <div class="pull-right dropdown-menu with-arrow panel panel-default admin-options">
@@ -93,7 +96,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>			
+            </li>
             <li>
                 <a href="#/" data-toggle-nav-collapsed-min class="toggle-min"><i class="fa fa-bars"></i></a>
             </li>

@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-tabletools/css/dataTables.tableTools.css">
+<!-- ...  -->
+<div ng-controller="WithButtonsCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+        <tfoot>
+        <tr>
+            <th>ID
+            <th>First Name
+            <th>Last Name
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- ... -->
+<script src="thirdparty/angular-datatables/vendor/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.min.js"></script>
+<script src="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.min.js"></script>
+<script src="thirdparty/angular-datatables/vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
+<script src="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.min.js"></script>

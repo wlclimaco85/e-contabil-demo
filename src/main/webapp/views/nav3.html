@@ -1,0 +1,85 @@
+<div class="nav-wrapper">
+    <ul id="nav"
+        class="nav"
+        data-ng-controller="NavController"
+		data-slim-scroll
+        data-collapse-nav
+        data-highlight-active>
+        <li><a href="#/dashboard"> <i class="fa fa-dashboard"></i><span data-i18n="Pagina Inicial"></span> </a></li>
+        <li>
+            <a href="#/fiscal"><i class="fa fa-magic"></i><span data-i18n="Fiscal"></span></a>
+            <ul>
+				<li><a href="#/fiscal/tables/cfop"><i class="fa fa-caret-right"></i><span data-i18n="Cfop"></span></a></li>
+				<li><a href="#/fiscal/tables/cnae"><i class="fa fa-caret-right"></i><span data-i18n="Cnae"></span></a></li>
+            </ul>
+        </li>
+		<li>
+			<a href="#/vendas"><i class="fa fa-magic"></i><span data-i18n="Vendas"></span></a>
+            <ul>
+                <li><a href="#/vendas/tables/pedidoVendas"><i class="fa fa-caret-right"></i><span data-i18n="Pedidos de Vendas"></span>
+                <span class="badge badge-danger main-badge"
+                      data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span></a></li>
+				<li><a href="#/vendas/tables/orcamento"><i class="fa fa-caret-right"></i><span data-i18n="Orçamento"></span></a></li>
+				<li><a href="#/notafiscal/forms/cadNotaFiscal"><i class="fa fa-caret-right"></i><span data-i18n="Nota Fiscal Saida"></span></a></li>
+				<li><a href="#/vendas/tables/ordemServico"><i class="fa fa-caret-right"></i><span data-i18n="Ordem Serviço"></span></a></li>
+            </ul>
+        </li>
+		<li>
+			<a href="#/compras"><i class="fa fa-magic"></i><span data-i18n="Compras"></span></a>
+            <ul>
+				<li><a href="#/compras/tables/nfEntrada"><i class="fa fa-caret-right"></i><span data-i18n="Nota Fiscal Entrada"></span></a></li>
+				<li><a href="#/compras/tables/pedCompras"><i class="fa fa-caret-right"></i><span data-i18n="Pedido de Compra"></span></a></li>
+				<li><a href="#/compras/tables/aprovarPedCompras"><i class="fa fa-caret-right"></i><span data-i18n="Aprovar Pedido Compra"></span></a></li>
+                <li><a href="#/compras/tables/cotacao"><i class="fa fa-caret-right"></i><span data-i18n="Cotação"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#/financeiro"><i class="fa fa-table"></i><span data-i18n="Financeiro"></span></a>
+            <ul>
+				<li><a href="#/financeiro/tables/contasPagar"><i class="fa fa-caret-right"></i><span data-i18n="Contas Pagar"></span></a></li>
+				<li><a href="#/financeiro/tables/contasReceber"><i class="fa fa-caret-right"></i><span data-i18n="Contas Receber"></span></a></li>
+				<li><a href="#/financeiro/tables/condPag"><i class="fa fa-caret-right"></i><span data-i18n="Condição Pagamento"></span></a></li>
+				<li><a href="#/financeiro/tables/formaPg"><i class="fa fa-caret-right"></i><span data-i18n="Forma Pagamento"></span></a></li>
+				<li><a href="#/financeiro/tables/banco"><i class="fa fa-caret-right"></i><span data-i18n="Banco"></span></a></li>
+				<li><a href="#/financeiro/tables/contaCC"><i class="fa fa-caret-right"></i><span data-i18n="Conta Corrente"></span></a></li>
+				<li><a href="#/financeiro/tables/caixa"><i class="fa fa-caret-right"></i><span data-i18n="Caixa"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#/Dp"><i class="fa fa-pencil"></i><span data-i18n="Departamento Pessoal"></span></a>
+            <ul>
+                <li><a href="#/funcionario/tables/funcionario'"><i class="fa fa-caret-right"></i><span data-i18n="Funcionario"></span></a></li>
+            </ul>
+        </li>
+        <li class="nav-task">
+            <a href="#/ordemServico/tables/ordemServico">
+                <i class="fa fa-check-square-o"></i><span data-i18n="Ordem de Serviço"></span>
+                <span class="badge badge-danger main-badge"
+                      data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
+            </a>
+        </li>
+        <li>
+            <a href="#/mail"><i class="fa fa-envelope-o"></i><span data-i18n="Cadastros"></span></a>
+            <ul>
+			    <li><a href="#/cliente/tables/cliente"><i class="fa fa-caret-right"></i><span data-i18n="Cliente"></span></a></li>
+                <li><a href="#/fornecedor/tables/fornecedor"><i class="fa fa-caret-right"></i><span data-i18n="Fornecedor"></span></a></li>
+				<li><a href="#/cliente/apps/"><i class="fa fa-caret-right"></i><span data-i18n="Transportador"></span></a></li>
+                <li><a href="#/cliente/apps/"><i class="fa fa-caret-right"></i><span data-i18n="Filial"></span></a></li>
+				<li><a href="#/cliente/apps/"><i class="fa fa-caret-right"></i><span data-i18n="Almoxarifado"></span></a></li>
+				<li><a href="#/cliente/apps/"><i class="fa fa-caret-right"></i><span data-i18n="Convenio"></span></a></li>
+				<li><a href="#/cliente/apps/"><i class="fa fa-caret-right"></i><span data-i18n="Cidade"></span></a></li>
+				<li><a href="#/estado/apps/estado"><i class="fa fa-caret-right"></i><span data-i18n="Estado"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#/apps"><i class="fa fa-wrench"></i><span data-i18n="Produto"></span></a>
+            <ul>
+            	<li><a href="#/produto/tables/produto"><i class="fa fa-caret-right"></i><span data-i18n="Produto"></span></a></li>
+            	<li><a href="#/produto/forms/CadProduto"><i class="fa fa-caret-right"></i><span data-i18n="Cadastro Produto"></span></a></li>
+				<li><a href="#/apps/stocks"><i class="fa fa-caret-right"></i><span data-i18n="Marca"></span></a></li>
+				<li><a href="#/apps/stocks"><i class="fa fa-caret-right"></i><span data-i18n="Categoria"></span></a></li>
+				<li><a href="#/apps/stocks"><i class="fa fa-caret-right"></i><span data-i18n="Unidade Medida"></span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

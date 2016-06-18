@@ -1,16 +1,17 @@
 <div class="page page-dashboard" data-ng-controller="DashboardController">
 
     <div class="row">
-        <div class="col-lg-6">
-            <div class="panel">
-                <div class="panel-body" data-ng-controller="FlotChartController">
-                    <div data-flot-chart
-                         data-data="donutChart2.data"
-                         data-options="donutChart2.options"
-                         style="width: 100%; height: 230px;"
+        <div class="col-md-6" data-ng-controller="MorrisChartController">
+            <section class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-th"></span>Financeiro</div>
+                <div class="panel-body">
+                    <div morris-chart
+                         data-data="combo1.data"
+                         data-type="combo1.type"
+                         data-options="combo1.options"
                          ></div>
                 </div>
-            </div>            
+            </section>
         </div>
         <div class="col-lg-6">
             <!-- stats -->
@@ -21,8 +22,8 @@
                             <i class="fa fa-rocket"></i>
                         </span>
                         <div class="box-info">
-                            <p class="size-h2">36 <span class="size-h4">%</span></p>
-                            <p class="text-muted"><span data-i18n="Growth"></span></p>
+                            <p class="size-h2">10 <span class="size-h4">%</span></p>
+                            <p class="text-muted"><span data-i18n="Aumento nas vendas mês maio"></span></p>
                         </div>
                     </div>
                 </div>
@@ -32,8 +33,8 @@
                             <i class="fa fa-users"></i>
                         </span>
                         <div class="box-info">
-                            <p class="size-h2">352</p>
-                            <p class="text-muted"><span data-i18n="New users"></span></p>
+                            <p class="size-h2">3</p>
+                            <p class="text-muted"><span data-i18n="Pedidos de Compras"></span></p>
                         </div>
                     </div>
                 </div>
@@ -45,8 +46,8 @@
                             <i class="fa fa-dollar"></i>
                         </span>
                         <div class="box-info">
-                            <p class="size-h2">4,120</p>
-                            <p class="text-muted"><span data-i18n="Profit"></span></p>
+                            <p class="size-h3">4.120,00</p>
+                            <p class="text-muted"><span data-i18n="Caixa Atual"></span></p>
                         </div>
                     </div>
                 </div>
@@ -56,85 +57,132 @@
                             <i class="fa fa-shopping-cart"></i>
                         </span>
                         <div class="box-info">
-                            <p class="size-h2">313</p>
-                            <p class="text-muted"><span data-i18n="Sales"></span></p>
+                            <p class="size-h2">31</p>
+                            <p class="text-muted"><span data-i18n="Pedidos de Vendas"></span></p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end stats -->            
+            <!-- end stats -->
         </div>
     </div>
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Realtime Chart</h3>
+    <div class="row" data-ng-controller="EChartsController as ec">
+        <div class="col-md-6">
+
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">Produtos mais Vendidos</div>
+                <div class="panel-body">
+                    <div data-echarts data-options="ec.pie1.options" style="height: 350px;"></div>
+                </div>
+            </div>
+
         </div>
-        <div class="panel-body">
-            <div data-flot-chart-realtime data-type="realtime" style="width: 100%; height: 300px;"></div>
+        <div class="col-md-6">
+
+            <div class="panel panel-default panel-minimal">
+                <div class="divider divider-md"></div>
+                <div class="panel-heading">Estoque Vendas e Compras</div>
+                <div class="panel-body">
+                    <div data-echarts data-options="ec.line3.options" style="height: 350px;"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Table - General</strong></div>	
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Project</th>
-                    <th>Status</th>
-                    <th>Manager</th>
-                    <th>Progress</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><span class="color-success"><i class="fa fa-level-up"></i></span> TWLT</td>
-                    <td><span class="label label-info">Pending</span></td>
-                    <td>Amery Lee</td>
-                    <td><uib-progressbar class="progressbar-xs no-margin" value="55"></uib-progressbar>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><span class="color-success"><i class="fa fa-level-up"></i></span> A16Z</td>
-                    <td><span class="label label-primary">Due</span></td>
-                    <td>Romayne Carlyn</td>
-                    <td><uib-progressbar class="progressbar-xs no-margin" value="34" type="success"></uib-progressbar></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><span class="color-warning"><i class="fa fa-level-down"></i></span> DARK</td>
-                    <td><span class="label label-success">Due</span></td>
-                    <td>Marybeth Joanna</td>
-                    <td><uib-progressbar class="progressbar-xs no-margin" value="68" type="info"></uib-progressbar></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td><span class="color-info"><i class="fa fa-level-up"></i></span> Q300</td>
-                    <td><span class="label label-danger">Blocked</span></td>
-                    <td>Jonah Benny</td>
-                    <td><uib-progressbar class="progressbar-xs no-margin" value="52" type="warning"></uib-progressbar></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td><span class="color-danger"><i class="fa fa-level-down"></i></span> RVNG</td>
-                    <td><span class="label label-warning">Suspended</span></td>
-                    <td>Daly Royle</td>
-                    <td><uib-progressbar class="progressbar-xs no-margin" value="77" type="danger"></uib-progressbar></td></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td><span class="color-info"><i class="fa fa-level-down"></i></span> FDSA</td>
-                    <td><span class="label label-info">Suspended</span></td>
-                    <td>Jane Swift</td>
-                    <td><uib-progressbar class="progressbar-xs no-margin" value="55" type="success"></uib-progressbar></td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-	<div data-ui-footer></div>		
+        <section class="panel panel-default" data-ng-controller="SparkLineController">
+            <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Dados Mes de Maio</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Grafico ultimos resultados</th>
+                        <th>Setor</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span>
+                        </td>
+                        <td>Emissao Notas Fiscais</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td><span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span></td>
+                        <td>Cadastros Novos Clientes</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td><span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span></td>
+                        <td>Nota Fiscais de Entradas</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span>
+                        </td>
+                        <td>Numero de Vendas pelo Site</td>
+                        <td>50</td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span>
+                        </td>
+                        <td>Numero de Visitas no Site no Mês</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span>
+                        </td>
+                        <td>Numero de Pedido de Vendas Aguardando Aprovação</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span>
+                        </td>
+                        <td>Numero de Ordem Serviço ABERTO</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span data-sparkline
+                                  data-data="simpleChart2.data"
+                                  data-options="simpleChart2.options"
+                                  ></span>
+                        </td>
+                        <td>Numero de XML de notas fiscal sem dar Entrada</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+	<div data-ui-footer></div>
 </div>
-  

@@ -48,7 +48,7 @@ var WebDaptiveAppConfig = {
 				'wdApp.charts.flot.controllers', 'wdApp.charts.morris.controllers', 'wdApp.charts.chartjs.controllers',
 				'wdApp.charts.other.controllers', 'wdApp.charts.echarts.controllers', 'wdApp.charts.directives', 'wdApp.authentication',
 				'wdApp.pages.controllers', 'wdApp.demodata', 'wdApp.apps.stocks', 'wdApp.apps.stocksdata',
-				'wdApp.apps.counties', 'ngTable','datatables','datatables.bootstrap', 'wdApp.apps.estado', 'wdApp.apps.procedures','wdApp.apps.sysmgmt.data','wdApp.apps.site','wdApp.apps.empresa','wdApp.apps.produto','wdApp.apps.notaFiscal']);
+				'wdApp.apps.counties', 'ngTable','datatables','datatables.bootstrap', 'wdApp.apps.estado', 'wdApp.apps.procedures','wdApp.apps.sysmgmt.data','wdApp.apps.site','wdApp.apps.empresa','wdApp.apps.produtos','wdApp.apps.produtoss','wdApp.apps.produto','wdApp.apps.notaFiscal']);
 
 	wdApp.config(['$routeProvider',
 		function($routeProvider) {
@@ -63,7 +63,22 @@ var WebDaptiveAppConfig = {
 			'charts/charts', 'charts/flot', 'charts/morris', 'charts/chartjs', 'charts/echarts',
 			'pages/404', 'pages/500', 'pages/blank', 'pages/invoice', 'pages/profile',
 			'pages/signin', 'mail/compose', 'mail/inbox', 'mail/single', 'tasks/tasks','empresa/cadEmpresa',
-			'apps/stocks', 'apps/counties', 'apps/procedures', 'estado/apps/estado', 'produto/tables/produto', 'notafiscal/forms/cadNotaFiscal'];
+			'apps/stocks', 'apps/counties', 'apps/procedures', 'estado/apps/estado', 'produto/tables/produto', 'notafiscal/forms/cadNotaFiscal',
+			'fiscal/forms/CadCfop','fiscal/tables/cfop','fiscal/forms/CadCnae','fiscal/tables/cnae',
+			'vendas/forms/CadOrcamento','vendas/tables/orcamento','vendas/forms/CadOrdemServico','vendas/tables/ordemServico','vendas/tables/pedidoVendas',
+			'compras/forms/CadCotacao','compras/forms/CadNfEntrada','compras/forms/CadPedCompras','compras/forms/CadAprovPedidoCompra',
+			'compras/tables/aprovarPedCompras','compras/tables/cotacao','compras/tables/nfEntrada','compras/tables/pedCompras',
+			'financeiro/tables/baixaTitulo','financeiro/tables/banco','financeiro/tables/caixa','financeiro/tables/condPag',
+			'financeiro/tables/contaCC','financeiro/tables/contasPagar','financeiro/tables/contasReceber','financeiro/tables/formaPg',
+			'funcionario/tables/folhaPonto','funcionario/tables/funcionario','funcionario/forms/CadFolhaPonto','funcionario/forms/funcionario',
+			'ordemServico/tables/ordemServico','ordemServico/forms/CadOrdemServico',
+			'cliente/tables/almoxarifado','cliente/tables/cidade','cliente/tables/cliente','cliente/tables/convenio',
+			'cliente/tables/estado','cliente/tables/filial','cliente/tables/fornecedor','cliente/tables/transportador',
+			'cliente/forms/CadAlmoxarifado','cliente/forms/CadCidade','cliente/forms/CadCliente','cliente/forms/CadConvenio','cliente/forms/CadEstado',
+			'cliente/forms/CadFilial','cliente/forms/CadFornecedor','cliente/forms/CadTransportador',
+			'produto/tables/categoria','produto/tables/marca','produto/tables/uniMed',
+			'produto/forms/CadCategoria','produto/forms/CadMarca','produto/forms/CadUniMed','produto/forms/CadProduto'
+			];
 
 			//geeric routeine for building route from array
 			setRoutes = function(route) {
@@ -108,8 +123,8 @@ var WebDaptiveAppConfig = {
 	wdApp.run(function($rootScope, $location, localStorageService) {
 
 		$rootScope.main = {
-			brand: 'WebDaptive - Angular',
-			name: 'Taz'
+			brand: 'WLCMC Sistemas e Consultorias',
+			name: 'Washington'
 		};
 
 		/* Reset error when a new view is loaded */
@@ -137,7 +152,7 @@ var WebDaptiveAppConfig = {
 			delete $rootScope.authToken;
 			delete $rootScope.callingPath;
 			delete $rootScope.displayRoles;
-			$rootScope.main.name = "Taz";
+			$rootScope.main.name = "Washington";
 			localStorageService.clearAll();
 		};
 

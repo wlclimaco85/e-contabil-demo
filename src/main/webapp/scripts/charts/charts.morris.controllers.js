@@ -167,7 +167,7 @@
         options: {
           xkey: "month",
           ykeys: ["a", "b"],
-          labels: ["Value A", "Value B"],
+          labels: ["Contas Pagar", "Contas Receber"],
           lineWidth: "2",
           lineColors: comboColor
         }
@@ -178,7 +178,7 @@
         options: {
           xkey: "month",
           ykeys: ["a", "b"],
-          labels: ["Value A", "Value B"],
+          labels: ["Contas Pagar", "Contas Receber"],
           lineWidth: "2",
           lineColors: comboColor
         }
