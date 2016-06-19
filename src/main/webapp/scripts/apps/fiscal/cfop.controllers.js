@@ -11,7 +11,7 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
     vm.dtInstance = {};
     vm.persons = {};
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('cfop.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)

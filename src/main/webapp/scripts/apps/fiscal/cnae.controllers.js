@@ -12,7 +12,7 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
     vm.dtInstance = {};
     vm.persons = {};
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('cnae.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
