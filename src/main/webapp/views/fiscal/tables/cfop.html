@@ -1,4 +1,7 @@
-
-<div ng-controller="CfopController as showCase">
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+<div ng-controller="RowSelectCtrl as vm">
+    <p class="text-danger">You selected the following rows:</p>
+    <p>
+        <pre>{{ vm.selected |json }}</pre>
+    </p>
+    <table datatable dt-options="vm.dtOptions" dt-columns="vm.dtColumns" class="row-border hover"></table>
 </div>
