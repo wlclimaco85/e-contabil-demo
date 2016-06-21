@@ -1,7 +1,7 @@
 (function() {
 'use strict';
-angular.module('wdApp.apps.orcamento', ['datatables'])
-.controller('OrcamentoController', RowSelect);
+angular.module('wdApp.apps.nfEntrada', ['datatables'])
+.controller('NFEntradaController', RowSelect);
 
 function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -23,7 +23,7 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
 
 
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('orcamento.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('notaEntrada.json')
         .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
@@ -90,19 +90,25 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
             }),
 
         DTColumnBuilder.newColumn('id').withTitle('ID'),     
-        DTColumnBuilder.newColumn('cliente').withTitle('cliente'),
-        DTColumnBuilder.newColumn('data').withTitle('data'),
-         DTColumnBuilder.newColumn(null).withTitle('qntProd').notSortable()
+        DTColumnBuilder.newColumn('fornecedor').withTitle('fornecedor'),
+        DTColumnBuilder.newColumn('dataEntrada').withTitle('dataEntrada'),
+         DTColumnBuilder.newColumn(null).withTitle('Produtos').notSortable()
             .renderWith(function(data, type, full, meta) {
                 return '<a> '+ data.qntProd +'</a>';
             }),
-       // DTColumnBuilder.newColumn('qntProd').withTitle('qntProd'),
-        DTColumnBuilder.newColumn('valorPedido').withTitle('valorPedido'),
-        DTColumnBuilder.newColumn('valorItens').withTitle('valorItens'),
+       // DTColumnBuilder.newColumn('qntProd').withTitle('qntProd'), <span class="label label-info">Aguardando Conferencia</span>
+        DTColumnBuilder.newColumn('valor').withTitle('valor'),
+         DTColumnBuilder.newColumn(null).withTitle('Pedido Compra').notSortable()
+            .renderWith(function(data, type, full, meta) {
+                return '<a> '+ data.PedidoCompra +'</a>';
+            }),
         DTColumnBuilder.newColumn('observacao').withTitle('observacao'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
-        DTColumnBuilder.newColumn('status').withTitle('status'),
+         DTColumnBuilder.newColumn(null).withTitle('status').notSortable()
+            .renderWith(function(data, type, full, meta) {
+                return '<span class="label label-info">'+ data.status +'</span> ';
+            }),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml)
     ];
 

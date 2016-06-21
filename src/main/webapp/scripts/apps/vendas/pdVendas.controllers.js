@@ -1,7 +1,7 @@
 (function() {
 'use strict';
-angular.module('wdApp.apps.orcamento', ['datatables'])
-.controller('OrcamentoController', RowSelect);
+angular.module('wdApp.apps.pdCompras', ['datatables'])
+.controller('PdVendasController', RowSelect);
 
 function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -23,7 +23,7 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
 
 
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('orcamento.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('pedidoVendas.json')
         .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);

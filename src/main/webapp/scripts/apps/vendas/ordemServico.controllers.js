@@ -1,7 +1,7 @@
 (function() {
 'use strict';
-angular.module('wdApp.apps.orcamento', ['datatables'])
-.controller('OrcamentoController', RowSelect);
+angular.module('wdApp.apps.ordemServico', ['datatables'])
+.controller('OrdemServicoController', RowSelect);
 
 function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -23,7 +23,7 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
 
 
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('orcamento.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('ordemServico.json')
         .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
@@ -82,6 +82,7 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
         
     }
 ]);
+
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
             .renderWith(function(data, type, full, meta) {
@@ -89,16 +90,18 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
             }),
 
-        DTColumnBuilder.newColumn('id').withTitle('ID'),     
+        DTColumnBuilder.newColumn('id').withTitle('ID'),  
+        DTColumnBuilder.newColumn('codigo').withTitle('codigo'),   
         DTColumnBuilder.newColumn('cliente').withTitle('cliente'),
+        DTColumnBuilder.newColumn('servico').withTitle('servico'),
         DTColumnBuilder.newColumn('data').withTitle('data'),
-         DTColumnBuilder.newColumn(null).withTitle('qntProd').notSortable()
+         DTColumnBuilder.newColumn(null).withTitle('executado').notSortable()
             .renderWith(function(data, type, full, meta) {
-                return '<a> '+ data.qntProd +'</a>';
+                return '<span> '+ data.executado +' '+data.dataExecucao+' á '+data.finalizado+' </span>';
             }),
        // DTColumnBuilder.newColumn('qntProd').withTitle('qntProd'),
-        DTColumnBuilder.newColumn('valorPedido').withTitle('valorPedido'),
-        DTColumnBuilder.newColumn('valorItens').withTitle('valorItens'),
+        DTColumnBuilder.newColumn('valor').withTitle('valor'),
+        DTColumnBuilder.newColumn('custo').withTitle('custo'),
         DTColumnBuilder.newColumn('observacao').withTitle('observacao'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
