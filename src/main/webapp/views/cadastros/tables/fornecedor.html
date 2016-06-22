@@ -1,0 +1,181 @@
+
+<div ng-controller="OrcamentoController as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+</div>
+
+<div class="container"  ng-controller="RowSelectCtrl">
+
+    <h3>Angular Modal Service</h3>
+     <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
+     <p>{{message}}</p>
+
+
+     <script type="text/ng-template" id="modal.html">
+         <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Cadastro Cliente</h4>
+              </div>
+              <div class="modal-body">
+                <form  id="empresaForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputEmail1">Nome ou Razão social</label>
+                                    <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome ou Razão social">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputEmail1">Nome Fantasia</label>
+                                    <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome Fantasia">
+                                </div>
+                             </div>
+                             <div class="row col-sm-12">
+                                <div class="form-group col-sm-4">
+                                    <label for="exampleInputEmail1">CPF ou CNPJ</label>
+                                    <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="CPF ou CNPJ">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="exampleInputEmail1">Inscr Est Subst Trib</label>
+                                    <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Inscr Est Subst Trib">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="exampleInputEmail1">Indicador de IE</label>
+                                    <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Indicador de IE">
+                                </div>
+                             </div>
+                             <div class="row col-sm-12">
+                                <div class="form-group col-sm-4">
+                                    <label for="exampleInputEmail1">Inscrição Estadual</label>
+                                    <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="Inscrição Estadual">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="exampleInputPassword1">Inscrição Municipal</label>
+                                    <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="Inscrição Municipal">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="exampleInputPassword1">Inscrição Suframa</label>
+                                    <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="Inscrição Suframa">
+                                </div>
+                            </div>
+                            <div class="row col-sm-12">
+                                <div class="form-group col-sm-3">
+                                    <label for="exampleInputPassword1">CEP</label>
+                                    <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="CEP">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputPassword1">Endereço</label>
+                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Endereço">
+                                </div>
+                                 <div class="form-group col-sm-3">
+                                    <label for="exampleInputPassword1">Número</label>
+                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Número">
+                                </div>
+                            </div>
+
+                            <div class="row col-sm-12">
+                                <div class="form-group col-sm-3">
+                                    <label for="exampleInputPassword1">Complemento</label>
+                                    <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="Complemento">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="exampleInputPassword1">Bairro</label>
+                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Bairro">
+                                </div>
+                                 <div class="form-group col-sm-3">
+                                    <label for="exampleInputPassword1">Cidade</label>
+                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Cidade">
+                                </div>
+                            </div>
+                            <!-- -------------------  TELEFONE ----------------- -->
+                                <div class="row">
+
+                                    <div class="col-sm-4" style="margin-top:25px">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Adicionar <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_home">Compras</a></li>
+                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_office">Vendas</a></li>
+                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_office">SAC</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="exampleInputPassword1" class="control-label" >Telefone</label>
+                                        <input type="text" class="form-control col-sm-4 gugu" name="phone" placeholder="Telefone">
+                                    </div>
+                                </div>
+                                <!-- Template for dynamic field -->
+                                <div class="row" id="template" style="display: none;">
+
+                                    <div class="col-sm-4" style="margin-top:25px">
+                                        <button type="button" class="btn btn-link removeButton">deletar</button>
+                                    </div>
+                                    <div class="col-sm-4">
+                                    <label  for="exampleInputPassword1" class="control-label">Telefone</label>
+                                        <input id='gugu' type="text" class="form-control col-sm-4 gugu"  placeholder="Telefone">
+                                    </div>
+                                </div>
+
+                                <!-- ------------------------------------- --><!-- ------------------------------------- -->
+
+                                <!-- -------------------  Email Empresa ----------------- -->
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                    <label for="exampleInputPassword1">Email</label>
+                                        <input type="text" class="form-control col-sm-4 input-email" name="email" placeholder="Email">
+                                    </div>
+                                    <div class="col-sm-4" style="margin-top:25px">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Adicionar <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_princ">Principal</a></li>
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_home">Compras</a></li>
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_office">Vendas</a></li>
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_nfe">NFE</a></li>
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_sac">SAC</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Template for dynamic field -->
+                                <div class="row" id="template-email" style="display: none;">
+                                    <div class="col-sm-4">
+                                    <label for="exampleInputPassword1" class="control-label">Email</label>
+                                        <input type="email" class="form-control col-sm-4 input-email"  placeholder="Email">
+                                    </div>
+                                    <div class="col-sm-4" style="margin-top:25px">
+                                        <button type="button" class="btn btn-link removeButton">deletar</button>
+                                    </div>
+                                </div>
+
+                                <!-- ------------------------------------- --><!-- ------------------------------------- -->
+                             <div class="row col-sm-12">
+                                <div class="form-group col-sm-3">
+                                    <label for="exampleInputPassword1">Data nascimento</label>
+                                    <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="DD/MM/AAAA">
+                                </div>
+                                <div class="form-group col-sm-9">
+                                    <label for="exampleInputPassword1">Observação</label>
+                                    <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
+                                </div>
+                            </div>
+                            </div>
+              		</div>
+              	</form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>
+
+</div>
+

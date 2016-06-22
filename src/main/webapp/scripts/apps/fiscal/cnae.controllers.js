@@ -1,9 +1,9 @@
 
 (function() {
-angular.module('wdApp.apps.produtos', ['datatables', 'datatables.buttons', 'datatables.light-columnfilter'])
+angular.module('wdApp.apps.produtos', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
     .controller('CnaeController', CnaeController);
 
-function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
+function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
 
     vm.message = '';
@@ -25,18 +25,14 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
                 type : 'text'
             },
             '2' : {
-                type : 'select',
-                values: [{
-                    value: 'Yoda', label: 'Yoda foobar'
-                }, {
-                    value: 'Titi', label: 'Titi foobar'
-                }, {
-                    value: 'Kyle', label: 'Kyle foobar'
-                }, {
-                    value: 'Bar', label: 'Bar foobar'
-                }, {
-                    value: 'Whateveryournameis', label: 'Whateveryournameis foobar'
-                }]
+                type : 'text',
+            },
+            '3' : {
+                type : 'text',
+            },
+            '4' : {
+                type : 'text',
+                
             }
         })
         .withButtons([
@@ -96,7 +92,15 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
                 text: 'Novo CFOP',
                 key: '1',
                 action: function (e, dt, node, config) {
-                    alert('Button activated');
+                   ModalService.showModal({
+            templateUrl: 'modalCnae.html',
+            controller: "CnaeController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
                 }
             }
         ])
@@ -110,17 +114,28 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
         DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml)
     ];
 
+
     function edit(person) {
-        vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
-        // Edit some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        vm.dtInstance.reloadData();
+       ModalService.showModal({
+            templateUrl: 'modalCnae.html',
+            controller: "CnaeController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
     }
     function deleteRow(person) {
-        vm.message = 'You are trying to remove the row: ' + JSON.stringify(person);
-        // Delete some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        vm.dtInstance.reloadData();
+        ModalService.showModal({
+            templateUrl: 'cnaeDelete.html',
+            controller: "CnaeController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
     }
     function createdRow(row, data, dataIndex) {
         // Recompiling so we can bind Angular directive to the DT

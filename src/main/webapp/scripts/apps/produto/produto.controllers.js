@@ -112,7 +112,7 @@ function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
 angular.module('wdApp.apps.produto', ['datatables', 'datatables.buttons', 'datatables.light-columnfilter', 'datatables.bootstrap'])
     .controller('WithButtonsCtrl', WithButtonsCtrl);
 
-function WithButtonsCtrl($compile, $scope,  DTOptionsBuilder, DTColumnBuilder) {
+function WithButtonsCtrl($compile, $scope,  DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
 
     vm.message = '';
