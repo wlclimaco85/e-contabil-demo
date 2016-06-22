@@ -39,12 +39,59 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
                 }]
             }
         })
-        // Active Buttons extension
         .withButtons([
-            'colvis',
-            'copy',
-            'print',
-            'excel',
+            {
+                extend: "colvis",
+                fileName:  "Data_Analysis",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+            extend: "csvHtml5",
+                fileName:  "Data_Analysis",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+                extend: "pdfHtml5",
+                fileName:  "Data_Analysis",
+                title:"Data Analysis Report",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+                extend: "copy",
+                fileName:  "Data_Analysis",
+                title:"Data Analysis Report",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+                extend: "print",
+                //text: 'Print current page',
+                autoPrint: true,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: "excelHtml5",
+                filename:  "Data_Analysis",
+                title:"Data Analysis Report",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                //CharSet: "utf8",
+                exportData: { decodeEntities: true }
+            },
             {
                 text: 'Novo CFOP',
                 key: '1',
@@ -52,13 +99,14 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
                     alert('Button activated');
                 }
             }
-        ]);
+        ])
+
     vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('codigo').withTitle('Codigo'),
         DTColumnBuilder.newColumn('cnae').withTitle('CNAE'),
         DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
-        DTColumnBuilder.newColumn('abreviacao').withTitle('Abreviação'),
+        DTColumnBuilder.newColumn('abreviado').withTitle('Abreviação'),
         DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml)
     ];
 

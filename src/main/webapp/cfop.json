@@ -1,6 +1,6 @@
 
 [{
-	"id": "1",
+	"id": 1,
 	"cfop": "1.000",
 	"natureza": "Entrada",
 	"descricao": "ENTRADAS OU AQUISIÇÕES DE SERVIÇOS DO ESTADO",
@@ -20,7 +20,7 @@
 	"modifyUser":"system"
 },
 {
-	"id": "1",
+	"id": 2,
 	"cfop": "2.355",
 	"natureza": "Entrada",
 	"descricao": "Aquisição de serviço de transporte por estabelecimento de geradora ou de distribuidora de energia elétrica",
@@ -40,7 +40,7 @@
 	"modifyUser":"system"
 },
 {
-	"id": "1",
+	"id": 3,
 	"cfop": "3.126",
 	"natureza": "Entrada",
 	"descricao": "Compra para utilização na prestação de serviço",
@@ -60,7 +60,7 @@
 	"modifyUser":"system"
 },
 {
-	"id": "1",
+	"id": 4,
 	"cfop": "5.665",
 	"natureza": "Saida",
 	"descricao": "Retorno simbólico de combustível ou lubrificante recebidos para armazenagem",
@@ -80,7 +80,7 @@
 	"modifyUser":"system"
 },
 {
-	"id": "1",
+	"id": 5,
 	"cfop": "5.901",
 	"natureza": "Saida",
 	"descricao": "Remessa para industrialização por encomenda",

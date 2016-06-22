@@ -49,7 +49,9 @@ var WebDaptiveAppConfig = {
 				'wdApp.charts.other.controllers', 'wdApp.charts.echarts.controllers', 'wdApp.charts.directives', 'wdApp.authentication',
 				'wdApp.pages.controllers', 'wdApp.demodata', 'wdApp.apps.stocks', 'wdApp.apps.stocksdata',
 				'wdApp.apps.counties', 'ngTable','datatables','datatables.bootstrap', 'wdApp.apps.estado', 'wdApp.apps.procedures','wdApp.apps.sysmgmt.data','wdApp.apps.site','wdApp.apps.empresa','wdApp.apps.produtos','wdApp.apps.produtoss','wdApp.apps.produto','wdApp.apps.notaFiscal',
-				'wdApp.apps.pdCompras','wdApp.apps.orcamento','wdApp.apps.ordemServico','wdApp.apps.nfEntrada','wdApp.apps.pdCompras']);
+				'wdApp.apps.pdCompras','wdApp.apps.orcamento','wdApp.apps.ordemServico','wdApp.apps.nfEntrada','wdApp.apps.pdCompras'
+				,'wdApp.apps.cotacao'
+				]);
 
 	wdApp.config(['$routeProvider',
 		function($routeProvider) {
@@ -124,7 +126,7 @@ var WebDaptiveAppConfig = {
 	wdApp.run(function($rootScope, $location, localStorageService) {
 
 		$rootScope.main = {
-			brand: 'WLCMC Sistemas e Consultorias',
+			brand: 'WLCMC Sistemas',
 			name: 'Washington'
 		};
 

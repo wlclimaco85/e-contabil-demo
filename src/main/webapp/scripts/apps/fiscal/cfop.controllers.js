@@ -114,25 +114,35 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
 
 (function() {
 'use strict';
-angular.module('wdApp.apps.produtoss', ['datatables'])
+angular.module('wdApp.apps.produtoss', ['datatables','angularModalService'])
 .controller('RowSelectCtrl', RowSelect);
 
-function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
+function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
     vm.toggleAll = toggleAll;
     vm.toggleOne = toggleOne;
-     vm.message = '';
+    vm.message = '';
     vm.edit = edit;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
-    vm.selected = {};
-    vm.selectAll = false;
 
-    var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
-        'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
+    $scope.show = function() {
+        ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "CnaeController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    };
+
+    var titleHtml = '<input type="checkbox" ng-model="vm.selectAll"' +
+        'ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
 
 
 
@@ -149,9 +159,9 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
                 $compile(angular.element(header).contents())($scope);
             }
         })
-        .withDOM('<"row tablealign"<"col-xs-6 col-md-4" C> <"col-xs-6  col-md-4" f>>t<\'row\'<\'col-xs-5\'i><\'col-xs-3\'l><\'col-xs-4\'p>>')
-        //.withDOM('frtip')
         .withPaginationType('full_numbers')
+      //  .withDOM('<"row tablealign"<"col-sm-4  col-xs-1" T><"col-sm-1  col-xs-1" C> <"col-sm-4 col-xs-6" f>>t<\'row\'<\'col-xs-4\'i><\'col-xs-3\'l><\'col-xs-5\'p>>')
+        .withDOM('<"row tablealign"<"col-xs-6 col-md-4" C> <"col-xs-6  col-md-4" f>>t<\'row\'<\'col-xs-5\'i><\'col-xs-3\'l><\'col-xs-4\'p>>')
         .withOption('createdRow', createdRow)
             //.withDataProp('data')
             .withOption('serverSide', true)
@@ -163,8 +173,9 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
                     next: "&rarr;",
                     previous: "&larr;"
                 },
-                lengthMenu: "_MENU_ records per page" 
+                lengthMenu: "_MENU_ records per page"
             })
+        .withBootstrap()
         .withButtons([
     {
         extend: "pdfHtml5",
@@ -194,15 +205,13 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     {
         extend: "csvHtml5"
         
-    }
-]);
+    }]);
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
-                return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
+                return '<input type="checkbox" ng-model="vm.selected[' + data.id + ']" ng-click="vm.toggleOne(vm.selected)"/>';
             }),
-
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('cfop').withTitle('CFOP'),
         DTColumnBuilder.newColumn('natureza').withTitle('Natureza'),
@@ -218,32 +227,6 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml)
     ];
-
-    function edit(person) {
-        vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
-        // Edit some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        vm.dtInstance.reloadData();
-    }
-    function deleteRow(person) {
-        vm.message = 'You are trying to remove the row: ' + JSON.stringify(person);
-        // Delete some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        vm.dtInstance.reloadData();
-    }
-    function createdRow(row, data, dataIndex) {
-        // Recompiling so we can bind Angular directive to the DT
-        $compile(angular.element(row).contents())($scope);
-    }
-    function actionsHtml(data, type, full, meta) {
-        vm.persons[data.id] = data;
-        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
-            '   <i class="fa fa-edit"></i>' +
-            '</button>&nbsp;' +
-            '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
-            '   <i class="fa fa-trash-o"></i>' +
-            '</button>';
-    }
 
     function toggleAll (selectAll, selectedItems) {
         for (var id in selectedItems) {
@@ -262,6 +245,41 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
             }
         }
         vm.selectAll = true;
+    }
+
+    function edit(person) {
+      //  vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
+        // Edit some data and call server to make changes...
+        // Then reload the data so that DT is refreshed
+        ///vm.dtInstance.reloadData();
+        ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "CnaeController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    }
+    function deleteRow(person) {
+        vm.message = 'You are trying to remove the row: ' + JSON.stringify(person);
+        // Delete some data and call server to make changes...
+        // Then reload the data so that DT is refreshed
+        vm.dtInstance.reloadData();
+    }
+    function createdRow(row, data, dataIndex) {
+        // Recompiling so we can bind Angular directive to the DT
+        $compile(angular.element(row).contents())($scope);
+    }
+    function actionsHtml(data, type, full, meta) {
+        vm.persons[data.id] = data;
+        return '<button class="btn btn-warning" ng-click="vm.edit(vm.persons[' + data.id + '])">' +
+            '   <i class="fa fa-edit"></i>' +
+            '</button>&nbsp;' +
+            '<button class="btn btn-danger" ng-click="vm.delete(vm.persons[' + data.id + '])">' +
+            '   <i class="fa fa-trash-o"></i>' +
+            '</button>';
     }
 
 

@@ -1,7 +1,7 @@
 (function() {
 'use strict';
-angular.module('wdApp.apps.pdCompras', ['datatables'])
-.controller('PdComprasController', RowSelect);
+angular.module('wdApp.apps.cotacao', ['datatables'])
+.controller('CotacaoController', RowSelect);
 
 function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -9,7 +9,7 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     vm.selectAll = false;
     vm.toggleAll = toggleAll;
     vm.toggleOne = toggleOne;
-     vm.message = '';
+    vm.message = '';
     vm.edit = edit;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -23,7 +23,7 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
 
 
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('pdCompras.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('cotacao.json')
         .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
@@ -91,8 +91,18 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
             }),
 
         DTColumnBuilder.newColumn('id').withTitle('ID'),     
-        DTColumnBuilder.newColumn('solicitante').withTitle('Solicitante'),
+        DTColumnBuilder.newColumn('resCotacao').withTitle('Responsavel Cotação'),
+         DTColumnBuilder.newColumn(null).withTitle('Empresas Concorrente').notSortable()
+            .renderWith(function(data, type, full, meta) {
+                var sReturn = "";
+                for(var x = 0 ;x<data.Empresas.length;x++)
+                {
+                    sReturn =  sReturn +  '<a> '+ data.Empresas[x].empresa +'</a>';
+                }
+                return sReturn;
+            }),
         DTColumnBuilder.newColumn('data').withTitle('data'),
+         DTColumnBuilder.newColumn('dataLimite').withTitle('Prazo Limite').notVisible(),
          DTColumnBuilder.newColumn(null).withTitle('Produtos').notSortable()
             .renderWith(function(data, type, full, meta) {
                 return '<a> '+ data.produtos +'</a>';
@@ -101,9 +111,9 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
         DTColumnBuilder.newColumn('valor').withTitle('valor'),
          DTColumnBuilder.newColumn(null).withTitle('Cotação').notSortable()
             .renderWith(function(data, type, full, meta) {
-                return '<a> '+ data.cotacao +'</a>';
+                return '<a> '+ data.pdCompra +'</a>';
             }),
-        DTColumnBuilder.newColumn('observacao').withTitle('observacao'),
+        DTColumnBuilder.newColumn('observacao').withTitle('observacao').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
          DTColumnBuilder.newColumn(null).withTitle('status').notSortable()
@@ -134,8 +144,8 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
         return '<button class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar Pedido Compra" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
-            '<button class="btn btn-success" data-toggle="tooltip" data-placement="left" title="Aprovar Pedido" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
-            '   <i class="glyphicon glyphicon-ok-sign"></i>' +
+            '<button class="btn btn-info" data-toggle="tooltip" data-placement="left" title="Detalhes Cotação" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
+            '   <i class="glyphicon glyphicon-search"></i>' +
             '</button>' +
             '<button class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Excluir Pedido Compra" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-trash-o"></i>' +

@@ -1,7 +1,12 @@
 <div ng-controller="RowSelectCtrl as vm">
-    <p class="text-danger">You selected the following rows:</p>
-    <p>
-        <pre>{{ vm.selected |json }}</pre>
-    </p>
+
+
+<div class="dropdown"><button class="btn btn-sucess dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Ações<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="javaScript;;">Deletar Todos</a></li>
+  </ul>
+</div>
+
     <table datatable dt-options="vm.dtOptions" dt-columns="vm.dtColumns" class="row-border hover"></table>
 </div>

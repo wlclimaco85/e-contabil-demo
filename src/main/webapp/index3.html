@@ -39,7 +39,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
          Place favicon.ico in the root directory -->
 
-       
+
         <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -79,7 +79,7 @@
 		<link rel="stylesheet" href="thirdparty/angular/angular-csp.css">
 	    <link rel="stylesheet" href="styles/wd_main.css">
 
-		
+
 
 
     </head>
@@ -105,12 +105,12 @@
             </aside>
 
             <section data-ng-view data-ng-cloak id="content" class="content-container animate-fade-up ">
-          <!--  <div class="container"  ng-controller="CfopController">
+            <div class="container"  ng-controller="RowSelectCtrl">
 
 			    <h3>Angular Modal Service</h3>
 			     <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
 			     <p>{{message}}</p>
-			     
+
 
 			     <script type="text/ng-template" id="modal.html">
 			         <div class="modal fade">
@@ -118,21 +118,80 @@
 			            <div class="modal-content">
 			              <div class="modal-header">
 			                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-			                <h4 class="modal-title">Yes or No?</h4>
+			                <h4 class="modal-title">Cadastro CFOP</h4>
 			              </div>
 			              <div class="modal-body">
-			                <p>It's your call...</p>
+			                <form  id="empresaForm">
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                    <div class="row">
+	                                        <div class="form-group col-sm-6">
+	                                            <label for="exampleInputEmail1">CFOP</label>
+	                                            <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="CFOP">
+	                                        </div>
+
+	                                        <div class="form-group col-sm-6">
+	                                            <label for="exampleInputEmail1">Natureza</label>
+	                                            <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="form-control">
+								                    <option value="01">Entrada</option>
+								                    <option value="02">Saida</option>
+								                </select>
+	                                        </div>
+	                                     </div>
+	                                     <div class="row col-sm-12">
+	                                        <div class="form-group">
+	                                            <label for="exampleInputEmail1">Descrição</label>
+	                                            <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Descrição">
+	                                        </div>
+	                                     </div>
+	                                     <div class="row col-sm-12">
+	                                        <div class="form-group col-sm-4">
+	                                            <label for="exampleInputEmail1">ICMS</label>
+	                                            <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="0.00">
+	                                        </div>
+	                                        <div class="form-group col-sm-4">
+	                                            <label for="exampleInputPassword1">ICMS Reduzido</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+	                                        </div>
+	                                        <div class="form-group col-sm-4">
+	                                            <label for="exampleInputPassword1">Margem Agregada ST</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="0.00">
+	                                        </div>
+	                                    </div>
+	                                    <div class="row col-sm-12">
+	                                        <div class="form-group col-sm-4">
+	                                            <label for="exampleInputPassword1">CST Principal</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+	                                        </div>
+	                                        <div class="form-group col-sm-4">
+	                                            <label for="exampleInputPassword1">Classificação Fiscal</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+	                                        </div>
+	                                         <div class="form-group col-sm-4">
+	                                            <label for="exampleInputPassword1">Classificação Fiscal</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+	                                        </div>
+	                                    </div>
+	                                     <div class="row col-sm-12">
+	                                        <div class="form-group">
+	                                            <label for="exampleInputPassword1">Observação</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
+	                                        </div>
+	                                    </div>
+	                                    </div>
+			              		</div>
+			              	</form>
 			              </div>
 			              <div class="modal-footer">
-			                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">No</button>
-			                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+			                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
 			              </div>
 			            </div>
 			          </div>
 			        </div>
 			     </script>
-			    
-			</div> -->
+
+			</div>
             </section>
         </div>
 
@@ -140,13 +199,13 @@
         <!-- thirdparty libraries-->
         <!-- thirdparty libraries-->
 		<script src="http://maps.googleapis.com/maps/api/js?v=3&libraries=visualization"></script>
-     
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="thirdparty/angular-datatables/vendor/datatables/media/js/jquery.dataTables.js"></script>
         <script src="thirdparty/angular/angular.min.js"></script>
 		<script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>
 
-		
+
 
         <script src="thirdparty/angular-route/angular-route.min.js"></script>
         <script src="thirdparty/angular-animate/angular-animate.min.js"></script>
@@ -193,7 +252,7 @@
 	    <script src="thirdparty/angular-datatables/vendor/angular-highlightjs/angular-highlightjs.min.js"></script>
 	    <script src="thirdparty/angular-resource/angular-resource.min.js"></script>
 	    <script src="thirdparty/angular-datatables/vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
-		
+
 	    <script src="thirdparty/angular-datatables/vendor/datatables-colreorder/js/dataTables.colReorder.js"></script>
 		<script src="thirdparty/angular-datatables/vendor/datatables-colvis/js/dataTables.colVis.js"></script>
 		<script src="thirdparty/angular-datatables/vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
@@ -285,6 +344,7 @@
         <script src="scripts/apps/vendas/ordemServico.controllers.js"></script>
         <script src="scripts/apps/compras/nfEntrada.controllers.js"></script>
         <script src="scripts/apps/compras/pdCompras.controllers.js"></script>
+        <script src="scripts/apps/compras/cotacao.controllers.js"></script>
     </body>
 
 </html>

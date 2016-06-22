@@ -63,8 +63,6 @@
 
 	commonControllers.controller('DashboardController', ['$scope', function($scope) {
 
-		$('#header').hide();
-		$('#footer').hide();
 	}]);
 
 	commonControllers.controller('LoginController', ['$scope', '$rootScope', '$location', 'localStorageService','WDAuthentication',

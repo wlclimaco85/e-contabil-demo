@@ -5,8 +5,23 @@
             <span>{{::main.brand}}</span>
         </a>
     </div>
+
     <div class="top-nav" data-ng-controller="NavController">
         <ul class="nav-left pull-right list-unstyled">
+            <li>
+            <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="margin-top: 7px;">
+    Empresas
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="javascript:;">57.201.848/0001-04</a></li>
+    <li><a href="javascript:;">78.239.671/0001-05</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="javascript:;">Todas</a></li>
+  </ul>
+</div>
+            </li>
             <li class="dropdown text-normal nav-profile" uib-dropdown on-toggle="toggled(open)">
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle>
                     <img src="images/anonymity.jpg" alt="" class="img-circle img30_30">
@@ -43,6 +58,7 @@
                     </li>
                 </ul>
 			</li>
+
             <li class="dropdown langs text-normal"  uib-dropdown on-toggle="toggled(open)">
                 <a href class="dropdown-toggle active-flag" uib-dropdown-toggle>
                     <img src="images/images.png" alt="" class="img-circle img30_30">
