@@ -90,7 +90,15 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
                 text: 'Novo CFOP',
                 key: '1',
                 action: function (e, dt, node, config) {
-                    alert('Button activated');
+                    ModalService.showModal({
+                        templateUrl: 'modal.html',
+                        controller: "RowSelectCtrl"
+                    }).then(function(modal) {
+                        modal.element.modal();
+                        modal.close.then(function(result) {
+                            $scope.message = "You said " + result;
+                        });
+                    });
                 }
             }
         ])

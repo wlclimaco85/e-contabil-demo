@@ -1,88 +1,219 @@
 (function() {
-'use strict';
-angular.module('wdApp.apps.nfEntrada', ['datatables'])
-.controller('NFEntradaController', RowSelect);
+angular.module('wdApp.apps.nfEntrada', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter', 'datatables.bootstrap','datatables.columnfilter'])
+    .controller('NFEntradaController', RowSelect);
 
-function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
+function RowSelect($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
+
     vm.selected = {};
     vm.selectAll = false;
     vm.toggleAll = toggleAll;
     vm.toggleOne = toggleOne;
-     vm.message = '';
+    vm.message = '';
     vm.edit = edit;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
-    vm.selected = {};
-    vm.selectAll = false;
-
-    var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
-        'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
 
-
+        var titleHtml = '<input type="checkbox" ng-model="vm.selectAll"' +
+        'ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
 
     vm.dtOptions = DTOptionsBuilder.fromSource('notaEntrada.json')
-        .withOption('createdRow', function(row, data, dataIndex) {
-            // Recompiling so we can bind Angular directive to the DT
-            $compile(angular.element(row).contents())($scope);
-        })
-        .withOption('headerCallback', function(header) {
-            if (!vm.headerCompiled) {
-                // Use this headerCompiled field to only compile header once
-                vm.headerCompiled = true;
-                $compile(angular.element(header).contents())($scope);
-            }
-        })
-        .withDOM('<"row tablealign"<"col-xs-6 col-md-4" C> <"col-xs-6  col-md-4" f>>t<\'row\'<\'col-xs-5\'i><\'col-xs-3\'l><\'col-xs-4\'p>>')
-        //.withDOM('frtip')
+        .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
-            //.withDataProp('data')
-            .withOption('serverSide', true)
-            .withOption('processing', true)
-            .withOption('language',{
-                paginate : {            // Set up pagination text
-                    first: "&laquo;",
-                    last: "&raquo;",
-                    next: "&rarr;",
-                    previous: "&larr;"
-                },
-                lengthMenu: "_MENU_ records per page" 
-            })
+        .withPaginationType('full_numbers')
+        .withColumnFilter({
+            aoColumns: [null,{
+                type: 'number'
+            }, {
+                type: 'number'
+            }, {
+                type: 'text'
+            },{
+                type: 'text'
+            },{
+                type: 'text'
+            },{
+                type: 'text'
+            }]
+        })
         .withButtons([
-    {
-        extend: "pdfHtml5",
-        fileName:  "Data_Analysis",
-        exportOptions: {
-            columns: ':visible'
-        },
-        exportData: {decodeEntities:true}
-    },
-    {
-        extend: "copy",
-        fileName:  "Data_Analysis",
-        title:"Data Analysis Report",
-        exportOptions: {
-            columns: ':visible'
-        },
-        exportData: {decodeEntities:true}
-    },
-    {
-        extend: "print",
-        //text: 'Print current page',
-        autoPrint: false,
-        exportOptions: {
-            columns: ':visible'
+            {
+                extend: "colvis",
+                fileName:  "Data_Analysis",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+            extend: "csvHtml5",
+                fileName:  "Data_Analysis",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+                extend: "pdfHtml5",
+                fileName:  "Data_Analysis",
+                title:"Data Analysis Report",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+                extend: "copy",
+                fileName:  "Data_Analysis",
+                title:"Data Analysis Report",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                exportData: {decodeEntities:true}
+            },
+            {
+                extend: "print",
+                //text: 'Print current page',
+                autoPrint: true,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: "excelHtml5",
+                filename:  "Data_Analysis",
+                title:"Data Analysis Report",
+                exportOptions: {
+                    columns: ':visible'
+                },
+                //CharSet: "utf8",
+                exportData: { decodeEntities: true }
+            },
+            {
+                text: 'Nova Nota Entrada',
+                key: '1',
+                action: function (e, dt, node, config) {
+                    ModalService.showModal({
+            templateUrl: 'modalNfEntrada.html',
+            controller: "RowSelectCtrl",
+        }).then(function(modal) {
+            modal.element.modal();
+debugger
+
+             bookIndex = 0;
+
+    $('#empresaForm')
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+            'book[0].fornecedor': notEmptyStringMinMaxRegexp,
+            'book[0].qtd': notEmptyStringMinMax,
+            'book[0].unit': integerNotEmptyValidation,
+            'financ[0].parcela' : integerNotEmptyValidation,
+            'financ[0].valor' : integerNotEmptyValidation,
+            'financ[0].dtVencimento': integerNotEmptyValidation
+
         }
-    },
-    {
-        extend: "csvHtml5"
-        
-    }
-]);
-    vm.dtColumns = [
+        })
+        // Add button click handler
+        .on('click', '.addButton', function() {
+            bookIndex++;
+            var $template = $('#bookTemplate'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('data-book-index', bookIndex)
+                                .insertBefore($template);
+
+            // Update the name attributes
+            $clone
+                .find('[name="fornecedor"]').attr('name', 'book[' + bookIndex + '].fornecedor').end()
+                .find('[name="qtd"]').attr('name', 'book[' + bookIndex + '].qtd').end()
+                .find('[name="unit"]').attr('name', 'book[' + bookIndex + '].unit').end()
+                .find('[name="frete"]').attr('name', 'book[' + bookIndex + '].frete').end()
+                .find('[name="seg"]').attr('name', 'book[' + bookIndex + '].seg').end()
+                .find('[name="desc"]').attr('name', 'book[' + bookIndex + '].desc').end()
+                .find('[name="ipi"]').attr('name', 'book[' + bookIndex + '].ipi').end()
+                .find('[name="icms"]').attr('name', 'book[' + bookIndex + '].icms').end()
+                .find('[name="trib"]').attr('name', 'book[' + bookIndex + '].trib').end();
+
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            $('#empresaForm')
+                .formValidation('addField', 'book[' + bookIndex + '].fornecedor',notEmptyStringMinMaxRegexp)
+                .formValidation('addField', 'book[' + bookIndex + '].qtd',notEmptyStringMinMaxRegexp)
+                .formValidation('addField', 'book[' + bookIndex + '].unit',integerNotEmptyValidation);
+        }).on('click', '.addfinanc', function() {
+            bookIndex++;
+            var $template = $('#bookTemplate1'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('data-book-index', bookIndex)
+                                .insertBefore($template);
+
+            // Update the name attributes
+            $clone
+                .find('[name="parcela"]').attr('name', 'financ[' + bookIndex + '].parcela').end()
+                .find('[name="valor"]').attr('name', 'financ[' + bookIndex + '].valor').end()
+                .find('[name="desconto"]').attr('name', 'financ[' + bookIndex + '].desconto').end()
+                .find('[name="dtVencimento"]').attr('name', 'financ[' + bookIndex + '].dtVencimento').end();
+
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            $('#empresaForm')
+                .formValidation('addField', 'financ[' + bookIndex + '].parcela',integerNotEmptyValidation)
+                .formValidation('addField', 'financ[' + bookIndex + '].valor',integerNotEmptyValidation)
+                .formValidation('addField', 'financ[' + bookIndex + '].dtVencimento',integerNotEmptyValidation);
+        });
+        $("select").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+
+
+
+
+
+
+
+
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+                }
+            },
+            {
+                text: 'Entrada Via XML',
+                key: '1',
+                action: function (e, dt, node, config) {
+                   ModalService.showModal({
+            templateUrl: 'modalNfEntrada.html',
+            controller: "RowSelectCtrl"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+                    
+                }
+            }
+        ])
+
+     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
@@ -113,16 +244,38 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     ];
 
     function edit(person) {
-        vm.message = 'You are trying to edit the row: ' + JSON.stringify(person);
-        // Edit some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        vm.dtInstance.reloadData();
+        ModalService.showModal({
+            templateUrl: 'modalNfEntrada.html',
+            controller: "RowSelectCtrl",
+            resolve: {
+                        params: function () {
+                            debugger
+                            console.log('value passed to modal:');
+                            console.log(scope.value);
+                            return scope.value;
+                        }
+                    }
+        }).then(function(modal) {
+            console.log('wwww')
+            debugger
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+                
     }
     function deleteRow(person) {
-        vm.message = 'You are trying to remove the row: ' + JSON.stringify(person);
-        // Delete some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        vm.dtInstance.reloadData();
+        ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "RowSelectCtrl"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+                
     }
     function createdRow(row, data, dataIndex) {
         // Recompiling so we can bind Angular directive to the DT
@@ -156,34 +309,5 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
         }
         vm.selectAll = true;
     }
-
-
-  $scope.oneAtATime = true;
-
-  $scope.groups = [
-    {
-      title: 'Dynamic Group Header - 1',
-      content: 'Dynamic Group Body - 1'
-    },
-    {
-      title: 'Dynamic Group Header - 2',
-      content: 'Dynamic Group Body - 2'
-    }
-  ];
-
-  $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-  $scope.addItem = function() {
-    var newItemNo = $scope.items.length + 1;
-    $scope.items.push('Item ' + newItemNo);
-  };
-
-  $scope.status = {
-    isCustomHeaderOpen: false,
-    isFirstOpen: true,
-    isFirstDisabled: false
-  };
-
 }
-
 })();
