@@ -101,94 +101,83 @@ function RowSelect($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalServ
             controller: "RowSelectCtrl",
         }).then(function(modal) {
             modal.element.modal();
-debugger
-
-             bookIndex = 0;
-
-    $('#empresaForm')
-        .formValidation({
-            framework: 'bootstrap',
-            icon: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-
-            'book[0].fornecedor': notEmptyStringMinMaxRegexp,
-            'book[0].qtd': notEmptyStringMinMax,
-            'book[0].unit': integerNotEmptyValidation,
-            'financ[0].parcela' : integerNotEmptyValidation,
-            'financ[0].valor' : integerNotEmptyValidation,
-            'financ[0].dtVencimento': integerNotEmptyValidation
-
-        }
-        })
-        // Add button click handler
-        .on('click', '.addButton', function() {
-            bookIndex++;
-            var $template = $('#bookTemplate'),
-                $clone    = $template
-                                .clone()
-                                .removeClass('hide')
-                                .removeAttr('id')
-                                .attr('data-book-index', bookIndex)
-                                .insertBefore($template);
-
-            // Update the name attributes
-            $clone
-                .find('[name="fornecedor"]').attr('name', 'book[' + bookIndex + '].fornecedor').end()
-                .find('[name="qtd"]').attr('name', 'book[' + bookIndex + '].qtd').end()
-                .find('[name="unit"]').attr('name', 'book[' + bookIndex + '].unit').end()
-                .find('[name="frete"]').attr('name', 'book[' + bookIndex + '].frete').end()
-                .find('[name="seg"]').attr('name', 'book[' + bookIndex + '].seg').end()
-                .find('[name="desc"]').attr('name', 'book[' + bookIndex + '].desc').end()
-                .find('[name="ipi"]').attr('name', 'book[' + bookIndex + '].ipi').end()
-                .find('[name="icms"]').attr('name', 'book[' + bookIndex + '].icms').end()
-                .find('[name="trib"]').attr('name', 'book[' + bookIndex + '].trib').end();
-
-            // Add new fields
-            // Note that we also pass the validator rules for new field as the third parameter
+            bookIndex = 0;
             $('#empresaForm')
-                .formValidation('addField', 'book[' + bookIndex + '].fornecedor',notEmptyStringMinMaxRegexp)
-                .formValidation('addField', 'book[' + bookIndex + '].qtd',notEmptyStringMinMaxRegexp)
-                .formValidation('addField', 'book[' + bookIndex + '].unit',integerNotEmptyValidation);
-        }).on('click', '.addfinanc', function() {
-            bookIndex++;
-            var $template = $('#bookTemplate1'),
-                $clone    = $template
-                                .clone()
-                                .removeClass('hide')
-                                .removeAttr('id')
-                                .attr('data-book-index', bookIndex)
-                                .insertBefore($template);
+                .formValidation({
+                    framework: 'bootstrap',
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+                    fields: {
 
-            // Update the name attributes
-            $clone
-                .find('[name="parcela"]').attr('name', 'financ[' + bookIndex + '].parcela').end()
-                .find('[name="valor"]').attr('name', 'financ[' + bookIndex + '].valor').end()
-                .find('[name="desconto"]').attr('name', 'financ[' + bookIndex + '].desconto').end()
-                .find('[name="dtVencimento"]').attr('name', 'financ[' + bookIndex + '].dtVencimento').end();
+                    'book[0].fornecedor': notEmptyStringMinMaxRegexp,
+                    'book[0].qtd': notEmptyStringMinMax,
+                    'book[0].unit': integerNotEmptyValidation,
+                    'financ[0].parcela' : integerNotEmptyValidation,
+                    'financ[0].valor' : integerNotEmptyValidation,
+                    'financ[0].dtVencimento': integerNotEmptyValidation
 
-            // Add new fields
-            // Note that we also pass the validator rules for new field as the third parameter
-            $('#empresaForm')
-                .formValidation('addField', 'financ[' + bookIndex + '].parcela',integerNotEmptyValidation)
-                .formValidation('addField', 'financ[' + bookIndex + '].valor',integerNotEmptyValidation)
-                .formValidation('addField', 'financ[' + bookIndex + '].dtVencimento',integerNotEmptyValidation);
-        });
-        $("select").select2({
-          placeholder: "Select a state",
-          allowClear: true
-        });
+                }
+                })
+                // Add button click handler
+                .on('click', '.addButton', function() {
+                    bookIndex++;
+                    var $template = $('#bookTemplate'),
+                        $clone    = $template
+                                        .clone()
+                                        .removeClass('hide')
+                                        .removeAttr('id')
+                                        .attr('data-book-index', bookIndex)
+                                        .insertBefore($template);
 
+                    // Update the name attributes
+                    $clone
+                        .find('[name="fornecedor"]').attr('name', 'book[' + bookIndex + '].fornecedor').end()
+                        .find('[name="qtd"]').attr('name', 'book[' + bookIndex + '].qtd').end()
+                        .find('[name="unit"]').attr('name', 'book[' + bookIndex + '].unit').end()
+                        .find('[name="frete"]').attr('name', 'book[' + bookIndex + '].frete').end()
+                        .find('[name="seg"]').attr('name', 'book[' + bookIndex + '].seg').end()
+                        .find('[name="desc"]').attr('name', 'book[' + bookIndex + '].desc').end()
+                        .find('[name="ipi"]').attr('name', 'book[' + bookIndex + '].ipi').end()
+                        .find('[name="icms"]').attr('name', 'book[' + bookIndex + '].icms').end()
+                        .find('[name="trib"]').attr('name', 'book[' + bookIndex + '].trib').end();
 
+                    // Add new fields
+                    // Note that we also pass the validator rules for new field as the third parameter
+                    $('#empresaForm')
+                        .formValidation('addField', 'book[' + bookIndex + '].fornecedor',notEmptyStringMinMaxRegexp)
+                        .formValidation('addField', 'book[' + bookIndex + '].qtd',notEmptyStringMinMaxRegexp)
+                        .formValidation('addField', 'book[' + bookIndex + '].unit',integerNotEmptyValidation);
+                }).on('click', '.addfinanc', function() {
+                    bookIndex++;
+                    var $template = $('#bookTemplate1'),
+                        $clone    = $template
+                                        .clone()
+                                        .removeClass('hide')
+                                        .removeAttr('id')
+                                        .attr('data-book-index', bookIndex)
+                                        .insertBefore($template);
 
+                    // Update the name attributes
+                    $clone
+                        .find('[name="parcela"]').attr('name', 'financ[' + bookIndex + '].parcela').end()
+                        .find('[name="valor"]').attr('name', 'financ[' + bookIndex + '].valor').end()
+                        .find('[name="desconto"]').attr('name', 'financ[' + bookIndex + '].desconto').end()
+                        .find('[name="dtVencimento"]').attr('name', 'financ[' + bookIndex + '].dtVencimento').end();
 
-
-
-
-
+                    // Add new fields
+                    // Note that we also pass the validator rules for new field as the third parameter
+                    $('#empresaForm')
+                        .formValidation('addField', 'financ[' + bookIndex + '].parcela',integerNotEmptyValidation)
+                        .formValidation('addField', 'financ[' + bookIndex + '].valor',integerNotEmptyValidation)
+                        .formValidation('addField', 'financ[' + bookIndex + '].dtVencimento',integerNotEmptyValidation);
+                });
+                $("select").select2({
+                  placeholder: "Select a state",
+                  allowClear: true
+                });
             modal.close.then(function(result) {
                 $scope.message = "You said " + result;
             });

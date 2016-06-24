@@ -1,4 +1,234 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="dist/css/formValidation.css"/>
+    <link rel="stylesheet" href="dist/css/select2.css"/>
+    <link href="thirdparty/twitter-bootstrap-wizard-master/prettify.css" rel="stylesheet">
+    <link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
+<!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload-ui-noscript.css"></noscript>
 
+    <!-- The Templates plugin is included to render the upload/download listings -->
+
+    <!-- The main application script
+    <script src="thirdparty/jQuery-File-Upload-master/js/main.js"></script>-->
+
+    <script src="dist/js/select2.min.js"></script>
+    <script src="dist/js/formValidation.js"></script>
+    <script src="dist/js/framework/bootstrap.js"></script>
+    <script src="thirdparty/twitter-bootstrap-wizard-master/jquery.bootstrap.wizard.js"></script>
+    <script src="thirdparty/twitter-bootstrap-wizard-master/prettify.js"></script>
+
+    <style>    	
+		.select {
+		    margin-bottom: 6px;
+		    margin-top: -19px;
+		}
+		.tam {
+
+			 height: 32px;
+		    margin-left: -12px;
+		    margin-top: -6px;
+		    width: 102%;
+		}
+    </style>
 <div ng-controller="PdVendasController as showCase">
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+    	<tfoot>
+	        <tr>
+	            <th>ID
+	            </th><th>First Name
+	            </th><th>Last Name
+	            </th><th>Last Name
+	            </th><th>Last Name
+	            </th><th>Last Name
+	            </th><th>Last Name
+	            </th><th>Last Name
+	            </th><th>Last Name
+	        </th></tr>
+        </tfoot>
+    </table>
 </div>
+
+<div class="container">
+			     <script type="text/ng-template" id="modalPdVendas.html">
+			         <div class="modal fade">
+			          <div class="modal-dialog" style="width : 60%">
+			            <div class="modal-content">
+			              <div class="modal-header">
+			                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title">Cadastro Pedido Venda</h4>
+			              </div>
+			              <div class="modal-body">
+			                <form  id="pdVendasForm">
+	                                <div class="row">
+
+	                                    <div class="col-md-12">
+	                                    <div class="row">
+	                                        <div class="form-group col-sm-12">
+	                                            <label for="exampleInputEmail1">Nome Cliente</label>
+	                                        </div>
+	                                            <select id="unidTributada" name="unidTributada"  class="select col-sm-12" ng-model="cfop.natureza">
+								                    <option value="01">Tyrion Lannister</option>
+								                    <option value="02">Cersei Lannister</option>
+								                    <option value="03">Jaime Lanniste</option>
+								                </select>
+	                                        
+	                                     </div>
+	                                     <div class="row col-sm-12">
+	                                        <div class="form-group col-sm-3">
+	                                            <label for="exampleInputEmail1">Forma Pagamento</label>
+	                                            <select id="unidTributada" name="unidTributada" class="tam form-group"  ng-model="cfop.natureza">
+								                    <option value="01">1X no Cartão</option>
+								                    <option value="02">2X no Cartão</option>
+								                    <option value="03">3X no Cartão</option>
+								                </select>
+								            </div>
+	                                        <div class="form-group col-sm-3">
+	                                            <label for="exampleInputEmail1">Tipo Frete</label>
+	                                            </div>
+	                                            <div class="col-xs-2">
+		                                            <select id="XmodFrete" name="unidTributada"  ng-model="cfop.natureza">
+														<option value="0">0 - Emitente</option>
+														<option value="1">1 - Destinatário</option>
+														<option value="2">2 - Terceiros</option>
+														<option value="9">9 - Sem frete</option>
+													</select>
+	                                        </div>
+	                                        <div class="form-group col-sm-2">
+	                                            <label for="exampleInputPassword1">Valor Frete</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+	                                        </div>
+	                                        <div class="form-group col-sm-2">
+	                                            <label for="exampleInputPassword1">Desconto</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="0.00">
+	                                        </div>
+	                                        <div class="form-group col-sm-2">
+	                                            <label for="exampleInputPassword1">Valor Total</label>
+	                                            <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="0.00">
+	                                        </div>
+	                                    </div>
+	                                     <div class="row">
+                                    <div class="col-sm-6">
+                                    <label for="exampleInputPassword1">Endereço de Entrega</label>
+                                        <select id="XmodFrete" name="unidTributada"  ng-model="cfop.natureza" class="form-control">
+											<option value="0">380824-243 Maria Conceição Silva 686</option>
+											<option value="1">380800-240 Belarmino Filho Silva 7710</option>
+											<option value="2">Cadastrar novo Endereço</option>
+										</select>
+                                    </div>
+                                </div>
+                                <div class="row "></div>
+                                <div class="panel panel-default">
+								  <div class="panel-heading">
+								    <h3 class="panel-title">Produtos</h3>
+								  </div>
+								  <div class="panel-body">
+	                            <div class="row socios">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Produto</label>
+                                            <select name="book[0].produto" class="form-control">
+												<option value="0">1010 - Coca Cola 1LT</option>
+												<option value="1">1011 - Coca Cola 1.5LT</option>
+												<option value="2">Cadastrar novo Produto</option>
+											</select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Quantidade</label>
+                                            <input type="text" class="form-control nome-socio"  name="book[0].quantidade" placeholder="0.00" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Valor Unitario</label>
+                                            <input type="text" class="form-control cota-socio"  name="book[0].vlUnitario" placeholder="R$0,00" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Desconto</label>
+                                            <input type="text" class="form-control cota-socio"  name="book[0].desconto" placeholder="R$0,00" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1" style="margin-top:18px">
+                                        <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                                    </div>
+                            </div>
+                                <div class="form-group hide" id="bookTemplate">
+                                    <div class="row socios">
+	                                    <div class="col-sm-5">
+	                                        <div class="form-group">
+	                                            <label for="exampleInputPassword1">Produto</label>
+	                                            <select id="XmodFrete" name="produto" class="form-control">
+													<option value="0">1010 - Coca Cola 1LT</option>
+													<option value="1">1011 - Coca Cola 1.5LT</option>
+													<option value="2">Cadastrar novo Produto</option>
+												</select>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-sm-2">
+	                                        <div class="form-group">
+	                                            <label for="exampleInputPassword1">Quantidade</label>
+	                                            <input type="text" class="form-control nome-socio"  name="quantidade" placeholder="0.00" />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-sm-2">
+	                                        <div class="form-group">
+	                                            <label for="exampleInputPassword1">Valor Unitario</label>
+	                                            <input type="text" class="form-control cota-socio"  name="vlUnitario" placeholder="R$0,00" />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-sm-2">
+	                                        <div class="form-group">
+	                                            <label for="exampleInputPassword1">Desconto</label>
+	                                            <input type="text" class="form-control cota-socio"  name="desconto" placeholder="R$0,00" />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-1" style="margin-top:18px">
+	                                        <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+	                                    </div>
+                                	</div>
+                            	</div>
+                            	</div>
+										</div>
+								
+	                        </div>
+			            </div>
+			            </form>
+			              </div>
+			              <div class="modal-footer">
+			                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			     </script>
+
+			</div>
+
+			<div class="container">
+			     <script type="text/ng-template" id="cfopDelete.html">
+			         <div class="modal fade">
+			          <div class="modal-dialog">
+			            <div class="modal-content">
+			              <div class="modal-header">
+			                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title">Deletar</h4>
+			              </div>
+			              <div class="modal-body">
+			                	<p>Deseja Realmente EXCLUIR ID : 1001 </p>
+			              </div>
+			              <div class="modal-footer">
+			                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+			                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			     </script>
+
+			</div>

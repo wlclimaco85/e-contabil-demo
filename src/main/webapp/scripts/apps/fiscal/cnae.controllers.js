@@ -137,10 +137,6 @@ function CnaeController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
             });
         });
     }
-    function createdRow(row, data, dataIndex) {
-        // Recompiling so we can bind Angular directive to the DT
-        $compile(angular.element(row).contents())($scope);
-    }
     function actionsHtml(data, type, full, meta) {
         vm.persons[data.id] = data;
         return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
