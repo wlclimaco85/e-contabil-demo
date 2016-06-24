@@ -1,60 +1,122 @@
-<div class="panel panel-default">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Contas Pagar</strong></div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Fornecedor</th>
-                    <th>Valor</th>
-                    <th>Data Vencimento</th>
-                    <th>Nota Fiscal</th>
-                    <th>Status</th>
-                    <th>A��es</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>10 - Antonio Jose da Silva</td>
-                    <td>R$ 5.665,99</td>
-                    <td>20/05/2016</td>
-                    <td><a>NF-e 51487</a></td>
-                    <td><span class="label label-danger">Vencido</span></td>
-                    <td><button class="btn btn-warning" ><i class="fa fa-edit"></i></button>&nbsp;<button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>10 - Antonio Jose da Silva</td>
-                    <td>R$ 5.665,99</td>
-                    <td>20/06/2016</td>
-                    <td><a>NF-e 51487</a></td>
-                    <td><span class="label label-info">Aguardando Pagamento</span></td>
-                    <td><button class="btn btn-warning" ><i class="fa fa-edit"></i></button>&nbsp;<button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></td>
-                </tr><tr>
-                    <td>3</td>
-                    <td>10 - Antonio Jose da Silva</td>
-                    <td>R$ 5.665,99</td>
-                    <td>20/07/2016</td>
-                    <td><a>NF-e 51487</a></td>
-                    <td><span class="label label-info">Aguardando Pagamento</span></td>
-                    <td><button class="btn btn-warning" ><i class="fa fa-edit"></i></button>&nbsp;<button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></td>
-                </tr><tr>
-                    <td>4</td>
-                    <td>10 - Antonio Jose da Silva</td>
-                    <td>R$ 5.665,99</td>
-                    <td>20/08/2016</td>
-                    <td><a>NF-e 51487</a></td>
-                    <td><span class="label label-info">Aguardando Pagamento</span></td>
-                    <td><button class="btn btn-warning" ><i class="fa fa-edit"></i></button>&nbsp;<button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></td>
-                </tr><tr>
-                    <td>5</td>
-                    <td>10 - Antonio Jose da Silva</td>
-                    <td>R$ 5.665,99</td>
-                    <td>20/05/2016</td>
-                    <td><a>NF-e 51487</a></td>
-                    <td><span class="label label-danger">Vencido</span></td>
-                    <td><button class="btn btn-warning" ><i class="fa fa-edit"></i></button>&nbsp;<button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div ng-controller="PdComprasController as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+        <tfoot>
+        <tr>
+            <th>ID
+            </th><th>First Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+        </th></tr>
+        </tfoot>
+    </table>
+
+    <div class="container">
+                 <script type="text/ng-template" id="modal.html">
+                     <div class="modal fade">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Cadastro CFOP</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form  id="empresaForm">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-6">
+                                                <label for="exampleInputEmail1">CFOP</label>
+                                                <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="CFOP">
+                                            </div>
+
+                                            <div class="form-group col-sm-6">
+                                                <label for="exampleInputEmail1">Natureza</label>
+                                                <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="form-control">
+                                                    <option value="01">Entrada</option>
+                                                    <option value="02">Saida</option>
+                                                </select>
+                                            </div>
+                                         </div>
+                                         <div class="row col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Descrição</label>
+                                                <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Descrição">
+                                            </div>
+                                         </div>
+                                         <div class="row col-sm-12">
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputEmail1">ICMS</label>
+                                                <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="0.00">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">ICMS Reduzido</label>
+                                                <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Margem Agregada ST</label>
+                                                <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="0.00">
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-12">
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">CST Principal</label>
+                                                <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Classificação Fiscal</label>
+                                                <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+                                            </div>
+                                             <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Classificação Fiscal</label>
+                                                <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+                                            </div>
+                                        </div>
+                                         <div class="row col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Observação</label>
+                                                <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
+                                            </div>
+                                        </div>
+                                        </div>
+                                </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </script>
+
+            </div>
+
+            <div class="container">
+                 <script type="text/ng-template" id="cfopDelete.html">
+                     <div class="modal fade">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Deletar</h4>
+                          </div>
+                          <div class="modal-body">
+                                <p>Deseja Realmente EXCLUIR ID : 1001 </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+                            <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </script>
+
+            </div>
+</div>

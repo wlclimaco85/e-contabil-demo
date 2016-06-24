@@ -66,7 +66,7 @@ var WebDaptiveAppConfig = {
 			'charts/charts', 'charts/flot', 'charts/morris', 'charts/chartjs', 'charts/echarts',
 			'pages/404', 'pages/500', 'pages/blank', 'pages/invoice', 'pages/profile',
 			'pages/signin', 'mail/compose', 'mail/inbox', 'mail/single', 'tasks/tasks','empresa/cadEmpresa',
-			'apps/stocks', 'apps/counties', 'apps/procedures', 'estado/apps/estado', 'produto/tables/produto', 'notafiscal/forms/cadNotaFiscal',
+			'apps/stocks', 'apps/counties', 'apps/procedures', 'estado/apps/estado', 'produto/tables/produto', 'vendas/forms/cadNotaFiscal',
 			'fiscal/forms/CadCfop','fiscal/tables/cfop','fiscal/forms/CadCnae','fiscal/tables/cnae',
 			'vendas/forms/CadOrcamento','vendas/tables/orcamento','vendas/forms/CadOrdemServico','vendas/tables/ordemServico','vendas/tables/pedidoVendas',
 			'compras/forms/CadCotacao','compras/forms/CadNfEntrada','compras/forms/CadPedCompras','compras/forms/CadAprovPedidoCompra',

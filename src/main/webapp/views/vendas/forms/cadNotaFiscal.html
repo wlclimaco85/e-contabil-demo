@@ -1,4 +1,12 @@
-<style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="dist/css/formValidation.css"/>
+    <link rel="stylesheet" href="dist/css/select2.css"/>
+
+    <script src="dist/js/select2.min.js"></script>
+    <script src="dist/js/formValidation.js"></script>
+    <script src="dist/js/framework/bootstrap.js"></script>
+
+    <style type="text/css">
     .wash {
     list-style: none;
     padding: 0;
@@ -11,7 +19,7 @@
     margin: 3px 3px 0px 3px;
     padding: 5px 5px 0px 5px;
     background-color: #CCC;
-    color: #696969;
+    color: ##3767B9;
     }
     #mainView {
     border: 1px solid black;
@@ -21,9 +29,476 @@
     background-color: #FFF;
     color: #000;
     }
+
+
+    
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+
+
+
+    .tabs-nav {padding: 20px 0 0; list-style: none;}
+    .tabs-nav li {display: inline;}
+    .tabs-nav a {
+        display:inline-block;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        padding: 15px;
+        cursor: pointer;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+        color: #fff;
+        background: rgba(20, 144, 64, 0.7);
+    }
+    
+    .tabs-nav .active {
+        background: #fff;
+        color: rgba(20, 144, 64, 0.7);
+        border-bottom: 1px solid #fff;
+        margin-bottom: -1px;
+    }
+
+    .tab-content {
+        border: 1px solid #ddd;
+        padding: 20px;
+    }
+    .tab-content1 {
+        border: 1px solid #ddd;
+        padding: 20px;
+    }
+
+    p {
+        margin-bottom: 15px;
+    }
+
 </style>
+
+<div class="container" ng-app ng-init="tab=1">
+<ul class="tabs-nav">
+  <li><a ng-click="tab=1" ng-class="{'active' : tab==1}">Dados da NF-e</a></li>
+  <li><a ng-click="tab=2" ng-class="{'active' : tab==2}">Emitente</a></li>
+  <li><a ng-click="tab=3" ng-class="{'active' : tab==3}">Aba 2</a></li>
+</ul>
+
+    <div class="tabs-container">
+        <div class="tab-content" ng-show="tab == 1">
+            
+
+
+                <div class="container1" ng-app ng-init="tabs=4">
+
+    
+<ul class="tabs-nav">
+  <li><a ng-click="tabs=4" ng-class="{'active' : tabs==4}">NF-e</a></li>
+  <li><a ng-click="tabs=5" ng-class="{'active' : tabs==5}">Notas e Conhecimentos Fiscais Referenciados</a></li>
+  <li><a ng-click="tabs=6" ng-class="{'active' : tabs==6}">Notas Fiscais Referenciadas de Produtor</a></li>
+  <li><a ng-click="tabs=7" ng-class="{'active' : tabs==7}">Cupons Fiscais Vinculados a NF-e</a></li>
+</ul>
+
+    <div class="tabs-container1">
+        <div class="tab-content1" ng-show="tabs == 4">
+                <div class="row">
+                     <div class="col-sm-1">
+                         <div class="form-group">
+                             <label for="exampleInputPassword1">Modelo</label>
+                             <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 ">
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">Serie</label>
+                             <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                        </div>
+                    </div>
+                     <div class="col-sm-1 ">
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">Numero</label>
+                             <input type="text" class="form-control " ng-model="produto.codigo" name="codigo"  placeholder="Código Interno">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 ">
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">Data e Hora Emissão</label>
+                             <input type="text" class="form-control " ng-model="produto.codigo" name="codigo"  placeholder="Código Interno">
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="margin-top:18px">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="receiver" class="check-socio" value="1" /> Informar Codigo Numerico ?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 ">
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">Cod Numerico</label>
+                             <input type="text" class="form-control " ng-model="produto.codigo" name="codigo"  placeholder="Código Interno">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-sm-4">
+                             <label for="exampleInputPassword1">Tipo do Documento</label>
+                             <div class="row ">
+                              <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                <option value="1">Saída</option>
+                                <option value="2">Entrada</option>n>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 ">
+                        <div class="form-group">
+                             <label for="exampleInputPassword1">Data e hora de saída/entrada</label>
+                             <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 ">
+                             <label for="exampleInputPassword1">Forma Pagamento</label>
+                             <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">À Vista</option>
+                                    <option value="02">1X </option>
+                                    <option value="03">2X </option>
+                                    <option value="04">3X </option>
+                                    <option value="05">4X </option>
+                                    <option value="06">5X </option>
+                                    <option value="07">6X </option>
+                                    <option value="08">7X </option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Forma Emissão</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">Normal</option>
+                                    <option value="02">Contigência FS-IA</option>
+                                    <option value="03">Contigência via EPEC </option>
+                                    <option value="04">Contigência FS-DA </option>
+                                    <option value="05">Contigência SVC-AN </option>
+                                    <option value="06">Contigência SVC-RS </option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Finalidade de Emissão</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">NF-e normal</option>
+                                    <option value="02">NF-e complementar</option>
+                                    <option value="03">NF-e de ajuste</option>
+                                    <option value="04">Devolução de mercadoria</option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Tipo Emissão DANFE</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">Retrato</option>
+                                    <option value="02">Paisagem</option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Consumidor Final</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">Sim</option>
+                                    <option value="02">Não</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Destino da Operação</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">Operação Interna</option>
+                                    <option value="02">Operação Interestadual</option>
+                                    <option value="03">Operação com Exterior</option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Tipo Atendimento</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">Não se aplica</option>
+                                    <option value="02">Operação Presencial</option>
+                                    <option value="01">Operação NÂO Presencial, pela INTERNET</option>
+                                    <option value="02">Operação NÂO Presencial, pela TELEATENDIMENTO</option>
+                                    <option value="01">Operação NÂO Presencial, pela OUTROS</option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 ">
+                            <div class="form-group">
+                                 <label for="exampleInputPassword1">Natureza Operação</label>
+                                 <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">UF</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">MG</option>
+                                    <option value="02">SP</option>
+                                    <option value="03">RJ</option>
+                                    <option value="04">RO</option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                                 <label for="exampleInputPassword1">Municipio de ocorrência</label>
+                                 <div class="row ">
+                                 <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="col-sm-12">
+                                    <option value="01">Uberaba</option>
+                                    <option value="02">Uberlandia</option>
+                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>   
+                            
+        </div>
+
+        <div class="tab-content1" ng-show="tabs == 5">
+            <h3>Segunda aba</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet impedit dolorem quae, quo nobis omnis? Officia quibusdam quaerat assumenda ipsam, et quos laborum quae ex iste numquam laboriosam obcaecati iure.</p>
+        </div>
+
+        <div class="tab-content1" ng-show="tabs == 6">
+            <h3>Terceira aba</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis totam quibusdam maxime quidem id ducimus, esse aliquid in facilis quisquam ut possimus enim voluptatum quas accusamus, necessitatibus provident. Doloremque, nulla.</p>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <div class="tab-content" ng-show="tab == 2">
+            <div class="row">
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">CNPJ/Cod Interno</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-8 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Razão Social</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Nome Fantasia</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-3 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Inscrição Estadual</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-3 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">IE. do Subst. Tributário</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Inscrição Municipal</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">CNAE</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Regime Tributario</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Bairro</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-2 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">CEP</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-2 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">UF</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Municipio</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+                <div class="col-sm-3 ">
+                    <div class="form-group">
+                         <label for="exampleInputPassword1">Complemento</label>
+                         <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" ng-show="tab == 3">
+            <div class="row">
+                            <div class="col-sm-4 ">
+                                <div class="form-group">
+                                     <label for="exampleInputPassword1">Cod Interno</label>
+                                     <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                     <label for="exampleInputPassword1">Razão Social/Nome</label>
+                                     <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 ">
+                                <div class="form-group">
+                                     <label for="exampleInputPassword1">Tipo Contribuinte</label>
+                                     <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="form-control">
+                                                    <option value="1">Contribuinte ICMS</option>
+                                                    <option value="2">Contribuinte ISENTO</option>
+                                                    <option value="9">NÃO Contribuinte</option>
+                                                    <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                                </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 ">
+                                <div class="form-group">
+                                     <label for="exampleInputPassword1">Inscrição Estadual</label>
+                                     <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                                </div>
+                            </div>
+                            <div class="col-sm-3 ">
+                                <div class="form-group">
+                                     <label for="exampleInputPassword1">Inscrição SUFRAMA</label>
+                                     <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                                </div>
+                            </div>
+                            <div class="col-sm-3 ">
+                                <div class="form-group">
+                                     <label for="exampleInputPassword1">Inscrição Municipal</label>
+                                     <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                 <div class="col-sm-5" style="margin-top:18px">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="receiver" class="check-socio" value="1" /> Local de retirada diferente do emitente
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5" style="margin-top:18px">
+                                     <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="form-control">
+                                        <option value="1">Contribuinte ICMS</option>
+                                        <option value="2">Contribuinte ISENTO</option>
+                                        <option value="9">NÃO Contribuinte</option>
+                                        <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                 <div class="col-sm-5" style="margin-top:18px">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="receiver" class="check-socio" value="1" /> Local de entrega diferente do destinatario
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5" style="margin-top:18px">
+                                     <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="form-control">
+                                        <option value="1">Contribuinte ICMS</option>
+                                        <option value="2">Contribuinte ISENTO</option>
+                                        <option value="9">NÃO Contribuinte</option>
+                                        <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
 <div class="container col-sm-12" ng-controller="NotaFiscalController">
-    <form id="installationForm" id="empresaForm" class="form-horizontal">
+    <form id="installationForm" id="cadNotaFiscal" class="form-horizontal">
         <div id="tabs" >
             <ul class="wash">
                 <li ng-repeat="tab in tabs"
@@ -35,7 +510,7 @@
                 <div ng-include="currentTab"></div>
             </div>
         </div>
-        <script type="text/ng-template" id="dadosNFe">
+        <script type="text/ng-template" id="dadosNFe" charset="utf-8">
             <div role="tabpanel" class="tab-pane active home col-sm-11" style="margin-left:1%" id="home">
 
                 <div class="row">
@@ -51,7 +526,11 @@
                         </div>
                     </div>
                     <script type="text/ng-template" id="NFe">
-                        <div role="tabpanel" class="tab-pane active home col-sm-11" style="margin-left:1%" id="home">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Produtos</h3>
+                            </div>
+                            <div class="panel-body">
                             <div class="row col-sm-12">
                                 <div class="row col-sm-12">
                                      <div class="col-sm-1">
@@ -78,15 +557,16 @@
                                              <input type="text" class="form-control " ng-model="produto.codigo" name="codigo"  placeholder="Código Interno">
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 ">
-                                        <div class="form-group">
-                                             <label for="exampleInputPassword1">Informar Codigo Numerico</label>
-                                             <input type="text" class="form-control " ng-model="produto.codigo" name="codigo"  placeholder="Código Interno">
+                                    <div class="col-sm-3" style="margin-top:18px">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="receiver" class="check-socio" value="1" /> Informar Codigo Numerico ?
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 ">
+                                    <div class="col-sm-2 ">
                                         <div class="form-group">
-                                             <label for="exampleInputPassword1">Codigo Numerico</label>
+                                             <label for="exampleInputPassword1">Cod Numerico</label>
                                              <input type="text" class="form-control " ng-model="produto.codigo" name="codigo"  placeholder="Código Interno">
                                         </div>
                                     </div>
@@ -230,6 +710,8 @@
                                     </div>
                             </div>
                         </div>
+                        </div>
+                        </div>
                     </script>
                     <script type="text/ng-template" id="conhecimentos">
                         <div role="tabpanel" class="tab-pane active home col-sm-11" style="margin-left:1%" id="home">
@@ -259,45 +741,41 @@
         <script type="text/ng-template" id="emitente">
             <div role="tabpanel" class="tab-pane profile" id="profile">
                 <div class="row col-sm-12">
-                        <div class="row col-sm-12">
+                        <div class="row">
                             <div class="col-sm-4 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">CNPJ/Cod Interno</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-10 ">
+                            <div class="col-sm-8 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Razão Social</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
                         </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-10 ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Nome Fantasia</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-3 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Inscrição Estadual</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-3 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Inscrição Estadual do Subst. Tributário</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
                         </div>
-                        <div class="row col-sm-12">
+                        <div class="row">
                             <div class="col-sm-4 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Inscrição Municipal</label>
@@ -312,8 +790,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                        <div class="row col-sm-12">
                             <div class="col-sm-4 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Regime Tributario</label>
@@ -337,51 +813,36 @@
 
                         </div>
                     </div>
-                    <div class="row col-sm-12">
-                        <div class="col-sm-8 ">
-                            <div class="form-group">
-                                 <label for="exampleInputPassword1">Complemento</label>
-                                 <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
-                            </div>
-
-                        </div>
-                        <div class="col-sm-4 ">
+                    <div class="row">
+                        <div class="col-sm-3 ">
                             <div class="form-group">
                                  <label for="exampleInputPassword1">Bairro</label>
                                  <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                             </div>
-
                         </div>
-
-                        <div class="col-sm-4 ">
+                        <div class="col-sm-2 ">
                             <div class="form-group">
                                  <label for="exampleInputPassword1">CEP</label>
                                  <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                             </div>
-
                         </div>
-                    </div>
-                    <div class="row col-sm-12">
-                        <div class="col-sm-4 ">
-                            <div class="form-group">
-                                 <label for="exampleInputPassword1">Pais</label>
-                                 <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
-                            </div>
-
-                        </div>
-                        <div class="col-sm-4 ">
+                        <div class="col-sm-2 ">
                             <div class="form-group">
                                  <label for="exampleInputPassword1">UF</label>
                                  <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                             </div>
-
                         </div>
-                        <div class="col-sm-4 ">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                  <label for="exampleInputPassword1">Municipio</label>
                                  <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                             </div>
-
+                        </div>
+                        <div class="col-sm-3 ">
+                            <div class="form-group">
+                                 <label for="exampleInputPassword1">Complemento</label>
+                                 <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -390,24 +851,22 @@
         <script type="text/ng-template" id="destinatario">
             <div role="tabpanel" class="tab-pane messages" id="messages">
                <div class="row col-sm-12">
-                        <div class="row col-sm-12">
+                        <div class="row">
                             <div class="col-sm-4 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Cod Interno</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-10 ">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Razão Social/Nome</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
                         </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-4 ">
+                        <div class="row">
+                            <div class="col-sm-3 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Tipo Contribuinte</label>
                                      <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="form-control">
@@ -418,27 +877,64 @@
                                                 </select>
                                 </div>
                             </div>
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-3 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Inscrição Estadual</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-3 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Inscrição SUFRAMA</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-3 ">
                                 <div class="form-group">
                                      <label for="exampleInputPassword1">Inscrição Municipal</label>
                                      <input type="text" class="form-control " ng-model="produto.nome" name="produto"  placeholder="Nome do Produto">
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group">
+                                 <div class="col-sm-5" style="margin-top:18px">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="receiver" class="check-socio" value="1" /> Local de retirada diferente do emitente
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5" style="margin-top:18px">
+                                     <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="form-control">
+                                        <option value="1">Contribuinte ICMS</option>
+                                        <option value="2">Contribuinte ISENTO</option>
+                                        <option value="9">NÃO Contribuinte</option>
+                                        <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                 <div class="col-sm-5" style="margin-top:18px">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="receiver" class="check-socio" value="1" /> Local de entrega diferente do destinatario
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5" style="margin-top:18px">
+                                     <select id="unidTributada" name="unidTributada"  ng-model="produto.unidTributada" class="form-control">
+                                        <option value="1">Contribuinte ICMS</option>
+                                        <option value="2">Contribuinte ISENTO</option>
+                                        <option value="9">NÃO Contribuinte</option>
+                                        <option style="background-color : #F1F4F9"><a>Adicionar Novo </a><i class="glyphicon glyphicon-plus"></i></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-4 ">
                                 <div class="form-group">
@@ -686,3 +1182,80 @@
         </script>
     </form>
 </div>
+<script>
+$(document).ready(function() {
+
+    $('#cadNotaFiscal').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+
+            'book[0].cpf': notEmptyStringMinMaxRegexp,
+            'book[0].nome': notEmptyStringMinMax,
+            'book[0].cota': integerNotEmptyValidation,
+             nome: notEmptyStringMinMax,
+             nunFunc: integerNotEmptyValidation,
+            razao:notEmptyStringMinMax,
+            logradouro:notEmptyStringMinMax,
+            cpf: notEmptyStringMinMaxRegexp,
+            cep: notEmptyStringMinMax,
+            cnpj: notEmptyStringMinMax,
+            email: emailValidation,
+            telefone: telefoneValidation,
+            phone: telefoneValidation,
+            cep: cepNotEmptyValidation,
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and can\'t be empty'
+                    }
+                }
+            },
+            confirmPassword: {
+                validators: {
+                    notEmpty: {
+                        message: 'The confirm password is required and can\'t be empty'
+                    },
+                    identical: {
+                        field: 'password',
+                        message: 'The password and its confirm are not the same'
+                    }
+                }
+            }
+
+        }
+    })
+        // Add button click handler
+    .on('click', '.addButton', function() {
+        bookIndex++;
+        var $template = $('#bookTemplate'),
+            $clone    = $template
+                            .clone()
+                            .removeClass('hide')
+                            .removeAttr('id')
+                            .attr('data-book-index', bookIndex)
+                            .insertBefore($template);
+
+        // Update the name attributes
+        $clone
+            .find('[name="cpf-socio"]').attr('name', 'book[' + bookIndex + '].cpf').end()
+            .find('[name="nome-socio"]').attr('name', 'book[' + bookIndex + '].nome').end()
+            .find('[name="cota-socio"]').attr('name', 'book[' + bookIndex + '].cota').end();
+
+        // Add new fields
+        // Note that we also pass the validator rules for new field as the third parameter
+        $('#cadNotaFiscal')
+            .formValidation('addField', 'book[' + bookIndex + '].cpf',notEmptyStringMinMaxRegexp)
+            .formValidation('addField', 'book[' + bookIndex + '].nome',notEmptyStringMinMaxRegexp)
+            .formValidation('addField', 'book[' + bookIndex + '].cota',integerNotEmptyValidation);
+    });
+    $("select").select2({
+      placeholder: "Select a state",
+      allowClear: true
+    });
+});
+</script>
