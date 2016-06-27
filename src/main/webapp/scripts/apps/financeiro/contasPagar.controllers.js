@@ -1,8 +1,8 @@
 (function() {
-angular.module('wdApp.apps.pdVendas', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('PdVendasController', PdVendasController);
+angular.module('wdApp.apps.contasPagar', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
+.controller('ContasPagarController', ContasPagarController);
 
-function PdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -17,7 +17,7 @@ function PdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('pedidoVendas.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('contasPagar.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -183,17 +183,30 @@ function PdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 vm.selected[full.id] = false;
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }),
-        DTColumnBuilder.newColumn('id').withTitle('ID'),     
-        DTColumnBuilder.newColumn('cliente').withTitle('cliente'),
-        DTColumnBuilder.newColumn('data').withTitle('data'),
-         DTColumnBuilder.newColumn(null).withTitle('qntProd').notSortable()
+        DTColumnBuilder.newColumn('id').withTitle('ID'), 
+        DTColumnBuilder.newColumn('nunDoc').withTitle('nunDoc'),
+        DTColumnBuilder.newColumn('parcela').withTitle('Parcela'),    
+        DTColumnBuilder.newColumn('fornecedor').withTitle('Fornecedor'),
+        DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
+        DTColumnBuilder.newColumn('tipoDoc').withTitle('Tipo Documento'),
+        DTColumnBuilder.newColumn('dataLanc').withTitle('Data Lançamento'),
+        DTColumnBuilder.newColumn('dataVenc').withTitle('Data Vencimento'),
+        DTColumnBuilder.newColumn('valorCob').withTitle('valorCob'),
+         DTColumnBuilder.newColumn(null).withTitle('Pagementos').notSortable()
             .renderWith(function(data, type, full, meta) {
-                return '<a> '+ data.qntProd +'</a>';
+            	var sReturn = ""
+            	if(data.pagamento.length > 0){
+            		for(var x = 0;x<data.pagamento.length;x++)
+            		{
+            			sReturn = sReturn + "<a> R$"+data.pagamento[x].valorPago +" "+ data.pagamento[x].dataPag +"  </a><br>";
+            		}
+            	}
+            	return sReturn;
+                
             }),
-       // DTColumnBuilder.newColumn('qntProd').withTitle('qntProd'),
-        DTColumnBuilder.newColumn('valorPedido').withTitle('valorPedido'),
-        DTColumnBuilder.newColumn('valorItens').withTitle('valorItens'),
-        DTColumnBuilder.newColumn('observacao').withTitle('observacao'),
+
+        DTColumnBuilder.newColumn('contaOrigem').withTitle('contaOrigem'),
+        DTColumnBuilder.newColumn('obs').withTitle('observacao'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn('status').withTitle('status'),
