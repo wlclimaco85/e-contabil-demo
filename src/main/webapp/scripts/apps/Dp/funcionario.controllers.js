@@ -1,8 +1,8 @@
 (function() {
-angular.module('wdApp.apps.deposito', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('DepositoController', depositoController);
+angular.module('wdApp.apps.funcionario', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
+.controller('FuncionarioController', funcionarioController);
 
-function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function funcionarioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -104,7 +104,7 @@ function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'agencia.html',
+                        templateUrl: 'formaPag.html',
                         controller: "ContasPagarController"
                     }).then(function(modal) {
 
@@ -126,15 +126,26 @@ function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
-        DTColumnBuilder.newColumn('banco').withTitle('Banco'),
-        DTColumnBuilder.newColumn('numAgencia').withTitle('Nº Agencia'),
-        DTColumnBuilder.newColumn('cep').withTitle('Cep'),    
-        DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro'),
-        DTColumnBuilder.newColumn('numero').withTitle('Numero'),
-        DTColumnBuilder.newColumn('cidade').withTitle('Cidade'),
+        DTColumnBuilder.newColumn('nome').withTitle('Nome'),
+        DTColumnBuilder.newColumn('rg').withTitle('RG'),    
+        DTColumnBuilder.newColumn('cpf').withTitle('CPF'),
+        DTColumnBuilder.newColumn('nunCartTrab').withTitle('Nº Cart. Trab.'),
+        DTColumnBuilder.newColumn('dtNasc').withTitle('Data Nasc.'),
+        DTColumnBuilder.newColumn('cargHor').withTitle('Carga Hor. Semanal').notVisible(),
+        DTColumnBuilder.newColumn('horarios').withTitle('Horarios'),
+        DTColumnBuilder.newColumn('cargo').withTitle('Cargo').notVisible(),
+        DTColumnBuilder.newColumn('salario').withTitle('Salario').notVisible(),
+        DTColumnBuilder.newColumn('dtAdmissao').withTitle('Data Admissão').notVisible(),
+        DTColumnBuilder.newColumn('dtDemissao').withTitle('Data Demissão').notVisible(),
+        DTColumnBuilder.newColumn('sexo').withTitle('Sexo').notVisible(),
+        DTColumnBuilder.newColumn('estCivil').withTitle('Estado Civil').notVisible(),
+        DTColumnBuilder.newColumn('qntFilhos').withTitle('Nº de Filhos').notVisible(),
+        DTColumnBuilder.newColumn('cep').withTitle('Cep').notVisible(),    
+        DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro').notVisible(),
+        DTColumnBuilder.newColumn('numero').withTitle('Numero').notVisible(),
+        DTColumnBuilder.newColumn('cidade').withTitle('Cidade').notVisible(),
         DTColumnBuilder.newColumn('estado').withTitle('Estado').notVisible(),
-        DTColumnBuilder.newColumn('pais').withTitle('Pais').notVisible(),
-        DTColumnBuilder.newColumn('telefone').withTitle('Telefone'),
+        DTColumnBuilder.newColumn('telefone').withTitle('Telefone').notVisible(),
         DTColumnBuilder.newColumn('email').withTitle('Email').notVisible(),
         DTColumnBuilder.newColumn('obs').withTitle('Observações').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
@@ -146,7 +157,7 @@ function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'agencia.html',
+            templateUrl: 'formaPag.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             

@@ -16,74 +16,35 @@
     </table>
 
     <div class="container">
-           <script type="text/ng-template" id="modal.html">
+           <script type="text/ng-template" id="banco.html">
                <div class="modal fade">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title">Cadastro CFOP</h4>
+                      <h4 class="modal-title">Cadastro Banco</h4>
                     </div>
                     <div class="modal-body">
                       <form  id="empresaForm">
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                      <div class="row">
-                                          <div class="form-group col-sm-6">
-                                              <label for="exampleInputEmail1">CFOP</label>
-                                              <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="CFOP">
-                                          </div>
+                          <div class="row">
+                              <div class="row">
+                                  <div class="form-group col-sm-6">
+                                      <label for="exampleInputEmail1">Nome</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome">
+                                  </div>
 
-                                          <div class="form-group col-sm-6">
-                                              <label for="exampleInputEmail1">Natureza</label>
-                                              <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="form-control">
-                                    <option value="01">Entrada</option>
-                                    <option value="02">Saida</option>
-                                </select>
-                                          </div>
-                                       </div>
-                                       <div class="row col-sm-12">
-                                          <div class="form-group">
-                                              <label for="exampleInputEmail1">Descrição</label>
-                                              <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Descrição">
-                                          </div>
-                                       </div>
-                                       <div class="row col-sm-12">
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputEmail1">ICMS</label>
-                                              <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="0.00">
-                                          </div>
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">ICMS Reduzido</label>
-                                              <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
-                                          </div>
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">Margem Agregada ST</label>
-                                              <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="0.00">
-                                          </div>
-                                      </div>
-                                      <div class="row col-sm-12">
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">CST Principal</label>
-                                              <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
-                                          </div>
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">Classificação Fiscal</label>
-                                              <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
-                                          </div>
-                                           <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">Classificação Fiscal</label>
-                                              <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
-                                          </div>
-                                      </div>
-                                       <div class="row col-sm-12">
-                                          <div class="form-group">
-                                              <label for="exampleInputPassword1">Observação</label>
-                                              <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
-                                          </div>
-                                      </div>
-                                      </div>
-                        </div>
+                                  <div class="form-group col-sm-6">
+                                      <label for="exampleInputEmail1">Site</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Site">
+                                  </div>
+                               </div>
+                               <div class="row col-sm-12">
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Descrição</label>
+                                      <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Descrição">
+                                  </div>
+                               </div>
+                          </div>
                       </form>
                     </div>
                     <div class="modal-footer">

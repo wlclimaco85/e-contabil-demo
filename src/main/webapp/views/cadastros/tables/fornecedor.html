@@ -1,105 +1,186 @@
+<div ng-controller="FuncionarioController as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+      <tfoot>
+        <tr>
+            <th>ID
+            </th><th>First Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+            </th><th>Last Name
+        </th></tr>
+        </tfoot>
+    </table>
 
-<div ng-controller="OrcamentoController as showCase">
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
-</div>
+    <div class="container">
+           <script type="text/ng-template" id="fornecedor.html">
+               <div class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Cadastro Cliente</h4>
+                    </div>
+                    <div class="modal-body">
+                      <form  id="empresaForm">
+                          <div class="row">
+                              <div class="row">
+                                  <div class="col-sm-3" style="margin-top:18px">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="receiver" class="check-socio" value="1" /> Cliente
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:18px">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="receiver" class="check-socio" value="1" /> Fornecedor
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:18px">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="receiver" class="check-socio" value="1" /> Transportador
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:18px">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="receiver" class="check-socio" value="1" /> Consumidor final
+                                            </label>
+                                        </div>
+                                    </div>
+                              </div>
+                              <div class="row">
+                                  <div class="form-group col-sm-6">
+                                      <label for="exampleInputEmail1">Nome ou Razão social</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome ou Razão social">
+                                  </div>
 
-<div class="container"  ng-controller="RowSelectCtrl">
+                                  <div class="form-group col-sm-6">
+                                      <label for="exampleInputEmail1">Nome Fantasia</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome Fantasia">
+                                  </div>
+                               </div>
+                               <div class="row">
+                                  <div class="form-group col-sm-2">
+                                      <label for="exampleInputEmail1">CPF ou CNPJ</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nº Cart. Trab">
+                                  </div>
 
-    <h3>Angular Modal Service</h3>
-     <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
-     <p>{{message}}</p>
+                                  <div class="form-group col-sm-2">
+                                      <label for="exampleInputEmail1">Inscr Est Subst Trib</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="DD/MM/AAAA">
+                                  </div>
+                                  <div class="form-group col-sm-2">
+                                      <label for="exampleInputEmail1">Indicador de IE</label>
+                                      <div class="row">
+                                          <select id="contatos_indIE" class="col-sm-12" name="contatos_indIE" autocomplete="off">
+                                                <option value="0"></option>
+                                                <option value="1">Contribuinte ICMS</option>
+                                                <option value="2">Isento de cadastro</option>
+                                                <option value="9">Não contribuinte</option>
+                                           </select>
+                                        </div>
+                                  </div>
+                                  <div class="form-group col-sm-2">
+                                      <label for="exampleInputEmail1">Inscrição Estadual</label>
+                                      <div class="row">
+                                            <input type="text" class="form-control col-sm-3" ng-model="cfop.descricao" name="descricao" placeholder="Entrada">
+                                      </div>
+                                  </div>
+                                  <div class="form-group col-sm-2">
+                                      <label for="exampleInputEmail1">Inscrição Municipal</label>
+                                      <div class="row">
+                                            <input type="text" class="form-control col-sm-3" ng-model="cfop.descricao" name="descricao" placeholder="Entrada">
+                                      </div>
+                                  </div>
+                                  <div class="form-group col-sm-2">
+                                      <label for="exampleInputEmail1">Inscrição Suframa</label>
+                                      <div class="row">
+                                            <input type="text" class="form-control col-sm-3" ng-model="cfop.descricao" name="descricao" placeholder="Entrada">
+                                      </div>
+                                  </div>
+                               </div>
+                               <div class="row">
+                                  <div class="form-group col-sm-3">
+                                      <label for="exampleInputEmail1">Nome do responsável</label>
+                                      <input type="text" class="form-control col-sm-3" ng-model="cfop.descricao" name="descricao" placeholder="Entrada">
+                                  </div>
 
-
-     <script type="text/ng-template" id="modal.html">
-         <div class="modal fade">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Cadastro Cliente</h4>
-              </div>
-              <div class="modal-body">
-                <form  id="empresaForm">
-                        <div class="row">
-                            <div class="col-md-12">
-                            <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label for="exampleInputEmail1">Nome ou Razão social</label>
-                                    <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome ou Razão social">
-                                </div>
-
-                                <div class="form-group col-sm-6">
-                                    <label for="exampleInputEmail1">Nome Fantasia</label>
-                                    <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome Fantasia">
-                                </div>
-                             </div>
-                             <div class="row col-sm-12">
-                                <div class="form-group col-sm-4">
-                                    <label for="exampleInputEmail1">CPF ou CNPJ</label>
-                                    <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="CPF ou CNPJ">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="exampleInputEmail1">Inscr Est Subst Trib</label>
-                                    <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Inscr Est Subst Trib">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="exampleInputEmail1">Indicador de IE</label>
-                                    <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Indicador de IE">
-                                </div>
-                             </div>
-                             <div class="row col-sm-12">
-                                <div class="form-group col-sm-4">
-                                    <label for="exampleInputEmail1">Inscrição Estadual</label>
-                                    <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="Inscrição Estadual">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="exampleInputPassword1">Inscrição Municipal</label>
-                                    <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="Inscrição Municipal">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="exampleInputPassword1">Inscrição Suframa</label>
-                                    <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="Inscrição Suframa">
-                                </div>
-                            </div>
-                            <div class="row col-sm-12">
-                                <div class="form-group col-sm-3">
+                                  <div class="form-group col-sm-3">
+                                      <label for="exampleInputEmail1">Data nascimento</label>
+                                      <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Jornada Trabalho">
+                                  </div>
+                               </div>
+                               
+                                <div class="row">
+                                    <div class="col-sm-6">
                                     <label for="exampleInputPassword1">CEP</label>
-                                    <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="CEP">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="exampleInputPassword1">Endereço</label>
-                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Endereço">
-                                </div>
-                                 <div class="form-group col-sm-3">
-                                    <label for="exampleInputPassword1">Número</label>
-                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Número">
-                                </div>
-                            </div>
+                                        <div class="input-group">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="cep" ng-model="empresa.enderecos[0].cep">
+                                            </div>
+                                            <span class="input-group-btn">
 
-                            <div class="row col-sm-12">
-                                <div class="form-group col-sm-3">
-                                    <label for="exampleInputPassword1">Complemento</label>
-                                    <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="Complemento">
+                                                <button class="btn btn-default" type="button" ng-click="cc.buscaRCep('38082243')"><i class="glyphicon glyphicon-search"> </i></button>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="exampleInputPassword1">Bairro</label>
-                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Bairro">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Logradouro</label>
+                                            <input type="text" class="form-control col-sm-8" name="logradouro" ng-model="empresa.enderecos[0].logradouro" placeholder="Logradouro">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Numero</label>
+                                            <input type="text" class="form-control col-sm-4" name="numero" ng-model="empresa.enderecos[0].numero" placeholder="Numero">
+                                        </div>
+                                    </div>
                                 </div>
-                                 <div class="form-group col-sm-3">
-                                    <label for="exampleInputPassword1">Cidade</label>
-                                    <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="Cidade">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="exampleInputPassword1">Complemento</label>
+                                        <input type="text" class="form-control col-sm-8" name="complemento" ng-model="empresa.enderecos[0].complemento" placeholder="Complemento">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="exampleInputPassword1">Bairro</label>
+                                        <input type="text" class="form-control col-sm-4" ng-model="empresa.enderecos[0].bairro" placeholder="Bairro">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="exampleInputPassword1">Estado</label>
+                                        <input type="text" class="form-control col-sm-8" ng-model="empresa.enderecos[0].estado.abreviacao" placeholder="Estado">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="exampleInputPassword1">Municipio</label>
+                                        <input type="text" class="form-control col-sm-4" ng-model="empresa.enderecos[0].cidade.nome" placeholder="Municipio">
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label for="exampleInputPassword1">Codigo IBGE</label>
+                                        <input type="text" class="form-control col-sm-4" ng-model="empresa.enderecos[0].codIbge" placeholder="Codigo IBGE">
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- -------------------  TELEFONE ----------------- -->
+                                <!-- -------------------  TELEFONE ----------------- -->
                                 <div class="row">
 
                                     <div class="col-sm-4" style="margin-top:25px">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Adicionar <span class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu">
-                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_home">Compras</a></li>
-                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_office">Vendas</a></li>
-                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_office">SAC</a></li>
+                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_home">Residencial</a></li>
+                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_office">Celular TIM</a></li>
+                                                <li><a href="javascript:;" class="addPhoneButton" data-name="phone_office">Celular OI</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -133,10 +214,8 @@
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Adicionar <span class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li><a href="javascript:;" class="addEmailButton" data-name="email_princ">Principal</a></li>
-                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_home">Compras</a></li>
-                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_office">Vendas</a></li>
-                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_nfe">NFE</a></li>
-                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_sac">SAC</a></li>
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_home">Outro</a></li>
+                                                <li><a href="javascript:;" class="addEmailButton" data-name="email_office">Trabalho</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -154,28 +233,40 @@
                                 </div>
 
                                 <!-- ------------------------------------- --><!-- ------------------------------------- -->
-                             <div class="row col-sm-12">
-                                <div class="form-group col-sm-3">
-                                    <label for="exampleInputPassword1">Data nascimento</label>
-                                    <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="DD/MM/AAAA">
-                                </div>
-                                <div class="form-group col-sm-9">
-                                    <label for="exampleInputPassword1">Observação</label>
-                                    <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
-                                </div>
-                            </div>
-                            </div>
-              		</div>
-              	</form>
+                          </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-     </script>
+           </script>
 
+      </div>
+
+      <div class="container">
+           <script type="text/ng-template" id="cfopDelete.html">
+               <div class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Deletar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Deseja Realmente EXCLUIR ID : 1001 </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+                      <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           </script>
+
+      </div>
 </div>
-

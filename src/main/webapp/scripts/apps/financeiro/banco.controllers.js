@@ -1,8 +1,8 @@
 (function() {
-angular.module('wdApp.apps.deposito', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('DepositoController', depositoController);
+angular.module('wdApp.apps.banco', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
+.controller('BancoController', bancoController);
 
-function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function bancoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -104,7 +104,7 @@ function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'agencia.html',
+                        templateUrl: 'banco.html',
                         controller: "ContasPagarController"
                     }).then(function(modal) {
 
@@ -126,16 +126,8 @@ function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
-        DTColumnBuilder.newColumn('banco').withTitle('Banco'),
-        DTColumnBuilder.newColumn('numAgencia').withTitle('Nº Agencia'),
-        DTColumnBuilder.newColumn('cep').withTitle('Cep'),    
-        DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro'),
-        DTColumnBuilder.newColumn('numero').withTitle('Numero'),
-        DTColumnBuilder.newColumn('cidade').withTitle('Cidade'),
-        DTColumnBuilder.newColumn('estado').withTitle('Estado').notVisible(),
-        DTColumnBuilder.newColumn('pais').withTitle('Pais').notVisible(),
-        DTColumnBuilder.newColumn('telefone').withTitle('Telefone'),
-        DTColumnBuilder.newColumn('email').withTitle('Email').notVisible(),
+        DTColumnBuilder.newColumn('nome').withTitle('Nome'),
+        DTColumnBuilder.newColumn('site').withTitle('site'),    
         DTColumnBuilder.newColumn('obs').withTitle('Observações').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
@@ -146,7 +138,7 @@ function depositoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'agencia.html',
+            templateUrl: 'banco.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             

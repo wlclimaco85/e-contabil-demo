@@ -1,8 +1,8 @@
 (function() {
-angular.module('wdApp.apps.condPag', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('CondPagController', condPagController);
+angular.module('wdApp.apps.agencia', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
+.controller('AgenciaController', agenciaController);
 
-function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function agenciaController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -18,7 +18,7 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('contasPagar.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('FormaPag.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -100,11 +100,11 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Contas Pagar',
+                text: 'Novo Forma Pagamento',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'contasPagar.html',
+                        templateUrl: 'agencia.html',
                         controller: "ContasPagarController"
                     }).then(function(modal) {
 
@@ -118,6 +118,7 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 }
             }
         ]);
+
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
             .renderWith(function(data, type, full, meta) {
@@ -125,36 +126,19 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
-        DTColumnBuilder.newColumn('nunDoc').withTitle('nunDoc'),
-        DTColumnBuilder.newColumn('parcela').withTitle('Parcela').notVisible(),    
-        DTColumnBuilder.newColumn('fornecedor').withTitle('Fornecedor'),
-        DTColumnBuilder.newColumn('descricao').withTitle('Descrição').notVisible(),
-        DTColumnBuilder.newColumn('tipoDoc').withTitle('Tipo Documento').notVisible(),
-        DTColumnBuilder.newColumn('dataLanc').withTitle('Data Lançamento').notVisible(),
-        DTColumnBuilder.newColumn('dataVenc').withTitle('Data Vencimento'),
-        DTColumnBuilder.newColumn('valorCob').withTitle('valorCob'),
-         DTColumnBuilder.newColumn(null).withTitle('Pagamentos')
-            .renderWith(function(data, type, full, meta) {
-            	var sReturn = "";
-                if(data.pagamento != undefined)
-                {
-                    if(data.pagamento.length > 0){
-                        for(var x = 0;x<data.pagamento.length;x++)
-                        {
-                            sReturn = sReturn + "<a> R$"+data.pagamento[x].valorPago +" "+ data.pagamento[x].dataPag +"  </a><br>";
-                        }
-                    }     
-                }
-            	
-            	return sReturn;
-                
-            }).withOption('width', '130px'), 
-
-        DTColumnBuilder.newColumn('contaOrigem').withTitle('contaOrigem').notVisible(),
-        DTColumnBuilder.newColumn('obs').withTitle('observacao').notVisible(),
+        DTColumnBuilder.newColumn('banco').withTitle('Banco'),
+        DTColumnBuilder.newColumn('numAgencia').withTitle('Nº Agencia'),
+        DTColumnBuilder.newColumn('cep').withTitle('Cep'),    
+        DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro'),
+        DTColumnBuilder.newColumn('numero').withTitle('Numero'),
+        DTColumnBuilder.newColumn('cidade').withTitle('Cidade'),
+        DTColumnBuilder.newColumn('estado').withTitle('Estado').notVisible(),
+        DTColumnBuilder.newColumn('pais').withTitle('Pais').notVisible(),
+        DTColumnBuilder.newColumn('telefone').withTitle('Telefone'),
+        DTColumnBuilder.newColumn('email').withTitle('Email').notVisible(),
+        DTColumnBuilder.newColumn('obs').withTitle('Observações').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
-        DTColumnBuilder.newColumn('status').withTitle('status'),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '140px'), 
     ];
 
@@ -162,7 +146,7 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'contasPagar.html',
+            templateUrl: 'agencia.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             
@@ -175,25 +159,10 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
     }
     function deleteRow(person) {
         ModalService.showModal({
-            templateUrl: 'contasPagar.html',
+            templateUrl: 'formaPgDelete.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             modal.element.modal();
-            modal.close.then(function(result) {
-                $scope.message = "You said " + result;
-            });
-        });
-    }
-    function baixar(person) {
-        ModalService.showModal({
-            templateUrl: 'baixar.html',
-            controller: "ContasPagarController"
-        }).then(function(modal) {
-            modal.element.modal();
-            $("select").select2({
-              placeholder: "Select a state",
-              allowClear: true
-            });
             modal.close.then(function(result) {
                 $scope.message = "You said " + result;
             });
@@ -271,10 +240,7 @@ function condPagController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
     }
     function actionsHtml(data, type, full, meta) {
         vm.persons[data.id] = data;
-        return '<button class="btn btn-info" ng-click="showCase.baixar(showCase.persons[' + data.id + '])">' +
-            '   <i class="glyphicon glyphicon-floppy-save"></i>' +
-            '</button>&nbsp;' +
-            '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
+        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
             '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +

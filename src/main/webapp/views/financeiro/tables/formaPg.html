@@ -1,88 +1,401 @@
-<div ng-controller="PdComprasController as showCase">
+<div ng-controller="FormaPagController as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
       <tfoot>
         <tr>
-            <th>ID
-            </th><th>First Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
+            <th>Id
+            </th><th>Nome
+            </th><th>Parcelamento máx.
+            </th><th>Parcelas sem juros
+            </th><th>Juros
+            </th><th>Taxa fixa
+            </th><th>Desconto a vista
+            </th><th>Tipo de documento
+            </th><th>Observacao
         </th></tr>
         </tfoot>
     </table>
-
     <div class="container">
-           <script type="text/ng-template" id="modal.html">
+           <script type="text/ng-template" id="formaPag.html">
                <div class="modal fade">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title">Cadastro CFOP</h4>
+                      <h4 class="modal-title">Cadastro Forma Pagamento</h4>
                     </div>
                     <div class="modal-body">
                       <form  id="empresaForm">
                                   <div class="row">
                                       <div class="col-md-12">
                                       <div class="row">
-                                          <div class="form-group col-sm-6">
-                                              <label for="exampleInputEmail1">CFOP</label>
-                                              <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="CFOP">
+                                          <div class="form-group col-sm-4">
+                                              <label for="exampleInputEmail1">Nome</label>
+                                              <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Nome">
                                           </div>
 
-                                          <div class="form-group col-sm-6">
-                                              <label for="exampleInputEmail1">Natureza</label>
-                                              <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="form-control">
-                                    <option value="01">Entrada</option>
-                                    <option value="02">Saida</option>
-                                </select>
-                                          </div>
-                                       </div>
-                                       <div class="row col-sm-12">
-                                          <div class="form-group">
-                                              <label for="exampleInputEmail1">Descrição</label>
-                                              <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Descrição">
-                                          </div>
-                                       </div>
-                                       <div class="row col-sm-12">
                                           <div class="form-group col-sm-4">
-                                              <label for="exampleInputEmail1">ICMS</label>
+                                              <label for="exampleInputEmail1">Parcelamento máx.</label>
+                                              <div class="row">
+                                                  <select id="formasPgto_parcMaximo" class="col-sm-12" name="formasPgto_parcMaximo">
+                                                      <option value="0">Somente a vista</option>
+                                                      <option value="1">1 vez</option>
+                                                      <option value="2">2 vezes</option>
+                                                      <option value="3">3 vezes</option>
+                                                      <option value="4">4 vezes</option>
+                                                      <option value="5">5 vezes</option>
+                                                      <option value="6">6 vezes</option>
+                                                      <option value="7">7 vezes</option>
+                                                      <option value="8">8 vezes</option>
+                                                      <option value="9">9 vezes</option>
+                                                      <option value="10">10 vezes</option>
+                                                      <option value="11">11 vezes</option>
+                                                      <option value="12">12 vezes</option>
+                                                      <option value="13">13 vezes</option>
+                                                      <option value="14">14 vezes</option>
+                                                      <option value="15">15 vezes</option>
+                                                      <option value="16">16 vezes</option>
+                                                      <option value="17">17 vezes</option>
+                                                      <option value="18">18 vezes</option>
+                                                      <option value="19">19 vezes</option>
+                                                      <option value="20">20 vezes</option>
+                                                      <option value="21">21 vezes</option>
+                                                      <option value="22">22 vezes</option>
+                                                      <option value="23">23 vezes</option>
+                                                      <option value="24">24 vezes</option>
+                                                      <option value="25">25 vezes</option>
+                                                      <option value="26">26 vezes</option>
+                                                      <option value="27">27 vezes</option>
+                                                      <option value="28">28 vezes</option>
+                                                      <option value="29">29 vezes</option>
+                                                      <option value="30">30 vezes</option>
+                                                      <option value="31">31 vezes</option>
+                                                      <option value="32">32 vezes</option>
+                                                      <option value="33">33 vezes</option>
+                                                      <option value="34">34 vezes</option>
+                                                      <option value="35">35 vezes</option>
+                                                      <option value="36">36 vezes</option>
+                                                      <option value="37">37 vezes</option>
+                                                      <option value="38">38 vezes</option>
+                                                      <option value="39">39 vezes</option>
+                                                      <option value="40">40 vezes</option>
+                                                      <option value="41">41 vezes</option>
+                                                      <option value="42">42 vezes</option>
+                                                      <option value="43">43 vezes</option>
+                                                      <option value="44">44 vezes</option>
+                                                      <option value="45">45 vezes</option>
+                                                      <option value="46">46 vezes</option>
+                                                      <option value="47">47 vezes</option>
+                                                      <option value="48">48 vezes</option>
+                                                      <option value="49">49 vezes</option>
+                                                      <option value="50">50 vezes</option>
+                                                      <option value="51">51 vezes</option>
+                                                      <option value="52">52 vezes</option>
+                                                      <option value="53">53 vezes</option>
+                                                      <option value="54">54 vezes</option>
+                                                      <option value="55">55 vezes</option>
+                                                      <option value="56">56 vezes</option>
+                                                      <option value="57">57 vezes</option>
+                                                      <option value="58">58 vezes</option>
+                                                      <option value="59">59 vezes</option>
+                                                      <option value="60">60 vezes</option>
+                                                      <option value="61">61 vezes</option>
+                                                      <option value="62">62 vezes</option>
+                                                      <option value="63">63 vezes</option>
+                                                      <option value="64">64 vezes</option>
+                                                      <option value="65">65 vezes</option>
+                                                      <option value="66">66 vezes</option>
+                                                      <option value="67">67 vezes</option>
+                                                      <option value="68">68 vezes</option>
+                                                      <option value="69">69 vezes</option>
+                                                      <option value="70">70 vezes</option>
+                                                      <option value="71">71 vezes</option>
+                                                      <option value="72">72 vezes</option>
+                                                      <option value="73">73 vezes</option>
+                                                      <option value="74">74 vezes</option>
+                                                      <option value="75">75 vezes</option>
+                                                      <option value="76">76 vezes</option>
+                                                      <option value="77">77 vezes</option>
+                                                      <option value="78">78 vezes</option>
+                                                      <option value="79">79 vezes</option>
+                                                      <option value="80">80 vezes</option>
+                                                      <option value="81">81 vezes</option>
+                                                      <option value="82">82 vezes</option>
+                                                      <option value="83">83 vezes</option>
+                                                      <option value="84">84 vezes</option>
+                                                      <option value="85">85 vezes</option>
+                                                      <option value="86">86 vezes</option>
+                                                      <option value="87">87 vezes</option>
+                                                      <option value="88">88 vezes</option>
+                                                      <option value="89">89 vezes</option>
+                                                      <option value="90">90 vezes</option>
+                                                      <option value="91">91 vezes</option>
+                                                      <option value="92">92 vezes</option>
+                                                      <option value="93">93 vezes</option>
+                                                      <option value="94">94 vezes</option>
+                                                      <option value="95">95 vezes</option>
+                                                      <option value="96">96 vezes</option>
+                                                      <option value="97">97 vezes</option>
+                                                      <option value="98">98 vezes</option>
+                                                      <option value="99">99 vezes</option>
+                                                      <option value="100">100 vezes</option>
+                                                      <option value="101">101 vezes</option>
+                                                      <option value="102">102 vezes</option>
+                                                      <option value="103">103 vezes</option>
+                                                      <option value="104">104 vezes</option>
+                                                      <option value="105">105 vezes</option>
+                                                      <option value="106">106 vezes</option>
+                                                      <option value="107">107 vezes</option>
+                                                      <option value="108">108 vezes</option>
+                                                      <option value="109">109 vezes</option>
+                                                      <option value="110">110 vezes</option>
+                                                      <option value="111">111 vezes</option>
+                                                      <option value="112">112 vezes</option>
+                                                      <option value="113">113 vezes</option>
+                                                      <option value="114">114 vezes</option>
+                                                      <option value="115">115 vezes</option>
+                                                      <option value="116">116 vezes</option>
+                                                      <option value="117">117 vezes</option>
+                                                      <option value="118">118 vezes</option>
+                                                      <option value="119">119 vezes</option>
+                                                      <option value="120">120 vezes</option>
+                                                      <option value="121">121 vezes</option>
+                                                      <option value="122">122 vezes</option>
+                                                      <option value="123">123 vezes</option>
+                                                      <option value="124">124 vezes</option>
+                                                      <option value="125">125 vezes</option>
+                                                      <option value="126">126 vezes</option>
+                                                      <option value="127">127 vezes</option>
+                                                      <option value="128">128 vezes</option>
+                                                      <option value="129">129 vezes</option>
+                                                      <option value="130">130 vezes</option>
+                                                      <option value="131">131 vezes</option>
+                                                      <option value="132">132 vezes</option>
+                                                      <option value="133">133 vezes</option>
+                                                      <option value="134">134 vezes</option>
+                                                      <option value="135">135 vezes</option>
+                                                      <option value="136">136 vezes</option>
+                                                      <option value="137">137 vezes</option>
+                                                      <option value="138">138 vezes</option>
+                                                      <option value="139">139 vezes</option>
+                                                      <option value="140">140 vezes</option>
+                                                    </select>  
+                                              </div>
+                                          </div>
+                                       
+                                          <div class="form-group col-sm-4">
+                                              <label for="exampleInputEmail1">Parcelas sem juros</label>
+                                              <div class="row">
+                                                  <select id="formasPgto_parcMaximo" class="col-sm-12" name="formasPgto_parcMaximo">
+                                                      <option value="0">Somente a vista</option>
+                                                      <option value="1">1 vez</option>
+                                                      <option value="2">2 vezes</option>
+                                                      <option value="3">3 vezes</option>
+                                                      <option value="4">4 vezes</option>
+                                                      <option value="5">5 vezes</option>
+                                                      <option value="6">6 vezes</option>
+                                                      <option value="7">7 vezes</option>
+                                                      <option value="8">8 vezes</option>
+                                                      <option value="9">9 vezes</option>
+                                                      <option value="10">10 vezes</option>
+                                                      <option value="11">11 vezes</option>
+                                                      <option value="12">12 vezes</option>
+                                                      <option value="13">13 vezes</option>
+                                                      <option value="14">14 vezes</option>
+                                                      <option value="15">15 vezes</option>
+                                                      <option value="16">16 vezes</option>
+                                                      <option value="17">17 vezes</option>
+                                                      <option value="18">18 vezes</option>
+                                                      <option value="19">19 vezes</option>
+                                                      <option value="20">20 vezes</option>
+                                                      <option value="21">21 vezes</option>
+                                                      <option value="22">22 vezes</option>
+                                                      <option value="23">23 vezes</option>
+                                                      <option value="24">24 vezes</option>
+                                                      <option value="25">25 vezes</option>
+                                                      <option value="26">26 vezes</option>
+                                                      <option value="27">27 vezes</option>
+                                                      <option value="28">28 vezes</option>
+                                                      <option value="29">29 vezes</option>
+                                                      <option value="30">30 vezes</option>
+                                                      <option value="31">31 vezes</option>
+                                                      <option value="32">32 vezes</option>
+                                                      <option value="33">33 vezes</option>
+                                                      <option value="34">34 vezes</option>
+                                                      <option value="35">35 vezes</option>
+                                                      <option value="36">36 vezes</option>
+                                                      <option value="37">37 vezes</option>
+                                                      <option value="38">38 vezes</option>
+                                                      <option value="39">39 vezes</option>
+                                                      <option value="40">40 vezes</option>
+                                                      <option value="41">41 vezes</option>
+                                                      <option value="42">42 vezes</option>
+                                                      <option value="43">43 vezes</option>
+                                                      <option value="44">44 vezes</option>
+                                                      <option value="45">45 vezes</option>
+                                                      <option value="46">46 vezes</option>
+                                                      <option value="47">47 vezes</option>
+                                                      <option value="48">48 vezes</option>
+                                                      <option value="49">49 vezes</option>
+                                                      <option value="50">50 vezes</option>
+                                                      <option value="51">51 vezes</option>
+                                                      <option value="52">52 vezes</option>
+                                                      <option value="53">53 vezes</option>
+                                                      <option value="54">54 vezes</option>
+                                                      <option value="55">55 vezes</option>
+                                                      <option value="56">56 vezes</option>
+                                                      <option value="57">57 vezes</option>
+                                                      <option value="58">58 vezes</option>
+                                                      <option value="59">59 vezes</option>
+                                                      <option value="60">60 vezes</option>
+                                                      <option value="61">61 vezes</option>
+                                                      <option value="62">62 vezes</option>
+                                                      <option value="63">63 vezes</option>
+                                                      <option value="64">64 vezes</option>
+                                                      <option value="65">65 vezes</option>
+                                                      <option value="66">66 vezes</option>
+                                                      <option value="67">67 vezes</option>
+                                                      <option value="68">68 vezes</option>
+                                                      <option value="69">69 vezes</option>
+                                                      <option value="70">70 vezes</option>
+                                                      <option value="71">71 vezes</option>
+                                                      <option value="72">72 vezes</option>
+                                                      <option value="73">73 vezes</option>
+                                                      <option value="74">74 vezes</option>
+                                                      <option value="75">75 vezes</option>
+                                                      <option value="76">76 vezes</option>
+                                                      <option value="77">77 vezes</option>
+                                                      <option value="78">78 vezes</option>
+                                                      <option value="79">79 vezes</option>
+                                                      <option value="80">80 vezes</option>
+                                                      <option value="81">81 vezes</option>
+                                                      <option value="82">82 vezes</option>
+                                                      <option value="83">83 vezes</option>
+                                                      <option value="84">84 vezes</option>
+                                                      <option value="85">85 vezes</option>
+                                                      <option value="86">86 vezes</option>
+                                                      <option value="87">87 vezes</option>
+                                                      <option value="88">88 vezes</option>
+                                                      <option value="89">89 vezes</option>
+                                                      <option value="90">90 vezes</option>
+                                                      <option value="91">91 vezes</option>
+                                                      <option value="92">92 vezes</option>
+                                                      <option value="93">93 vezes</option>
+                                                      <option value="94">94 vezes</option>
+                                                      <option value="95">95 vezes</option>
+                                                      <option value="96">96 vezes</option>
+                                                      <option value="97">97 vezes</option>
+                                                      <option value="98">98 vezes</option>
+                                                      <option value="99">99 vezes</option>
+                                                      <option value="100">100 vezes</option>
+                                                      <option value="101">101 vezes</option>
+                                                      <option value="102">102 vezes</option>
+                                                      <option value="103">103 vezes</option>
+                                                      <option value="104">104 vezes</option>
+                                                      <option value="105">105 vezes</option>
+                                                      <option value="106">106 vezes</option>
+                                                      <option value="107">107 vezes</option>
+                                                      <option value="108">108 vezes</option>
+                                                      <option value="109">109 vezes</option>
+                                                      <option value="110">110 vezes</option>
+                                                      <option value="111">111 vezes</option>
+                                                      <option value="112">112 vezes</option>
+                                                      <option value="113">113 vezes</option>
+                                                      <option value="114">114 vezes</option>
+                                                      <option value="115">115 vezes</option>
+                                                      <option value="116">116 vezes</option>
+                                                      <option value="117">117 vezes</option>
+                                                      <option value="118">118 vezes</option>
+                                                      <option value="119">119 vezes</option>
+                                                      <option value="120">120 vezes</option>
+                                                      <option value="121">121 vezes</option>
+                                                      <option value="122">122 vezes</option>
+                                                      <option value="123">123 vezes</option>
+                                                      <option value="124">124 vezes</option>
+                                                      <option value="125">125 vezes</option>
+                                                      <option value="126">126 vezes</option>
+                                                      <option value="127">127 vezes</option>
+                                                      <option value="128">128 vezes</option>
+                                                      <option value="129">129 vezes</option>
+                                                      <option value="130">130 vezes</option>
+                                                      <option value="131">131 vezes</option>
+                                                      <option value="132">132 vezes</option>
+                                                      <option value="133">133 vezes</option>
+                                                      <option value="134">134 vezes</option>
+                                                      <option value="135">135 vezes</option>
+                                                      <option value="136">136 vezes</option>
+                                                      <option value="137">137 vezes</option>
+                                                      <option value="138">138 vezes</option>
+                                                      <option value="139">139 vezes</option>
+                                                      <option value="140">140 vezes</option>
+                                                    </select> 
+
+                                              </div>
+                                          </div>
+                                       </div>
+                                       <div class="row col-sm-12">
+                                          <div class="form-group col-sm-2">
+                                              <label for="exampleInputEmail1">Juros (%)</label>
                                               <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="0.00">
                                           </div>
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">ICMS Reduzido</label>
+                                          <div class="form-group col-sm-2">
+                                              <label for="exampleInputPassword1">Taxa fixa ($)</label>
                                               <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
                                           </div>
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">Margem Agregada ST</label>
+                                          <div class="form-group col-sm-3">
+                                              <label for="exampleInputPassword1">Desconto a vista (%)</label>
                                               <input type="password" class="form-control" ng-model="cfop.margemAgregadaST" name="password" placeholder="0.00">
+                                          </div>
+                                          <div class="form-group col-sm-2">
+                                              <label for="exampleInputPassword1">Conta de destino padrão</label>
+                                              <div class="row">
+                                                  <select id="formasPgto_cod_disponiveis" class="col-sm-12" name="formasPgto_cod_disponiveis" autocomplete="off">
+                                                      <option value="0"></option>
+                                                      <option value="1">Caixa interno</option>
+                                                      <option value="1">Banco interno</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-sm-3">
+                                              <label for="exampleInputPassword1">Tipo de documento padrão</label>
+                                              <div class="row">
+                                                  <select id="formasPgto_cod_tiposDoc" class="col-sm-12" name="formasPgto_cod_tiposDoc" autocomplete="off">
+                                                      <option value="0"></option>
+                                                      <option value="1">Dinheiro</option>
+                                                      <option value="2">Cheque</option>
+                                                      <option value="3">Boleto</option>
+                                                      <option value="4">Cartão Crédito</option>
+                                                      <option value="5">Cartão Débito</option>
+                                                      <option value="6">Duplicata</option>
+                                                      <option value="7">Carnê</option>
+                                                      <option value="8">Transf. Eletrônica</option>
+                                                      <option value="9">Crédito Loja</option>
+                                                      <option value="10">Vale Alimentação</option>
+                                                      <option value="11">Vale Refeição</option>
+                                                      <option value="12">Vale Presente</option>
+                                                      <option value="13">Vale Combustível</option>
+                                                      <option value="14">Sem documento</option>
+                                                  </select>
+                                              </div>
                                           </div>
                                       </div>
                                       <div class="row col-sm-12">
                                           <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">CST Principal</label>
-                                              <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+                                              <label for="exampleInputPassword1">Intervalo padrão entre as parcelas</label>
+                                              <input type="password" class="form-control col-sm-6" ng-model="cfop.icmsReduzido" name="password" placeholder="1">
+                                              <div class="row">
+                                                  <select id="formasPgto_intervaloT" class="col-sm-6" name="formasPgto_intervaloT" autocomplete="off">
+                                                      <option value="D">dia</option>
+                                                      <option value="M">mês</option>
+                                                  </select>
+                                              </div>
                                           </div>
-                                          <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">Classificação Fiscal</label>
+                                          <div class="form-group col-sm-8">
+                                              <label for="exampleInputPassword1">Observações</label>
                                               <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
                                           </div>
-                                           <div class="form-group col-sm-4">
-                                              <label for="exampleInputPassword1">Classificação Fiscal</label>
-                                              <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
-                                          </div>
+                                          
                                       </div>
-                                       <div class="row col-sm-12">
-                                          <div class="form-group">
-                                              <label for="exampleInputPassword1">Observação</label>
-                                              <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
-                                          </div>
-                                      </div>
-                                      </div>
+                                  </div>
                         </div>
                       </form>
                     </div>
@@ -98,7 +411,7 @@
       </div>
 
       <div class="container">
-           <script type="text/ng-template" id="cfopDelete.html">
+           <script type="text/ng-template" id="formaPgDelete.html">
                <div class="modal fade">
                 <div class="modal-dialog">
                   <div class="modal-content">

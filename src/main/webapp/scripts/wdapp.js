@@ -50,7 +50,14 @@ var WebDaptiveAppConfig = {
 				'wdApp.pages.controllers', 'wdApp.demodata', 'wdApp.apps.stocks', 'wdApp.apps.stocksdata',
 				'wdApp.apps.counties', 'ngTable','datatables','datatables.bootstrap', 'wdApp.apps.estado', 'wdApp.apps.procedures','wdApp.apps.sysmgmt.data','wdApp.apps.site','wdApp.apps.empresa','wdApp.apps.produtos','wdApp.apps.produtoss','wdApp.apps.produto','wdApp.apps.notaFiscal',
 				'wdApp.apps.pdCompras','wdApp.apps.orcamento','wdApp.apps.ordemServico','wdApp.apps.nfEntrada','wdApp.apps.pdCompras'
-				,'wdApp.apps.cotacao','wdApp.apps.pdVendas','wdApp.apps.contasPagar','wdApp.apps.condPag','wdApp.apps.contasReceber'
+				,'wdApp.apps.cotacao','wdApp.apps.pdVendas','wdApp.apps.contasPagar','wdApp.apps.formaPg','wdApp.apps.contasReceber','wdApp.apps.banco','wdApp.apps.agencia','wdApp.apps.conta','wdApp.apps.funcionario',
+				'wdApp.apps.cliente'
+				,'wdApp.apps.fornecedor'
+				,'wdApp.apps.convenio'
+				,'wdApp.apps.deposito'
+				,'wdApp.apps.estados'
+				,'wdApp.apps.filial'
+				,'wdApp.apps.transportador'
 				]);
 
 	wdApp.config(['$routeProvider',
@@ -71,8 +78,8 @@ var WebDaptiveAppConfig = {
 			'vendas/forms/CadOrcamento','vendas/tables/orcamento','vendas/forms/CadOrdemServico','vendas/tables/ordemServico','vendas/tables/pedidoVendas',
 			'compras/forms/CadCotacao','compras/forms/CadNfEntrada','compras/forms/CadPedCompras','compras/forms/CadAprovPedidoCompra',
 			'compras/tables/aprovarPedCompras','compras/tables/cotacao','compras/tables/nfEntrada','compras/tables/pedCompras',
-			'financeiro/tables/baixaTitulo','financeiro/tables/banco','financeiro/tables/caixa','financeiro/tables/condPag',
-			'financeiro/tables/contaCC','financeiro/tables/contasPagar','financeiro/tables/contasReceber','financeiro/tables/formaPg',
+			'financeiro/tables/baixaTitulo','financeiro/tables/banco','financeiro/tables/caixa',
+			'financeiro/tables/contaCC','financeiro/tables/contasPagar','financeiro/tables/contasReceber','financeiro/tables/formaPg','financeiro/tables/agencia',
 			'funcionario/tables/folhaPonto','funcionario/tables/funcionario','funcionario/forms/CadFolhaPonto','funcionario/forms/funcionario',
 			'ordemServico/tables/ordemServico','ordemServico/forms/CadOrdemServico',
 			'cliente/tables/almoxarifado','cliente/tables/cidade','cliente/tables/cliente','cliente/tables/convenio',
