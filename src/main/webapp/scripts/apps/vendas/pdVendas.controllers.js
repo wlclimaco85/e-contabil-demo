@@ -1,8 +1,8 @@
 (function() {
 angular.module('wdApp.apps.pdVendas', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('PdVendasController', PdVendasController);
+.controller('PdVendasController', pdVendasController);
 
-function PdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function pdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
