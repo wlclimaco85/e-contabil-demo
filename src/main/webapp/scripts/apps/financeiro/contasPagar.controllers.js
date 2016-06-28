@@ -1,8 +1,8 @@
 (function() {
 angular.module('wdApp.apps.contasPagar', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('ContasPagarController', ContasPagarController);
+.controller('ContasPagarController', contasPagarController);
 
-function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function contasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -10,6 +10,7 @@ function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuild
     vm.toggleOne = toggleOne;
     vm.message = '';
     vm.edit = edit;
+    vm.baixar = baixar;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
@@ -99,77 +100,17 @@ function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuild
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Pedido Venda',
+                text: 'Novo Contas Pagar',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modalPdVendas.html',
-                        controller: "PdVendasController"
+                        templateUrl: 'contasPagar.html',
+                        controller: "ContasPagarController"
                     }).then(function(modal) {
 
-                        bookIndex = 0;
-                        $('#pdVendasForm')
-                        .formValidation({
-                            framework: 'bootstrap',
-                            icon: {
-                                valid: 'glyphicon glyphicon-ok',
-                                invalid: 'glyphicon glyphicon-remove',
-                                validating: 'glyphicon glyphicon-refresh'
-                            },
-                            fields: {
-
-                            'book[0].produto': notEmptyStringMinMaxRegexp,
-                            'book[0].quantidade': integerNotEmptyValidation,
-                            'book[0].vlUnitario': integerNotEmptyValidation,
-
-
-                        }
-                        })
-                        // Add button click handler
-                        .on('click', '.addButton', function() {
-                            bookIndex++;
-                            var $template = $('#bookTemplate'),
-                                $clone    = $template
-                                                .clone()
-                                                .removeClass('hide')
-                                                .removeAttr('id')
-                                                .attr('data-book-index', bookIndex)
-                                                .insertBefore($template);
-
-                            // Update the name attributes
-                            $clone
-                                .find('[name="produto"]').attr('name', 'book[' + bookIndex + '].produto').end()
-                                .find('[name="quantidade"]').attr('name', 'book[' + bookIndex + '].quantidade').end()
-                                .find('[name="vlUnitario"]').attr('name', 'book[' + bookIndex + '].vlUnitario').end()
-                                .find('[name="desconto"]').attr('name', 'book[' + bookIndex + '].desconto').end();
-
-                            // Add new fields
-                            // Note that we also pass the validator rules for new field as the third parameter
-                            $('#pdVendasForm')
-                                .formValidation('addField', 'book[' + bookIndex + '].produto',notEmptyStringMinMaxRegexp)
-                                .formValidation('addField', 'book[' + bookIndex + '].quantidade',integerNotEmptyValidation)
-                                .formValidation('addField', 'book[' + bookIndex + '].vlUnitario',integerNotEmptyValidation);
-                        })// Remove button click handler
-                        .on('click', '.removeButton', function() {
-                            var $row  = $(this).parents('.form-group'),
-                                index = $row.attr('data-book-index');
-
-                            // Remove fields
-                            $('#bookForm')
-                                .formValidation('removeField', $row.find('[name="book[' + index + '].produto"]'))
-                                .formValidation('removeField', $row.find('[name="book[' + index + '].quantidade"]'))
-                                .formValidation('removeField', $row.find('[name="book[' + index + '].vlUnitario"]'))
-                                .formValidation('removeField', $row.find('[name="book[' + index + '].desconto"]'));
-
-                            // Remove element containing the fields
-                            $row.remove();
-                        });
-                        $("select").select2({
-                          placeholder: "Select a state",
-                          allowClear: true
-                        });
-
+                        
                         modal.element.modal();
+                        openDialogUpdateCreate();
                         modal.close.then(function(result) {
                             $scope.message = "You said " + result;
                         });
@@ -182,45 +123,51 @@ function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuild
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
-        }),
-        DTColumnBuilder.newColumn('id').withTitle('ID'), 
+        }).withOption('width', '10px'),
+        DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
         DTColumnBuilder.newColumn('nunDoc').withTitle('nunDoc'),
-        DTColumnBuilder.newColumn('parcela').withTitle('Parcela'),    
+        DTColumnBuilder.newColumn('parcela').withTitle('Parcela').notVisible(),    
         DTColumnBuilder.newColumn('fornecedor').withTitle('Fornecedor'),
-        DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
-        DTColumnBuilder.newColumn('tipoDoc').withTitle('Tipo Documento'),
-        DTColumnBuilder.newColumn('dataLanc').withTitle('Data Lançamento'),
+        DTColumnBuilder.newColumn('descricao').withTitle('Descrição').notVisible(),
+        DTColumnBuilder.newColumn('tipoDoc').withTitle('Tipo Documento').notVisible(),
+        DTColumnBuilder.newColumn('dataLanc').withTitle('Data Lançamento').notVisible(),
         DTColumnBuilder.newColumn('dataVenc').withTitle('Data Vencimento'),
         DTColumnBuilder.newColumn('valorCob').withTitle('valorCob'),
-         DTColumnBuilder.newColumn(null).withTitle('Pagementos').notSortable()
+         DTColumnBuilder.newColumn(null).withTitle('Pagamentos')
             .renderWith(function(data, type, full, meta) {
-            	var sReturn = ""
-            	if(data.pagamento.length > 0){
-            		for(var x = 0;x<data.pagamento.length;x++)
-            		{
-            			sReturn = sReturn + "<a> R$"+data.pagamento[x].valorPago +" "+ data.pagamento[x].dataPag +"  </a><br>";
-            		}
-            	}
+            	var sReturn = "";
+                if(data.pagamento != undefined)
+                {
+                    if(data.pagamento.length > 0){
+                        for(var x = 0;x<data.pagamento.length;x++)
+                        {
+                            sReturn = sReturn + "<a> R$"+data.pagamento[x].valorPago +" "+ data.pagamento[x].dataPag +"  </a><br>";
+                        }
+                    }     
+                }
+            	
             	return sReturn;
                 
-            }),
+            }).withOption('width', '130px'), 
 
-        DTColumnBuilder.newColumn('contaOrigem').withTitle('contaOrigem'),
-        DTColumnBuilder.newColumn('obs').withTitle('observacao'),
+        DTColumnBuilder.newColumn('contaOrigem').withTitle('contaOrigem').notVisible(),
+        DTColumnBuilder.newColumn('obs').withTitle('observacao').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn('status').withTitle('status'),
-        DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml)
+        DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '140px'), 
     ];
 
    
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'modalPdVendas.html',
-            controller: "PdVendasController"
+            templateUrl: 'contasPagar.html',
+            controller: "ContasPagarController"
         }).then(function(modal) {
+            
             modal.element.modal();
+            openDialogUpdateCreate();
             modal.close.then(function(result) {
                 $scope.message = "You said " + result;
             });
@@ -228,8 +175,8 @@ function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuild
     }
     function deleteRow(person) {
         ModalService.showModal({
-            templateUrl: 'cnaeDelete.html',
-            controller: "PdVendasController"
+            templateUrl: 'contasPagar.html',
+            controller: "ContasPagarController"
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(result) {
@@ -237,13 +184,97 @@ function ContasPagarController($scope, $compile, DTOptionsBuilder, DTColumnBuild
             });
         });
     }
+    function baixar(person) {
+        ModalService.showModal({
+            templateUrl: 'baixar.html',
+            controller: "ContasPagarController"
+        }).then(function(modal) {
+            modal.element.modal();
+            $("select").select2({
+              placeholder: "Select a state",
+              allowClear: true
+            });
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    }
+    function openDialogUpdateCreate()
+    {
+        bookIndex = 0;
+        $('#pdVendasForm')
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+            'book[0].produto': notEmptyStringMinMaxRegexp,
+            'book[0].quantidade': integerNotEmptyValidation,
+            'book[0].vlUnitario': integerNotEmptyValidation,
+
+
+        }
+        })
+        // Add button click handler
+        .on('click', '.addButton', function() {
+            bookIndex++;
+            var $template = $('#bookTemplate'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('data-book-index', bookIndex)
+                                .insertBefore($template);
+
+            // Update the name attributes
+            $clone
+                .find('[name="produto"]').attr('name', 'book[' + bookIndex + '].produto').end()
+                .find('[name="quantidade"]').attr('name', 'book[' + bookIndex + '].quantidade').end()
+                .find('[name="vlUnitario"]').attr('name', 'book[' + bookIndex + '].vlUnitario').end()
+                .find('[name="desconto"]').attr('name', 'book[' + bookIndex + '].desconto').end();
+
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            $('#pdVendasForm')
+                .formValidation('addField', 'book[' + bookIndex + '].produto',notEmptyStringMinMaxRegexp)
+                .formValidation('addField', 'book[' + bookIndex + '].quantidade',integerNotEmptyValidation)
+                .formValidation('addField', 'book[' + bookIndex + '].vlUnitario',integerNotEmptyValidation);
+        })// Remove button click handler
+        .on('click', '.removeButton', function() {
+            var $row  = $(this).parents('.form-group'),
+                index = $row.attr('data-book-index');
+
+            // Remove fields
+            $('#bookForm')
+                .formValidation('removeField', $row.find('[name="book[' + index + '].produto"]'))
+                .formValidation('removeField', $row.find('[name="book[' + index + '].quantidade"]'))
+                .formValidation('removeField', $row.find('[name="book[' + index + '].vlUnitario"]'))
+                .formValidation('removeField', $row.find('[name="book[' + index + '].desconto"]'));
+
+            // Remove element containing the fields
+            $row.remove();
+        });
+        $("select").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+
+
+    }
     function createdRow(row, data, dataIndex) {
         // Recompiling so we can bind Angular directive to the DT
         $compile(angular.element(row).contents())($scope);
     }
     function actionsHtml(data, type, full, meta) {
         vm.persons[data.id] = data;
-        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
+        return '<button class="btn btn-info" ng-click="showCase.baixar(showCase.persons[' + data.id + '])">' +
+            '   <i class="glyphicon glyphicon-floppy-save"></i>' +
+            '</button>&nbsp;' +
+            '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
             '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
