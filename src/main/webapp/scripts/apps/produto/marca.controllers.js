@@ -128,7 +128,7 @@ function marcaController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mod
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modalProdutoCreate.html',
+                        templateUrl: 'modalMarca.html',
                         controller: "PdVendasController"
                     }).then(function(modal) {
                         modal.element.modal();
@@ -155,14 +155,6 @@ function marcaController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mod
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '100px')
     ];
-
-
-    
-    function countSeleted() 
-    {
-        debugger
-        return 1;
-    }
 
 
 
@@ -238,7 +230,7 @@ function marcaController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mod
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'modalProduto.html',
+            templateUrl: 'modalMarca.html',
             controller: "PdVendasController"
         }).then(function(modal) {
             modal.element.modal();

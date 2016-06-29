@@ -128,7 +128,7 @@ function categoriaController($scope, $compile, DTOptionsBuilder, DTColumnBuilder
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modalProdutoCreate.html',
+                        templateUrl: 'modalCategoria.html',
                         controller: "PdVendasController"
                     }).then(function(modal) {
                         modal.element.modal();
@@ -236,7 +236,7 @@ function categoriaController($scope, $compile, DTOptionsBuilder, DTColumnBuilder
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'modalProduto.html',
+            templateUrl: 'modalCategoria.html',
             controller: "PdVendasController"
         }).then(function(modal) {
             modal.element.modal();
