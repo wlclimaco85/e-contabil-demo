@@ -1,18 +1,139 @@
-<link rel="stylesheet" href="thirdparty/angular-datatables/vendor/datatables-tabletools/css/dataTables.tableTools.css">
-<!-- ...  -->
-<div ng-controller="WithButtonsCtrl as showCase">
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
-        <tfoot>
-        <tr>
-            <th>ID
-            <th>First Name
-            <th>Last Name
-        </tr>
-        </tfoot>
-    </table>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/formValidation.css"/>
+<link rel="stylesheet" href="dist/css/select2.css"/>
+
+<script src="dist/js/select2.min.js"></script>
+<script src="dist/js/formValidation.js"></script>
+<script src="dist/js/framework/bootstrap.js"></script>
+
+<style type="text/css">
+	.wash {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	}
+	.tabs-was {
+	float: left;
+	border: 1px solid #000;
+	border-bottom-width: 0;
+	margin: 3px 3px 0px 3px;
+	padding: 5px 5px 0px 5px;
+	background-color: #CCC;
+	color: ##3767B9;
+	}
+	#mainView {
+	border: 1px solid black;
+	clear: both;
+	}
+	.active {
+	background-color: #FFF;
+	color: #000;
+	}
+	* {margin: 0; padding: 0; box-sizing: border-box;}
+	.tabs-nav {padding: 20px 0 0; list-style: none;}
+	.tabs-nav li {display: inline;}
+	.tabs-nav a {
+	display:inline-block;
+	border: 1px solid #ddd;
+	border-bottom: none;
+	padding: 15px;
+	cursor: pointer;
+	border-radius: 5px 5px 0 0;
+	font-size: 14px;
+	color: #fff;
+	background: rgba(20, 144, 64, 0.7);
+	}
+	.tabs-nav .active {
+	background: #fff;
+	color: rgba(20, 144, 64, 0.7);
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+	}
+	.tab-content {
+	border: 1px solid #ddd;
+	padding: 20px;
+	}
+	.tab-content1 {
+	border: 1px solid #ddd;
+	padding: 20px;
+	}
+	p {
+	margin-bottom: 15px;
+	}
+</style>
+<div ng-controller="CategoriaController as showCase">
+	<table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+		<tfoot>
+			<tr>
+				<th>ID
+				</th>
+				<th>Nome da categoria
+				</th>
+				<th>Margem de lucro (%)
+				</th>
+			</tr>
+		</tfoot>
+	</table>
 </div>
-<!-- ... -->
-<script src="thirdparty/angular-datatables/vendor/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.min.js"></script>
-<script src="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.min.js"></script>
-<script src="thirdparty/angular-datatables/vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
-<script src="thirdparty/angular-datatables/vendor/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.min.js"></script>
+<div class="container">
+	<script type="text/ng-template" id="modalProdutoCreate.html">
+		<div class="modal fade">
+		 <div class="modal-dialog" style="width : 30%">
+		   <div class="modal-content">
+		     <div class="modal-header">
+		       <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+		       <h4 class="modal-title">Cadastro Categoria</h4>
+		     </div>
+		     <div class="modal-body">
+			     <form  id="pdVendasForm">
+			     	<div class="row">
+			     		<div class="col-sm-6 ">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Nome da categoria</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="modoUso">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Margem de lucro (%)</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="modoUso">
+                            </div>
+                        </div>
+
+			     	</div>
+			   	 </form>
+		     </div>
+		     <div class="modal-footer">
+		       <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		       <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+		     </div>
+		   </div>
+		 </div>
+		</div>
+	</script>
+</div>
+
+
+
+
+<div class="container">
+	<script type="text/ng-template" id="cfopDelete.html">
+		<div class="modal fade">
+		 <div class="modal-dialog">
+		   <div class="modal-content">
+		     <div class="modal-header">
+		       <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+		       <h4 class="modal-title">Deletar</h4>
+		     </div>
+		     <div class="modal-body">
+		       	<p>Deseja Realmente EXCLUIR ID : 1001 </p>
+		     </div>
+		     <div class="modal-footer">
+		       <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+		       <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+		     </div>
+		   </div>
+		 </div>
+		</div>
+	</script>
+</div>

@@ -33,6 +33,29 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
                 type: 'text'
             }]
         })
+        .withOption('initComplete', function (settings,json) {
+            
+            $('.dt-buttons').find('.dt-button:eq(1)').before(
+
+            '<select class="form-control col-sm-3 btn btn-primary dropdown-toggle" data-ng-options="t.name for t in vm.types"'+
+              'data-ng-model="vm.object.type" style="height: 32px;margin-left: 8px;margin-right: 6px;width: 200px !important;">'+
+              
+                '<option><a href="#">Ações <span class="badge selected badge-danger main-badge" data-ng-show="{{showCase.countSeleted()}}"</span></a></option>'+
+                '<option><a href="#">Remover Todos <span class="badge selected badge-danger main-badge"  data-ng-show="{{showCase.countSeleted()}}"></span></a></option>'+
+               '</select>'
+
+            )
+        })
+        .withOption('processing', true)
+        .withOption('language',{
+            paginate : {            // Set up pagination text
+                first: "&laquo;",
+                last: "&raquo;",
+                next: "&rarr;",
+                previous: "&larr;"
+            },
+            lengthMenu: "_MENU_ records per page" 
+        })
         .withButtons([
             {
                 extend: "colvis",

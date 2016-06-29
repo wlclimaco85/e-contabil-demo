@@ -1,6 +1,6 @@
 [{
-    "id": "id_0",
-    "status": "status_0",
+    "id": "0",
+    "status": "Ativo",
     "produto": "produto_0",
     "codigo": "codigo_0",
     "nCM": "nCM_0",
@@ -11,8 +11,7 @@
     "informAdicionaisParaNFe": "informAdicionaisParaNFe_0",
     "anotainternas": "anotainternas_0",
     "unidTributada": "unidTributada_0",
-    "grupo": "grupo_0",
-    "subGrupo": "subGrupo_0",
+    "categoria": "categoria_0",
     "marca": "marca_0",
     "pesolíquido": "pesolíquido_0",
     "pesobruto": "pesobruto_0",
@@ -40,11 +39,13 @@
     "estMaximo": "estMaximo_0",
     "margemLucro": "margemLucro_0",
     "precoVenda": "precoVenda_0",
-    "precoCusto": "precoCusto_0"
+    "precoCusto": "precoCusto_0",
+    "modifyUser": "precoCusto_0",
+    "modifyDateUTC": "precoCusto_0"
 },
 {
-    "id": "id_1",
-    "status": "status_1",
+    "id": "1",
+    "status": "Ativo",
     "produto": "produto_1",
     "codigo": "codigo_1",
     "nCM": "nCM_1",
@@ -55,8 +56,7 @@
     "informAdicionaisParaNFe": "informAdicionaisParaNFe_1",
     "anotainternas": "anotainternas_1",
     "unidTributada": "unidTributada_1",
-    "grupo": "grupo_1",
-    "subGrupo": "subGrupo_1",
+    "categoria": "grupo_1",
     "marca": "marca_1",
     "pesolíquido": "pesolíquido_1",
     "pesobruto": "pesobruto_1",
@@ -84,5 +84,7 @@
     "estMaximo": "estMaximo_1",
     "margemLucro": "margemLucro_1",
     "precoVenda": "precoVenda_1",
-    "precoCusto": "precoCusto_1"
+    "precoCusto": "precoCusto_1",
+    "modifyUser": "precoCusto_0",
+    "modifyDateUTC": "precoCusto_0"
 }]

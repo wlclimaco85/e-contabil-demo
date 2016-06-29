@@ -58,6 +58,9 @@ var WebDaptiveAppConfig = {
 				,'wdApp.apps.estados'
 				,'wdApp.apps.filial'
 				,'wdApp.apps.transportador'
+				,'wdApp.apps.categoria'
+				,'wdApp.apps.marca'
+				,'wdApp.apps.unimed'
 				]);
 
 	wdApp.config(['$routeProvider',
