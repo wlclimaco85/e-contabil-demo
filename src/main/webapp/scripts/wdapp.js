@@ -61,6 +61,8 @@ var WebDaptiveAppConfig = {
 				,'wdApp.apps.categoria'
 				,'wdApp.apps.marca'
 				,'wdApp.apps.unimed'
+				,'wdApp.apps.ordemProducao'
+				,'wdApp.apps.servico'
 				]);
 
 	wdApp.config(['$routeProvider',

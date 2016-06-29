@@ -67,30 +67,30 @@
 			<tr>
 				<th>ID
 				</th>
-				<th>Unidade Medida
+				<th>Serviço
 				</th>
-				<th>Abreviação
+				<th>Valor
 				</th>
 			</tr>
 		</tfoot>
 	</table>
 </div>
 <div class="container">
-	<script type="text/ng-template" id="modalUniMed.html">
+	<script type="text/ng-template" id="modalServico.html">
 		<div class="modal fade">
 		 <div class="modal-dialog" style="width : 20%">
 		   <div class="modal-content">
 		     <div class="modal-header">
 		       <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-		       <h4 class="modal-title">Cadastro Unidade de Medida</h4>
+		       <h4 class="modal-title">Cadastro Serviço</h4>
 		     </div>
 		     <div class="modal-body">
 			     <form  id="pdVendasForm">
 			     	<div class="row">
 			     		<div class="col-sm-6">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Unidade de Medida</label>
-                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                                <label for="exampleInputPassword1">Serviço</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Serviço">
                             </div>
                         </div>
 
@@ -98,8 +98,16 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Abreviação</label>
-                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Fabricante">
+                                <label for="exampleInputPassword1">Valor</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Valor">
+                            </div>
+                        </div>
+			     	</div>
+			     	<div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Descrição</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Descrição">
                             </div>
                         </div>
 			     	</div>
@@ -119,7 +127,7 @@
 
 
 <div class="container">
-	<script type="text/ng-template" id="cfopDelete.html">
+	<script type="text/ng-template" id="DeleteServico.html">
 		<div class="modal fade">
 		 <div class="modal-dialog">
 		   <div class="modal-content">

@@ -1,104 +1,221 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/formValidation.css"/>
+<link rel="stylesheet" href="dist/css/select2.css"/>
 
-<div class="page page-table" data-ng-controller="TableController">
+<script src="dist/js/select2.min.js"></script>
+<script src="dist/js/formValidation.js"></script>
+<script src="dist/js/framework/bootstrap.js"></script>
 
-    <section class="panel panel-default table-dynamic">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Bordered table</strong></div>
-
-        <div class="table-filters">
+<style type="text/css">
+  .wash {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  }
+  .tabs-was {
+  float: left;
+  border: 1px solid #000;
+  border-bottom-width: 0;
+  margin: 3px 3px 0px 3px;
+  padding: 5px 5px 0px 5px;
+  background-color: #CCC;
+  color: ##3767B9;
+  }
+  #mainView {
+  border: 1px solid black;
+  clear: both;
+  }
+  .active {
+  background-color: #FFF;
+  color: #000;
+  }
+  * {margin: 0; padding: 0; box-sizing: border-box;}
+  .tabs-nav {padding: 20px 0 0; list-style: none;}
+  .tabs-nav li {display: inline;}
+  .tabs-nav a {
+  display:inline-block;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(20, 144, 64, 0.7);
+  }
+  .tabs-nav .active {
+  background: #fff;
+  color: rgba(20, 144, 64, 0.7);
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+  }
+  .tab-content {
+  border: 1px solid #ddd;
+  padding: 20px;
+  }
+  .tab-content1 {
+  border: 1px solid #ddd;
+  padding: 20px;
+  }
+  p {
+  margin-bottom: 15px;
+  }
+</style>
+<div ng-controller="UniMedController as showCase">
+  <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+    <tfoot>
+      <tr>
+        <th>ID
+        </th>
+        <th>Unidade Medida
+        </th>
+        <th>Abreviação
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<div class="container">
+  <script type="text/ng-template" id="modalUniMed.html">
+    <div class="modal fade">
+     <div class="modal-dialog" style="width : 20%">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+           <h4 class="modal-title">Cadastro Ordem Serviço</h4>
+         </div>
+         <div class="modal-body">
+           <form  id="pdVendasForm">
             <div class="row">
-                <div class="col-sm-4 col-xs-6">
-                    <form>
-                        <input type="text"
-                               placeholder="search"
-                               class="form-control"
-                               data-ng-model="searchKeywords"
-                               data-ng-keyup="search()">
-                    </form>
+                <div class="col-sm-6">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Cliente</label>
+                            <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Técnico</label>
+                            <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Situação da OS</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Data inicial</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Data final</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Data geral</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Dias de garantia</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Descrição do produto/serviço</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Defeito relatado</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Laudo técnico</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Observações gerais</label>
+                                <input type="text" class="form-control col-sm-8 " ng-model="produto.precoVenda" name="precoVenda"  placeholder="Marca">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-3 col-xs-6 filter-result-info">
-                    <span>
-                        Search Showing {{filteredStores.length}}/{{stores.length}} entries
-                    </span>              
+                <div class="col-sm-6">
+                    <div class="container1" ng-app ng-init="tabs=4">
+                        <ul class="tabs-nav">
+                        <li><a ng-click="tabs=4" ng-class="{'active' : tabs==4}">Serviços</a></li>
+                        <li><a ng-click="tabs=5" ng-class="{'active' : tabs==5}">Produtos</a></li>
+                        </ul>
+                        <div class="tabs-container1">
+                            <div class="tab-content1" ng-show="tabs == 4">
+                              
+                            </div>
+                            <div class="tab-content1" ng-show="tabs == 5">
+                            
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <table class="table table-bordered table-striped table-responsive">
-            <thead>
-                <tr>
-                    <th><div class="th">
-                        Store Name
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('name') "
-                              data-ng-class="{active: row == 'name'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-name') "
-                              data-ng-class="{active: row == '-name'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Price
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('price') "
-                              data-ng-class="{active: row == 'price'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-price') "
-                              data-ng-class="{active: row == '-price'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Sales (in 30 days)
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('sales') "
-                              data-ng-class="{active: row == 'sales'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-sales') "
-                              data-ng-class="{active: row == '-sales'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Rating
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('rating') "
-                              data-ng-class="{active: row == 'rating'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-rating') "
-                              data-ng-class="{active: row == '-rating'}"></span>
-                    </div></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="store in currentPageStores">
-                    <td>{{store.name}}</td>
-                    <td>{{store.price}}</td>
-                    <td>{{store.sales}}</td>
-                    <td>{{store.rating}}</td>
-                </tr>
-            </tbody>
-        </table>
+              </div>
+           </form>
+         </div>
+         <div class="modal-footer">
+           <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+           <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+         </div>
+       </div>
+     </div>
+    </div>
+  </script>
+</div>
 
-        <footer class="table-footer">
-            <div class="row">
-                <div class="col-md-6 page-num-info">
-                    <span>
-                        Show 
-                        <select data-ng-model="numPerPage"
-                                data-ng-options="num for num in numPerPageOpt"
-                                data-ng-change="onNumPerPageChange()">
-                        </select> 
-                        entries per page
-                    </span>
-                </div>
-                <div class="col-md-6 text-right pagination-container">
-                    <uib-pagination class="pagination-sm"
-                                ng-model="currentPage"
-                                total-items="filteredStores.length"
-                                max-size="4"
-                                ng-change="select(currentPage)"
-                                items-per-page="numPerPage"
-                                rotate="false"
-								previous-text="&lsaquo;" next-text="&rsaquo;"								
-                                boundary-links="true"></uib-pagination>
-                </div>
-            </div>
-        </footer>
-    </section>
-	<div data-ui-footer></div>	
+
+
+
+<div class="container">
+  <script type="text/ng-template" id="cfopDelete.html">
+    <div class="modal fade">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+           <h4 class="modal-title">Deletar</h4>
+         </div>
+         <div class="modal-body">
+            <p>Deseja Realmente EXCLUIR ID : 1001 </p>
+         </div>
+         <div class="modal-footer">
+           <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+           <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+         </div>
+       </div>
+     </div>
+    </div>
+  </script>
 </div>

@@ -1,8 +1,8 @@
 (function() {
-angular.module('wdApp.apps.unimed', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
-.controller('UniMedController', uniMedController);
+angular.module('wdApp.apps.servico', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
+.controller('ServicoController', servicoController);
 
-function uniMedController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+function servicoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -124,11 +124,11 @@ function uniMedController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Unidade Medida',
+                text: 'Novo Serviço',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modalUniMed.html',
+                        templateUrl: 'modalServico.html',
                         controller: "PdVendasController"
                     }).then(function(modal) {
                         modal.element.modal();
@@ -147,8 +147,9 @@ function uniMedController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }),
         DTColumnBuilder.newColumn('id').withTitle('ID').withOption('width', '10px').notVisible(),
-        DTColumnBuilder.newColumn('nome').withTitle('Unidade de Medida'), 
-        DTColumnBuilder.newColumn('abreviacao').withTitle('Abreviação'), 
+        DTColumnBuilder.newColumn('servico').withTitle('Serviço'), 
+        DTColumnBuilder.newColumn('preco').withTitle('Preço'), 
+        DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '100px')
@@ -228,7 +229,7 @@ function uniMedController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'modalUniMed.html',
+            templateUrl: 'modalServico.html',
             controller: "PdVendasController"
         }).then(function(modal) {
             modal.element.modal();
@@ -240,7 +241,7 @@ function uniMedController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
     }
     function deleteRow(person) {
         ModalService.showModal({
-            templateUrl: 'cnaeDelete.html',
+            templateUrl: 'DeleteServico.html',
             controller: "PdVendasController"
         }).then(function(modal) {
             modal.element.modal();
