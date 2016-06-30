@@ -11,7 +11,7 @@ var WDurl = WDHost + WDContext + "/";
 //Vars for i18n or Internationalization
 var WDi18nPropFile = "wd_messages";														// Base name of the internationalized properties file
 var WDi18nPropFilePath = "scripts/locale/";												// Relative path for the properties file
-var WDi18nLanguage = "en_US";															// Provided language and country codes (ISO-639 and ISO-3166)
+var WDi18nLanguage = "pt_BR";															// Provided language and country codes (ISO-639 and ISO-3166)
 
 //Vars for Header
 var WDLoginDateFormat = "EEE, MMM dd, yyyy hh:mm:ss a";									//Header Date Format

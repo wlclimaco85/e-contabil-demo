@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <div class="page page-dashboard" data-ng-controller="DashboardController">
 
     <div class="row">
@@ -183,9 +184,38 @@
                     </tr>
                 </tbody>
             </table>
-
+        <div ng-controller="RowSelectCtrl as vm"></div>
         </section>
 	<div data-ui-footer></div>
 </div>
 
+<div class="container">
+     <script type="text/ng-template" id="dashboardDialog.html">
+         <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Informativo </h4>
+              </div>
+              <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Aviso!</strong> Esta e uma versão de demostração Onde todos os dados são fixo e que serve apenas para mostrar algumas funcionalidades so sistema.
+                    </div>
+                    <div class="alert alert-info fade in">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Informativo!</strong> Please read the comments carefully.
+                    </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>
+
+</div>
 

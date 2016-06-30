@@ -4,13 +4,31 @@ angular.module('wdApp.apps.produtoss', ['datatables','angularModalService', 'dat
     .controller('RowSelectCtrl', CfopController);
 
 function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
+    
     var vm = this;
-
+    vm.selected = {};
+    vm.selectAll = false;
+    vm.toggleAll = toggleAll;
+    vm.toggleOne = toggleOne;
     vm.message = '';
     vm.edit = edit;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
+
+    ModalService.showModal({
+        templateUrl: 'dashboardDialog.html',
+        controller: "DashboardController"
+    }).then(function(modal) {
+
+        modal.element.modal();
+        modal.close.then(function(result) {
+            $scope.message = "You said " + result;
+        });
+    });
+
+    var titleHtml = '<input type="checkbox" ng-model="vm.selectAll"' +
+        'ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
 
     vm.dtOptions = DTOptionsBuilder.fromSource('cfop.json')
         .withDOM('frtip')
@@ -38,10 +56,10 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
             $('.dt-buttons').find('.dt-button:eq(1)').before(
 
             '<select class="form-control col-sm-3 btn btn-primary dropdown-toggle" data-ng-options="t.name for t in vm.types"'+
-              'data-ng-model="vm.object.type" style="height: 32px;margin-left: 8px;margin-right: 6px;width: 200px !important;">'+
+              'data-ng-model="vm.object.type" style="height: 32px;margin-left: 8px;margin-right: 6px;width: 200px !important; " ng-change="vm.deleteRowAll(vm.selected)">'+
               
-                '<option><a href="#">Ações <span class="badge selected badge-danger main-badge" data-ng-show="{{showCase.countSeleted()}}"</span></a></option>'+
-                '<option><a href="#">Remover Todos <span class="badge selected badge-danger main-badge"  data-ng-show="{{showCase.countSeleted()}}"></span></a></option>'+
+                '<option>Ações <span class="badge selected badge-danger main-badge" data-ng-show="{{vm.countSeleted()}}"</span></option>'+
+                '<option>Remover Todos <span class="badge selected badge-danger main-badge"  data-ng-show="{{vm.countSeleted()}}"></span></option>'+
                '</select>'
 
             )
@@ -114,10 +132,12 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modal.html',
-                        controller: "RowSelectCtrl"
+                        templateUrl: 'CFOPmodal.html',
+                        controller: "CfopController"
                     }).then(function(modal) {
+
                         modal.element.modal();
+                        openDialog();
                         modal.close.then(function(result) {
                             $scope.message = "You said " + result;
                         });
@@ -127,7 +147,13 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
         ])
 
     vm.dtColumns = [
-       DTColumnBuilder.newColumn('id').withTitle('ID'),
+
+        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+            .renderWith(function(data, type, full, meta) {
+                vm.selected[full.id] = false;
+                return '<input type="checkbox" ng-model="vm.selected[' + data.id + ']" ng-click="vm.toggleOne(vm.selected)"/>';
+        }),
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('cfop').withTitle('CFOP'),
         DTColumnBuilder.newColumn('natureza').withTitle('Natureza'),
         DTColumnBuilder.newColumn('descricao').withTitle('descricao'),
@@ -140,15 +166,16 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
         DTColumnBuilder.newColumn('observacao').withTitle('observacao').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
-        DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml)
+        DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '100px')
     ];
 
     function edit(person) {
         ModalService.showModal({
-            templateUrl: 'modal.html',
-            controller: "RowSelectCtrl"
+            templateUrl: 'CFOPmodal.html',
+            controller : "CfopController"
         }).then(function(modal) {
             modal.element.modal();
+            openDialog();
             modal.close.then(function(result) {
                 $scope.message = "You said " + result;
             });
@@ -157,7 +184,20 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
     function deleteRow(person) {
         ModalService.showModal({
             templateUrl: 'cfopDelete.html',
-            controller: "RowSelectCtrl"
+            controller: "CfopController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    }
+
+    function deleteRowAll(person) {
+        debugger
+        ModalService.showModal({
+            templateUrl: 'cfopAllDelete.html',
+            controller: "CfopController"
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(result) {
@@ -178,5 +218,92 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
             '   <i class="fa fa-trash-o"></i>' +
             '</button>';
     }
+    function toggleAll (selectAll, selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                selectedItems[id] = selectAll;
+            }
+        }
+    }
+    function toggleOne (selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if(!selectedItems[id]) {
+                    vm.selectAll = false;
+                    return;
+                }
+            }
+        }
+        vm.selectAll = true;
+    }
+
+    function openDialog() 
+    {
+        bookIndex = 0;
+        $('#pdVendasForm')
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+            'book[0].produto': notEmptyStringMinMaxRegexp,
+            'book[0].quantidade': integerNotEmptyValidation,
+            'book[0].vlUnitario': integerNotEmptyValidation,
+
+
+        }
+        })
+        // Add button click handler
+        .on('click', '.addButton', function() {
+            bookIndex++;
+            var $template = $('#bookTemplate'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('data-book-index', bookIndex)
+                                .insertBefore($template);
+
+            // Update the name attributes
+            $clone
+                .find('[name="produto"]').attr('name', 'book[' + bookIndex + '].produto').end()
+                .find('[name="quantidade"]').attr('name', 'book[' + bookIndex + '].quantidade').end()
+                .find('[name="vlUnitario"]').attr('name', 'book[' + bookIndex + '].vlUnitario').end()
+                .find('[name="desconto"]').attr('name', 'book[' + bookIndex + '].desconto').end();
+
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            $('#pdVendasForm')
+                .formValidation('addField', 'book[' + bookIndex + '].produto',notEmptyStringMinMaxRegexp)
+                .formValidation('addField', 'book[' + bookIndex + '].quantidade',integerNotEmptyValidation)
+                .formValidation('addField', 'book[' + bookIndex + '].vlUnitario',integerNotEmptyValidation);
+        })// Remove button click handler
+        .on('click', '.removeButton', function() {
+            var $row  = $(this).parents('.form-group'),
+                index = $row.attr('data-book-index');
+
+            // Remove fields
+            $('#bookForm')
+                .formValidation('removeField', $row.find('[name="book[' + index + '].produto"]'))
+                .formValidation('removeField', $row.find('[name="book[' + index + '].quantidade"]'))
+                .formValidation('removeField', $row.find('[name="book[' + index + '].vlUnitario"]'))
+                .formValidation('removeField', $row.find('[name="book[' + index + '].desconto"]'));
+
+            // Remove element containing the fields
+            $row.remove();
+        });
+        $("select").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+
+
+
+    }
+
 }
 })();

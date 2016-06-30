@@ -43,7 +43,7 @@
 			info: '#56BDF1',
 			infoAlt: '#7F6EC7',
 			warning: '#F3C536',
-			danger: '#FA7B58'
+			danger: '#FFDC54'
 		 };
     }]);
 
@@ -62,7 +62,7 @@
     }]);
 
 	commonControllers.controller('DashboardController', ['$scope', function($scope) {
-
+		
 	}]);
 
 	commonControllers.controller('LoginController', ['$scope', '$rootScope', '$location', 'localStorageService','WDAuthentication',
