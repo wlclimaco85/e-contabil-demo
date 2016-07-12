@@ -182,22 +182,22 @@ function pdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
-        }),
-        DTColumnBuilder.newColumn('id').withTitle('ID'),     
-        DTColumnBuilder.newColumn('cliente').withTitle('cliente'),
-        DTColumnBuilder.newColumn('data').withTitle('data'),
-         DTColumnBuilder.newColumn(null).withTitle('qntProd').notSortable()
+        }).withOption('width', '10px'),
+        DTColumnBuilder.newColumn('id').withTitle('ID').withOption('width', '10px').notVisible(),   
+        DTColumnBuilder.newColumn('cliente').withTitle('cliente').withOption('width', '150px'),
+        DTColumnBuilder.newColumn('data').withTitle('data').withOption('width', '50px'),
+         DTColumnBuilder.newColumn(null).withTitle('qntProd').notSortable().withOption('width', '10px')
             .renderWith(function(data, type, full, meta) {
                 return '<a> '+ data.qntProd +'</a>';
             }),
        // DTColumnBuilder.newColumn('qntProd').withTitle('qntProd'),
-        DTColumnBuilder.newColumn('valorPedido').withTitle('valorPedido'),
-        DTColumnBuilder.newColumn('valorItens').withTitle('valorItens'),
-        DTColumnBuilder.newColumn('observacao').withTitle('observacao'),
+        DTColumnBuilder.newColumn('valorPedido').withTitle('valorPedido').withOption('width', '15px'),
+        DTColumnBuilder.newColumn('valorItens').withTitle('valorItens').withOption('width', '15px'),
+        DTColumnBuilder.newColumn('observacao').withTitle('observacao').withOption('width', '150px'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn('status').withTitle('status'),
-        DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml)
+        DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '150px')
     ];
 
    
@@ -230,12 +230,18 @@ function pdVendasController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     }
     function actionsHtml(data, type, full, meta) {
         vm.persons[data.id] = data;
-        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
-            '   <i class="fa fa-edit"></i>' +
-            '</button>&nbsp;' +
-            '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
-            '   <i class="fa fa-trash-o"></i>' +
-            '</button>';
+        return ' <div class="dropdown">'+
+          '<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'+
+           ' Açoes'+
+            '<span class="caret"></span>'+
+          '</button>'+
+          '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'+
+            '<li><a href="#">Deletar</a></li>'+
+            '<li><a href="javaScript:;" ng-click="showCase.edit(showCase.persons[' + data.id + '])">Alterar</a></li>'+
+            '<li role="separator" class="divider"></li>'+
+            '<li><a href="#">Transformar Em NF-e</a></li>'+
+          '</ul>'+
+        '</div>'
     }
 
     function toggleAll (selectAll, selectedItems) {

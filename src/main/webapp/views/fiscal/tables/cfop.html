@@ -1,29 +1,23 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/select2.css"/>
+<script src="dist/js/select2.min.js"></script>
 <div ng-controller="RowSelectCtrl as vm">
-
-
-<div class="dropdown"><button class="btn btn-sucess dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Ações<span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="javaScript;;">Deletar Todos</a></li>
-  </ul>
-</div>
 	
     <table datatable dt-options="vm.dtOptions" dt-columns="vm.dtColumns" class="row-border hover">
     	<tfoot>
         <tr>
             <th>ID
-            </th><th>First Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
-            </th><th>Last Name
+            </th><th>CFOP
+            </th><th>Natureza
+            </th><th>descricao
+            </th><th>simplificado
+            </th><th>icms
             </th><th>Last Name
             </th><th>Last Name
             </th><th>Last Name
         </th></tr>
         </tfoot>
     </table>
-
     <div class="container">
 			     <script type="text/ng-template" id="CFOPmodal.html">
 			         <div class="modal fade">
@@ -45,10 +39,12 @@
 
 	                                        <div class="form-group col-sm-6">
 	                                            <label for="exampleInputEmail1">Natureza</label>
-	                                            <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="form-control">
-								                    <option value="01">Entrada</option>
-								                    <option value="02">Saida</option>
-								                </select>
+	                                            <div class="row">
+		                                            <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+									                    <option value="01">Entrada</option>
+									                    <option value="02">Saida</option>
+									                </select>
+									            </div>
 	                                        </div>
 	                                     </div>
 	                                     <div class="row col-sm-12">

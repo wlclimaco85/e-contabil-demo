@@ -18,7 +18,7 @@
     <li><a href="javascript:;">57.201.848/0001-04</a></li>
     <li><a href="javascript:;">78.239.671/0001-05</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="javascript:;">Todas</a></li>
+    <li><a href="javascript:;" data-i18n="todas"></a></li>
   </ul>
 </div>
             </li>
@@ -26,7 +26,7 @@
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle>
                     <img src="images/anonymity.jpg" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
-                        <span data-i18n="Washington"></span>
+                        <span data-i18n="Jonh Snow"></span>
 						<span ng-show="user.user">({{user.user}})</span>
                     </span>
                 </a>
@@ -65,9 +65,9 @@
                 </a>
                 <ul class="pull-right dropdown-menu with-arrow list-langs" role="menu">
                     <li>
-                        <a href="javascript:;"> Empresa</a></li>
+                        <a href="javascript:;" data-i18n="empresa"></a></li>
                     <li >
-                        <a href="javascript:;"> Configuraçoes</a></li></li>
+                        <a href="javascript:;" data-i18n="configuracao"></a></li>
                 </ul>
             </li>
             <li class="dropdown langs text-normal"  uib-dropdown on-toggle="toggled(open)">
@@ -84,31 +84,34 @@
                     <li>
                         <a href="#/tasks/tasks">
                             <i class="fa fa-check"></i>
-                            <span data-i18n="Erro Emissão NFE"></span> <span class="badge badge-danger main-badge" data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
+                            <span data-i18n="Erro Emissao NFE"></span> <span class="badge badge-danger main-badge" data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
                         </a>
                     </li>
                 </ul>
             </li>
+            <li class="dropdown langs text-normal"  uib-dropdown on-toggle="toggled(open)" data-ng-controller="LangController">
+                
+            </li>   
             <li class="dropdown hidden-xs" uib-dropdown on-toggle="toggled(open)">
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-cogs"></i></a>
                 <div class="pull-right dropdown-menu with-arrow panel panel-default admin-options">
-                    <div class="panel-heading"> Admin Options </div>
+                    <div class="panel-heading" data-i18n="adminOptions"></div>
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <p>Layouts Style</p>
-                            <label class="ui-radio"><input name="layout" type="radio" value="boxed" ng-model="admin.layout"><span>Boxed</span></label>
-                            <label class="ui-radio"><input name="layout" type="radio" value="wide" ng-model="admin.layout"><span>Wide</span></label>
+                            <p data-i18n="layoutsStyle"></p>
+                            <label class="ui-radio"><input name="layout" type="radio" value="boxed" ng-model="admin.layout" ><span  data-i18n="Boxed"></span></label>
+                            <label class="ui-radio"><input name="layout" type="radio" value="wide" ng-model="admin.layout"><span  data-i18n="Wide"></span></label>
                         </li>
                         <li class="list-group-item">
                             <p>Menu Style</p>
-                            <label class="ui-radio"><input name="menu" type="radio" value="vertical" ng-model="admin.menu"><span>Vertical</span></label>
-                            <label class="ui-radio"><input name="menu" type="radio" value="horizontal" ng-model="admin.menu"><span>Horizontal</span></label>
+                            <label class="ui-radio"><input name="menu" type="radio" value="vertical" ng-model="admin.menu"><span  data-i18n="Vertical"></span></label>
+                            <label class="ui-radio"><input name="menu" type="radio" value="horizontal" ng-model="admin.menu"><span data-i18n="Horizontal"></span></label>
                         </li>
                         <li class="list-group-item">
                             <p>Additional</p>
-                            <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ng-model="admin.fixedHeader"><span>Fixed Top Header</span></label>
+                            <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ng-model="admin.fixedHeader"  ><span data-i18n="Fixed Top Header"></span></label>
                             <br>
-                            <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ng-model="admin.fixedSidebar"><span>Fixed Sidebar Menu</span></label>
+                            <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ng-model="admin.fixedSidebar"  ><span data-i18n="Fixed Sidebar Menu"></span></label>
                         </li>
                     </ul>
                 </div>

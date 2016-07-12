@@ -1,3 +1,6 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/select2.css"/>
+<script src="dist/js/select2.min.js"></script>
 <div ng-controller="FuncionarioController as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
       <tfoot>
@@ -14,6 +17,11 @@
         </th></tr>
         </tfoot>
     </table>
+
+
+    <div ng-controller="WithResponsiveCtrl as showCase">
+    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover" width="100%"></table>
+</div>
 
     <div class="container">
            <script type="text/ng-template" id="banco.html">

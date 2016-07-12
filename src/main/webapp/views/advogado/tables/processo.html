@@ -1,0 +1,455 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/select2.css"/>
+<script src="dist/js/select2.min.js"></script>
+<div ng-controller="ProcessoController as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+    <tfoot>
+        <tr>
+            <th>ID
+            </th>
+            <th>First Name
+            </th>
+            <th>Last Name
+            </th>
+            <th>Last Name
+            </th>
+            <th>Last Name
+            </th>
+            <th>Last Name
+            </th>
+            <th>Last Name
+            </th>
+            <th>Last Name
+            </th>
+            <th>Last Name
+            </th>
+        </tr>
+    </tfoot>
+    </table>
+    <div class="container">
+        <script type="text/ng-template" id="cadProcesso.html">
+            <div class="modal fade">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                   <h4 class="modal-title">Cadastro Processo</h4>
+                 </div>
+                 <div class="modal-body">
+                   <form  id="empresaForm">
+            
+                        <div class="row">
+                                            <div class="form-group col-sm-6">
+                                                <label for="exampleInputEmail1">Assunto</label>
+                                                <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="CFOP">
+                                            </div>
+            
+                                            <div class="form-group col-sm-6">
+                                                <label for="exampleInputEmail1">Status</label>
+                                                <div class="row">
+                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                        <option></option>
+                                                        <option value="4">Arquivado</option>
+                                                        <option value="1" selected="selected">Ativo</option>
+                                                        <option value="5">Em grau de recurso</option>
+                                                        <option value="3">Encerrado</option>
+                                                        <option value="2">Suspenso</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="row col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Descrição</label>
+                                                <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Descrição">
+                                            </div>
+                                         </div>
+                                         <div class="row col-sm-12">
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputEmail1">Responsáveis</label>
+                                                <input type="email" id='email' class="form-control" ng-model="cfop.icms" name="email" placeholder="Responsáveis">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Grupos de trabalho</label>
+                                                <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="Grupos de trabalho">
+                                            </div>
+                                        </div>
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href=".collapseFour">
+                                                        Dados do processo
+                                                        </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in collapseFour">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputPassword1">Processo</label>
+                                                                <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="exampleInputEmail1">Situação</label>
+                                                            <div class="row">
+                                                                <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                    <option></option>
+                                                                    <option value="2">Conselho Nacional de Justiça</option>
+                                                                    <option value="8" selected="selected">Justiça dos Estados e do Distrito Federal e Territórios</option>
+                                                                    <option value="5">Justiça do Trabalho</option>
+                                                                    <option value="6">Justiça Eleitoral</option>
+                                                                    <option value="4">Justiça Federal</option>
+                                                                    <option value="7">Justiça Militar da União</option>
+                                                                    <option value="9">Justiça Militar Estadual</option>
+                                                                    <option value="3">Superior Tribunal de Justiça</option>
+                                                                    <option value="1">Supremo Tribunal Federal</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="exampleInputEmail1">Instância</label>
+                                                            <div class="row">
+                                                                <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                    <option></option>
+                                                                    <option value="PRIMEIRA_INSTANCIA" selected="selected">1ª Instância</option>
+                                                                    <option value="SEGUNDA_INSTANCIA">2ª Instância</option>
+                                                                    <option value="TERCEIRA_INSTANCIA">3ª Instância</option>
+                                                                    <option value="QUARTA_INSTANCIA">4ª Instância</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Órgão</label>
+                                                <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Numeração Padrão CNJ</label>
+                                                <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+                                            </div>
+                                             <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Numeração Outro Padrão</label>
+                                                <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+                                            </div>
+                                            <div class="col-sm-3" style="margin-top:18px">
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" name="receiver" class="check-socio" value="1" /> Agendar captura no tribunal
+                                         </label>
+                                     </div>
+                                 </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row col-sm-12">
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Distribuído</label>
+                                                <input type="password" class="form-control" ng-model="cfop.icmsReduzido" name="password" placeholder="0.00">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="exampleInputPassword1">Valor da ação</label>
+                                                <input type="password" class="form-control" ng-model="cfop.classFiscal" name="password" placeholder="0.00">
+                                            </div>
+                                        </div>
+                                         <div class="row col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Observação</label>
+                                                <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Observação">
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href=".collapseFour">
+                                                        PARÂMETROS DA CAPTURA
+                                                        </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in collapseFour">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputEmail1">Justiça</label>
+                                                                <div class="row">
+                                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                        <option></option>
+                                                                        <option value=""></option>
+                                                                        <option value="1">Supremo Tribunal Federal</option>
+                                                                        <option value="3">Superior Tribunal de Justiça</option>
+                                                                        <option value="4">Justiça Federal</option>
+                                                                        <option value="5">Justiça do Trabalho</option>
+                                                                        <option value="8" selected="selected">Justica dos Estados e do Distrito Federal e Territórios</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputEmail1">Tribunal</label>
+                                                                <div class="row">
+                                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                        <option value="" selected="selected"></option>
+                                                                        <option value="5">Tribunal de Justiça do Acre</option>
+                                                                        <option value="7">Tribunal de Justiça de Alagoas</option>
+                                                                        <option value="8">Tribunal de Justiça do Amazonas</option>
+                                                                        <option value="11">Tribunal de Justiça da Bahia</option>
+                                                                        <option value="16">Tribunal de Justiça do Ceará</option>
+                                                                        <option value="53">Tribunal de Justiça do Distrito Federal e dos Territórios - DF</option>
+                                                                        <option value="19">Tribunal de Justiça do Espírito Santo</option>
+                                                                        <option value="20">Tribunal de Justiça de Goiás</option>
+                                                                        <option value="22">Tribunal de Justiça do Maranhão</option>
+                                                                        <option value="29">Tribunal de Justiça de Mato Grosso</option>
+                                                                        <option value="26">Tribunal de Justiça de Mato Grosso do Sul</option>
+                                                                        <option value="24">Tribunal de Justiça de Minas Gerais</option>
+                                                                        <option value="34">Tribunal de Justiça do Paraná</option>
+                                                                        <option value="51">Tribunal de Justiça do Pará - PA</option>
+                                                                        <option value="33">Tribunal de Justiça do Piauí</option>
+                                                                        <option value="40">Tribunal de Justiça do Rio Grande do Norte</option>
+                                                                        <option value="43">Tribunal de Justiça de Rio Grande do Sul</option>
+                                                                        <option value="37">Tribunal de Justiça do Rio de Janeiro</option>
+                                                                        <option value="42">Tribunal de Justiça de Rondônia</option>
+                                                                        <option value="45">Tribunal de Justiça de Santa Catarina</option>
+                                                                        <option value="4">Tribunal de Justiça de São Paulo</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputEmail1">Instância</label>
+                                                                <div class="row">
+                                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                        <option></option>
+                                                                        <option value="PRIMEIRA_INSTANCIA" selected="selected">1ª Instância</option>
+                                                                        <option value="SEGUNDA_INSTANCIA">2ª Instância</option>
+                                                                        <option value="TERCEIRA_INSTANCIA">3ª Instância</option>
+                                                                        <option value="QUARTA_INSTANCIA">4ª Instância</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputEmail1">Localidade</label>
+                                                                <div class="row">
+                                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                        <option></option>
+                                                                        <option value="PRIMEIRA_INSTANCIA" selected="selected">1ª Instância</option>
+                                                                        <option value="SEGUNDA_INSTANCIA">2ª Instância</option>
+                                                                        <option value="TERCEIRA_INSTANCIA">3ª Instância</option>
+                                                                        <option value="QUARTA_INSTANCIA">4ª Instância</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputEmail1">Capturar por</label>
+                                                                <div class="row">
+                                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                        <option></option>
+                                                                        <option value="PRIMEIRA_INSTANCIA" selected="selected">1ª Instância</option>
+                                                                        <option value="SEGUNDA_INSTANCIA">2ª Instância</option>
+                                                                        <option value="TERCEIRA_INSTANCIA">3ª Instância</option>
+                                                                        <option value="QUARTA_INSTANCIA">4ª Instância</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Número do Processo</label>
+                                                                    <input type="password" class="form-control" ng-model="cfop.observacao" name="password" placeholder="Número do Processo">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="exampleInputEmail1">Captura automática de andamentos</label>
+                                                                <div class="row">
+                                                                    <select id="unidTributada" name="unidTributada"  ng-model="cfop.natureza" class="col-sm-12">
+                                                                        <option value="NAO_CAPTURAR">Não capturar</option>
+                                                                        <option value="DIARIA">Diária</option>
+                                                                        <option value="SEMANAL">Semanal</option>
+                                                                        <option value="MENSAL">Mensal</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+            
+            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                              <div class="row " style="margin-top : 10px"></div>
+                                <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h3 class="panel-title">Envolvidos</h3>
+                                  </div>
+                                  <div class="panel-body">
+                                <div class="row socios">
+                                    <div class="col-sm-5">
+                                        <label for="exampleInputPassword1">Pessoa</label>
+                                        <div class="row ">
+                                            <select name="book[0].produto" class="col-sm-12">
+                                                <option value="0">1010 - Coca Cola 1LT</option>
+                                                <option value="1">1011 - Coca Cola 1.5LT</option>
+                                                <option value="2">Cadastrar novo Cliente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="exampleInputPassword1">Tipo Envolvimento</label>
+                                        <div class="row ">
+                                            <select name="book[0].produto" class="col-sm-12">
+                                                <option></option>
+                                                <option value="PARTE_ATIVA" selected="selected">Parte Ativa</option>
+                                                <option value="PARTE_PASSIVA">Parte Passiva</option>
+                                                <option value="TERCEIRO">Terceiro</option>
+                                                <option value="ASSISTENTE">Assistente</option>
+                                                <option value="FISCAL">Fiscal</option>
+                                                <option value="TESTEMUNHA">Testemunha</option>
+                                                <option value="VITIMA">Vítima</option>
+                                                <option value="OUTROS">Outros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Envolvimento</label>
+                                            <div class="row ">
+                                            <select name="book[0].produto" class="col-sm-12">
+                                                <option></option>
+                                                <option value="63">Acusador</option>
+                                                <option value="2">Agravante</option>
+                                                <option value="3">Apelante</option>
+                                                <option value="1" selected="selected">Autor</option>
+                                                <option value="4">Embargante</option>
+                                                <option value="5">Excipiente</option>
+                                                <option value="6">Exequente</option>
+                                                <option value="7">Impetrante</option>
+                                                <option value="8">Impugnante</option>
+                                                <option value="9">Interpelante</option>
+                                                <option value="10">Inventariante</option>
+                                                <option value="11">Notificante</option>
+                                                <option value="12">Opoente</option>
+                                                <option value="13">Reclamante</option>
+                                                <option value="14">Reconvinte</option>
+                                                <option value="15">Recorrente</option>
+                                                <option value="61">Requerente</option>
+                                                <option value="16">Sujeito Ativo</option>
+                                            </select>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:18px">
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" name="receiver" class="check-socio" value="1" /> Cliente
+                                         </label>
+                                     </div>
+                                 </div>
+                                    <div class="col-xs-1" style="margin-top:18px">
+                                        <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                                    </div>
+                            </div>
+                                <div class="form-group hide" id="bookTemplate">
+                                    <div class="row socios">
+                                        <div class="col-sm-5">
+                                        <label for="exampleInputPassword1">Pessoa</label>
+                                        <div class="row ">
+                                            <select name="book[0].produto" class="col-sm-12">
+                                                <option value="0">1010 - Coca Cola 1LT</option>
+                                                <option value="1">1011 - Coca Cola 1.5LT</option>
+                                                <option value="2">Cadastrar novo Cliente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="exampleInputPassword1">Tipo Envolvimento</label>
+                                        <div class="row ">
+                                            <select name="book[0].produto" class="col-sm-12">
+                                                <option></option>
+                                                <option value="PARTE_ATIVA" selected="selected">Parte Ativa</option>
+                                                <option value="PARTE_PASSIVA">Parte Passiva</option>
+                                                <option value="TERCEIRO">Terceiro</option>
+                                                <option value="ASSISTENTE">Assistente</option>
+                                                <option value="FISCAL">Fiscal</option>
+                                                <option value="TESTEMUNHA">Testemunha</option>
+                                                <option value="VITIMA">Vítima</option>
+                                                <option value="OUTROS">Outros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Envolvimento</label>
+                                            <div class="row ">
+                                            <select name="book[0].produto" class="col-sm-12">
+                                                <option></option>
+                                                <option value="63">Acusador</option>
+                                                <option value="2">Agravante</option>
+                                                <option value="3">Apelante</option>
+                                                <option value="1" selected="selected">Autor</option>
+                                                <option value="4">Embargante</option>
+                                                <option value="5">Excipiente</option>
+                                                <option value="6">Exequente</option>
+                                                <option value="7">Impetrante</option>
+                                                <option value="8">Impugnante</option>
+                                                <option value="9">Interpelante</option>
+                                                <option value="10">Inventariante</option>
+                                                <option value="11">Notificante</option>
+                                                <option value="12">Opoente</option>
+                                                <option value="13">Reclamante</option>
+                                                <option value="14">Reconvinte</option>
+                                                <option value="15">Recorrente</option>
+                                                <option value="61">Requerente</option>
+                                                <option value="16">Sujeito Ativo</option>
+                                            </select>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:18px">
+                                     <div class="checkbox">
+                                         <label>
+                                             <input type="checkbox" name="receiver" class="check-socio" value="1" /> Cliente
+                                         </label>
+                                     </div>
+                                 </div>
+                                        <div class="col-xs-1" style="margin-top:18px">
+                                            <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+            
+            
+            </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Gravar</button>
+            </div>
+            </div>
+            </div>
+            </div>
+        </script>
+    </div>
+    <div class="container">
+        <script type="text/ng-template" id="cfopDelete.html">
+            <div class="modal fade">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                   <h4 class="modal-title">Deletar</h4>
+                 </div>
+                 <div class="modal-body">
+                    <p>Deseja Realmente EXCLUIR ID : 1001 </p>
+                 </div>
+                 <div class="modal-footer">
+                   <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
+                   <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Não</button>
+                 </div>
+               </div>
+             </div>
+            </div>
+        </script>
+    </div>
+</div>

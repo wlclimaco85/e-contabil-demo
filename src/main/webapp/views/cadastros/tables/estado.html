@@ -1,16 +1,13 @@
-
-<div ng-controller="OrcamentoController as showCase">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/select2.css"/>
+<script src="dist/js/select2.min.js"></script>
+<div ng-controller="EstadosController as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 
 <div class="container"  ng-controller="RowSelectCtrl">
 
-    <h3>Angular Modal Service</h3>
-     <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
-     <p>{{message}}</p>
-
-
-     <script type="text/ng-template" id="modal.html">
+     <script type="text/ng-template" id="cadEstado.html">
          <div class="modal fade">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -20,21 +17,19 @@
               </div>
               <div class="modal-body">
                 <form  id="empresaForm">
-                    <div class="row col-md-12">
-                        <div class="row">
-                            <div class="form-group col-sm-8">
-                                <label for="exampleInputEmail1">Estado</label>
-                                <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Estado">
-                            </div>
-
-                         <div class="row col-sm-4">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Abreviação</label>
-                                <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Abreviação">
-                            </div>
-                         </div>
-                         
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="exampleInputEmail1">Estado</label>
+                            <input type="text"  ng-model="cfop.cfop" name="cfop" class="form-control" placeholder="Estado">
                         </div>
+                        <div class="form-group col-sm-4">
+                            <label for="exampleInputEmail1">Abreviação</label>
+                            <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Abreviação">
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="exampleInputEmail1">Pais</label>
+                            <input type="text" class="form-control" ng-model="cfop.descricao" name="descricao" placeholder="Pais">
+                        </div>               
           			</div>
               	</form>
               </div>

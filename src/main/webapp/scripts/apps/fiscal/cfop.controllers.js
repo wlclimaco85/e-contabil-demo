@@ -16,17 +16,6 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
     vm.dtInstance = {};
     vm.persons = {};
 
-    ModalService.showModal({
-        templateUrl: 'dashboardDialog.html',
-        controller: "DashboardController"
-    }).then(function(modal) {
-
-        modal.element.modal();
-        modal.close.then(function(result) {
-            $scope.message = "You said " + result;
-        });
-    });
-
     var titleHtml = '<input type="checkbox" ng-model="vm.selectAll"' +
         'ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
 
@@ -36,7 +25,7 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
         .withOption('createdRow', createdRow)
         .withPaginationType('full_numbers')
         .withColumnFilter({
-            aoColumns: [{
+            aoColumns: [null,{
                 type: 'number'
             }, {
                 type: 'number',
@@ -133,7 +122,7 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
                         templateUrl: 'CFOPmodal.html',
-                        controller: "CfopController"
+                        controller: "RowSelectCtrl"
                     }).then(function(modal) {
 
                         modal.element.modal();
@@ -152,11 +141,11 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
                 return '<input type="checkbox" ng-model="vm.selected[' + data.id + ']" ng-click="vm.toggleOne(vm.selected)"/>';
-        }),
-        DTColumnBuilder.newColumn('id').withTitle('ID'),
-        DTColumnBuilder.newColumn('cfop').withTitle('CFOP'),
+        }).withOption('width', '10px'),
+        DTColumnBuilder.newColumn('id').withTitle('ID').withOption('width', '10px'),
+        DTColumnBuilder.newColumn('cfop').withTitle('CFOP').withOption('width', '40px'),
         DTColumnBuilder.newColumn('natureza').withTitle('Natureza'),
-        DTColumnBuilder.newColumn('descricao').withTitle('descricao'),
+        DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
         DTColumnBuilder.newColumn('simplificado').withTitle('simplificado').notVisible(),
         DTColumnBuilder.newColumn('icms').withTitle('icms').notVisible(),
         DTColumnBuilder.newColumn('icmsReduzido').withTitle('icmsReduzido').notVisible(),
@@ -172,7 +161,7 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
     function edit(person) {
         ModalService.showModal({
             templateUrl: 'CFOPmodal.html',
-            controller : "CfopController"
+            controller : "RowSelectCtrl"
         }).then(function(modal) {
             modal.element.modal();
             openDialog();
@@ -184,7 +173,7 @@ function CfopController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Moda
     function deleteRow(person) {
         ModalService.showModal({
             templateUrl: 'cfopDelete.html',
-            controller: "CfopController"
+            controller: "RowSelectCtrl"
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(result) {

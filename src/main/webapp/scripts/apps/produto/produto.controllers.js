@@ -29,17 +29,6 @@ function produtoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
             }
         })
         .withPaginationType('full_numbers')
-        .withOption('serverSide', true)
-        .withOption('processing', true)
-        .withOption('language',{
-            paginate : {            // Set up pagination text
-                first: "&laquo;",
-                last: "&raquo;",
-                next: "&rarr;",
-                previous: "&larr;"
-            },
-            lengthMenu: "_MENU_ records per page" 
-        })
         .withColumnFilter({
             aoColumns: [{
                 type: 'number'
@@ -65,10 +54,19 @@ function produtoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
               
                 '<option><a href="#">Ações <span class="badge selected badge-danger main-badge" data-ng-show="{{showCase.countSeleted()}}"</span></a></option>'+
                 '<option><a href="#">Remover Todos <span class="badge selected badge-danger main-badge"  data-ng-show="{{showCase.countSeleted()}}"></span></a></option>'+
-                '<option><a href="#">Solicitar Compra <span class="badge  selected badge-danger main-badge"  data-ng-show="{{showCase.countSeleted()}}"></span></a></option>'+
                '</select>'
 
             )
+        })
+        .withOption('processing', true)
+        .withOption('language',{
+            paginate : {            // Set up pagination text
+                first: "&laquo;",
+                last: "&raquo;",
+                next: "&rarr;",
+                previous: "&larr;"
+            },
+            lengthMenu: "_MENU_ records per page" 
         })
         .withButtons([
             {
@@ -128,11 +126,13 @@ function produtoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modalProdutoCreate.html',
-                        controller: "PdVendasController"
+                        templateUrl: 'cadProduto.html',
+                        controller: "ContasPagarController"
                     }).then(function(modal) {
+
+                        
                         modal.element.modal();
-                        openDialog();
+                        openDialogUpdateCreate();
                         modal.close.then(function(result) {
                             $scope.message = "You said " + result;
                         });
@@ -140,12 +140,13 @@ function produtoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 }
             }
         ]);
+
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
-        }),
+        }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').withOption('width', '10px').notVisible(),
         DTColumnBuilder.newColumn('codigo').withTitle('Codigo').withOption('width', '30px'), 
         DTColumnBuilder.newColumn('produto').withTitle('Nome Produto').withOption('width', '100px'), 
@@ -192,18 +193,33 @@ function produtoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
         DTColumnBuilder.newColumn('status').withTitle('status'),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '100px')
     ];
+   
 
-
-    
-    function countSeleted() 
-    {
-        debugger
-        return 1;
+    function edit(person) {
+       ModalService.showModal({
+            templateUrl: 'editProduto.html',
+            controller: "ContasPagarController"
+        }).then(function(modal) {
+            
+            modal.element.modal();
+            openDialogUpdateCreate();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
     }
-
-
-
-    function openDialog() 
+    function deleteRow(person) {
+        ModalService.showModal({
+            templateUrl: 'deleteProduto.html',
+            controller: "ContasPagarController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    }
+    function openDialogUpdateCreate()
     {
         bookIndex = 0;
         $('#pdVendasForm')
@@ -268,33 +284,6 @@ function produtoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
         });
 
 
-
-    }
-
-   
-
-    function edit(person) {
-       ModalService.showModal({
-            templateUrl: 'modalProduto.html',
-            controller: "PdVendasController"
-        }).then(function(modal) {
-            modal.element.modal();
-            openDialog();
-            modal.close.then(function(result) {
-                $scope.message = "You said " + result;
-            });
-        });
-    }
-    function deleteRow(person) {
-        ModalService.showModal({
-            templateUrl: 'cnaeDelete.html',
-            controller: "PdVendasController"
-        }).then(function(modal) {
-            modal.element.modal();
-            modal.close.then(function(result) {
-                $scope.message = "You said " + result;
-            });
-        });
     }
     function createdRow(row, data, dataIndex) {
         // Recompiling so we can bind Angular directive to the DT

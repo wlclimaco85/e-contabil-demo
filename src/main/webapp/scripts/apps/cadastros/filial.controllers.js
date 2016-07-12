@@ -10,7 +10,6 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
     vm.toggleOne = toggleOne;
     vm.message = '';
     vm.edit = edit;
-    vm.baixar = baixar;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
@@ -18,7 +17,7 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('FormaPag.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('filial.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -123,11 +122,11 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Forma Pagamento',
+                text: 'Novo Filial',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'agencia.html',
+                        templateUrl: 'cadFilial.html',
                         controller: "ContasPagarController"
                     }).then(function(modal) {
 
@@ -149,9 +148,16 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
-        DTColumnBuilder.newColumn('banco').withTitle('Banco'),
-        DTColumnBuilder.newColumn('numAgencia').withTitle('Nº Agencia'),
-        DTColumnBuilder.newColumn('cep').withTitle('Cep'),    
+        DTColumnBuilder.newColumn('razao').withTitle('Nome ou Razão social'),
+        DTColumnBuilder.newColumn('nome').withTitle('Nome Fantasia'),
+        DTColumnBuilder.newColumn('cnpj').withTitle('CPF ou CNPJ'),   
+        DTColumnBuilder.newColumn('numFunc').withTitle('Numero Funcionarios').notVisible(), 
+        DTColumnBuilder.newColumn('IES').withTitle('Inscr Est Subst Trib').notVisible(), 
+        DTColumnBuilder.newColumn('IIE').withTitle('Indicador de IE').notVisible(),
+        DTColumnBuilder.newColumn('IE').withTitle('Inscrição Estadual').notVisible(), 
+        DTColumnBuilder.newColumn('IM').withTitle('Inscrição Municipal').notVisible(), 
+        DTColumnBuilder.newColumn('IF').withTitle('Inscrição Suframa').notVisible(),  
+        DTColumnBuilder.newColumn('cep').withTitle('CEP').notVisible(),
         DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro'),
         DTColumnBuilder.newColumn('numero').withTitle('Numero'),
         DTColumnBuilder.newColumn('cidade').withTitle('Cidade'),
@@ -159,7 +165,9 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
         DTColumnBuilder.newColumn('pais').withTitle('Pais').notVisible(),
         DTColumnBuilder.newColumn('telefone').withTitle('Telefone'),
         DTColumnBuilder.newColumn('email').withTitle('Email').notVisible(),
-        DTColumnBuilder.newColumn('obs').withTitle('Observações').notVisible(),
+        DTColumnBuilder.newColumn('cnae').withTitle('Ativ. Filial'),
+        DTColumnBuilder.newColumn('dataCadastro').withTitle('Data Cadastro').notVisible(),
+        DTColumnBuilder.newColumn('obs').withTitle('Observação').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '140px'), 
@@ -169,7 +177,7 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'agencia.html',
+            templateUrl: 'cadFilial.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             
@@ -182,7 +190,7 @@ function filialController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,Mo
     }
     function deleteRow(person) {
         ModalService.showModal({
-            templateUrl: 'formaPgDelete.html',
+            templateUrl: 'deleteFilial.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             modal.element.modal();

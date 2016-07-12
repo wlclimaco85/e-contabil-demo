@@ -1,22 +1,47 @@
 (function() {
-  angular.module('wdApp.apps.procedures', []).controller('ProceduresController', ProceduresController,
-  ['$scope', 'SysMgmtData', 'toastr', 'toastrConfig',"NgTableParams"
-  ])
+  angular.module('wdApp.apps.procedures', []).controller('ProceduresController', 
+    ['$scope', 'SysMgmtData', 'toastr', 'toastrConfig','$rootScope',
+	function($scope, SysMgmtData, toastr, toastrConfig,$rootScope) {
+		var cvm = this;
+		var initLoad = true; //used to ensure not calling server multiple times
+		var fetch_url = WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.fetch_url;
+		var refresh_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.refresh_url;
+		var create_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.create_url;
+		var update_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.update_url;
+		var delete_url =  WebDaptiveAppConfig.base_county_url +  WebDaptiveAppConfig.delete_url;
+		cvm.isActive = false;
+		toastrConfig.closeButton = true;
 
-  ProceduresController.$inject = ["NgTableParams",'$scope', 'SysMgmtData', 'toastr', 'toastrConfig'];
+		//form model data
+		cvm.county = {
+			id: '',
+			description: ''
+		};
 
-  function ProceduresController(NgTableParams,$scope, SysMgmtData, toastr, toastrConfig)  // var self = this;
-  {
-	var cvm = this;
-		var initLoad =    true; //used to ensure not calling server multiple times
-		var fetch_url = "cidade/api/fetchByRequestBAS";
-		var refresh_url =  "qat-webdaptive/cidade/api/refreshBAS";
-		var create_url =  "qat-webdaptive/cidade/api/insertBAS";
-		var update_url =  "qat-webdaptive/cidade/api/updateBAS";
-		var delete_url =  "qat-webdaptive/cidade/api/deleteBAS";
-		cvm.isActive =    false;
-		//toastrConfig.closeButton = true;
-function createNewDatasource(resIn) {
+		//grid column defs
+		var countyColumnDefs = [
+			{headerName: "County Id", field: "id", width: 270},
+			{headerName: "County Description", field: "description", width: 450}
+		];
+
+		//grid row select function
+		function rowSelectedFunc(event) {
+			cvm.county.id = event.node.data.id;
+			cvm.county.description = event.node.data.description;
+		};
+
+		//grid options
+		cvm.countyGridOptions = {
+			columnDefs: countyColumnDefs,
+			rowSelection: 'single',
+			onRowSelected: rowSelectedFunc,
+			rowHeight: 30,
+			headerHeight: 30,
+			enableColResize: true
+		};
+
+		//reusable paging datasource grid
+		function createNewDatasource(resIn) {
 			var countyDataSource = {
 				pageSize: 20, //using default paging of 20
 				getRows: function (params) {
@@ -32,7 +57,7 @@ function createNewDatasource(resIn) {
 					}
 					else{
 						//console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-						SysMgmtData.processPostPageData(fetch_url, new qat.model.pagedInquiryRequest(  params.startRow/20, true), function(res){
+						SysMgmtData.processPostPageData("/main/api/request", {url : WebDaptiveAppConfig.fetch_url, token : $rootScope.authToken , request : new qat.model.pagedInquiryRequest(  params.startRow/20, true)}, function(res){
 							var dataThisPage = res.counties;
 							cvm.gList =  dataThisPage;
 							var lastRow = res.resultsSetInfo.totalRowsAvailable;
@@ -45,7 +70,8 @@ function createNewDatasource(resIn) {
 		};
 
 		//initial data load
-		processPostData(fetch_url, new qat.model.pagedInquiryRequest( 0, true), false);
+		//debugger
+		processPostData("main/api/request/", {url : "county/api/fetchPage", token :$rootScope.authToken, request : new qat.model.pagedInquiryRequest()}, false);
 
 		//reusable data methods
 		//reusable processGetData (refresh,delete)
@@ -78,7 +104,7 @@ function createNewDatasource(resIn) {
 					createNewDatasource(res); //send Data
 				}
 				else{
-				//	cvm.countyGridOptions.api.hideOverlay();
+					cvm.countyGridOptions.api.hideOverlay();
 				}
 			});
 		};
@@ -116,7 +142,7 @@ function createNewDatasource(resIn) {
 					break;
 				//Update Button
 				case 'U':
-				//	processPostData(update_url,  new qat.model.reqCounty( new qat.model.county(cvm.county.id, cvm.county.description),true, true), true);
+					processPostData(update_url,  new qat.model.reqCounty( new qat.model.county(cvm.county.id, cvm.county.description),true, true), true);
 					break;
 				//Delete Button
 				case 'D':
@@ -145,144 +171,7 @@ function createNewDatasource(resIn) {
 			}
 		};
 
-		//form model data
-		cvm.county = {
-			id: '',
-			description: ''
-		};
-		//processPostData(fetch_url, new qat.model.pagedInquiryRequest( 0, true), false);
-		//grid column defs
-		var countyColumnDefs = [
-			{headerName: "County Id", field: "id", width: 270},
-			{headerName: "County Description", field: "description", width: 450}
-		];
-processPostData(fetch_url, new qat.model.pagedInquiryRequest( 0, true), false);
-		//grid row select function
-		function rowSelectedFunc(event) {
-			cvm.county.id = event.node.data.id;
-			cvm.county.description = event.node.data.description;
-		};
-
-		//grid options
-		cvm.countyGridOptions = {
-			columnDefs: countyColumnDefs,
-			rowSelection: 'single',
-			onRowSelected: rowSelectedFunc,
-			rowHeight: 30,
-			headerHeight: 30,
-			enableColResize: true
-		};
-
-		//reusable paging datasource grid
-
-
-		//var simpleList = processGetData("_url");
-		simpleList = [{
-          "name": "aab",
-          "age": 5,
-          "money": 5
-        },
-        {
-          "name": "aac",
-          "age": 55,
-          "money": 0
-        },
-        {
-          "name": "aad",
-          "age": 555,
-          "money": 1
-        },
-        {
-          "name": "aae",
-          "age": 5555,
-          "money": 2
-        },
-        {
-          "name": "aaf",
-          "age": 55555,
-          "money": 3
-        },
-        {
-          "name": "aag",
-          "age": 555555,
-          "money": 4
-        }]
-		var originalData = angular.copy(simpleList);
-
-		cvm.tableParams = new NgTableParams({}, {
-		  dataset: angular.copy(simpleList)
-		});
-
-		cvm.deleteCount = 0;
-
-		cvm.add = add;
-		cvm.cancelChanges = cancelChanges;
-		cvm.del = del;
-		cvm.hasChanges = hasChanges;
-		cvm.saveChanges = saveChanges;
-
-		//////////
-
-    function add() {
-      cvm.isEditing = true;
-      cvm.isAdding = true;
-      cvm.tableParams.settings().dataset.unshift({
-        name: "",
-        age: null,
-        money: null
-      });
-      // we need to ensure the user sees the new row we've just added.
-      // it seems a poor but reliable choice to remove sorting and move them to the first page
-      // where we know that our new item was added to
-      cvm.tableParams.sorting({});
-      cvm.tableParams.page(1);
-      cvm.tableParams.reload();
     }
-
-	function cancelChanges() {
-      resetTableStatus();
-      var currentPage = cvm.tableParams.page();
-      cvm.tableParams.settings({
-        dataset: angular.copy(originalData)
-      });
-      // keep the user on the current page when we can
-      if (!cvm.isAdding) {
-        cvm.tableParams.page(currentPage);
-      }
-    }
-
-    function del(row) {
-      _.remove(cvm.tableParams.settings().dataset, function(item) {
-        return row === item;
-      });
-      cvm.deleteCount++;
-      cvm.tableTracker.untrack(row);
-      cvm.tableParams.reload().then(function(data) {
-        if (data.length === 0 && cvm.tableParams.total() > 0) {
-          cvm.tableParams.page(cvm.tableParams.page() - 1);
-          cvm.tableParams.reload();
-        }
-      });
-    }
-
-    function hasChanges() {
-      return cvm.tableForm.$dirty || cvm.deleteCount > 0
-    }
-
-    function resetTableStatus() {
-      cvm.isEditing = false;
-      cvm.isAdding = false;
-      cvm.deleteCount = 0;
-      cvm.tableTracker.reset();
-      cvm.tableForm.$setPristine();
-    }
-
-    function saveChanges() {
-      resetTableStatus();
-      var currentPage = cvm.tableParams.page();
-      originalData = angular.copy(cvm.tableParams.settings().dataset);
-    }
-
-  }
-})();
+  ]);
+}).call(this);
 

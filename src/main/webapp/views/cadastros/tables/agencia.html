@@ -1,15 +1,12 @@
-<div ng-controller="OrcamentoController as showCase">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="dist/css/select2.css"/>
+<script src="dist/js/select2.min.js"></script>
+<div ng-controller="AgenciaController as showCase">
 <div>
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 
 <div class="container"  ng-controller="RowSelectCtrl">
-
-    <h3>Angular Modal Service</h3>
-     <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
-     <p>{{message}}</p>
-
-
      <script type="text/ng-template" id="agencia.html">
          <div class="modal fade">
           <div class="modal-dialog">

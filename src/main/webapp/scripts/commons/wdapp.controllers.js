@@ -49,16 +49,44 @@
 
 	commonControllers.controller('NavContainerController', ['$scope', function($scope) {}]);
 
-	commonControllers.controller('NavController', ['$scope', 'TaskStorage', 'filterFilter', function($scope, TaskStorage, filterFilter) {
+	commonControllers.controller('NavController', ['$scope', 'TaskStorage', 'filterFilter','localStorageService', function($scope, TaskStorage, filterFilter,localStorageService) {
+		var vm = this;
 		var tasks;
+
+		vm.test = 0;
+	  $scope.empresa = {
+        types: []
+      };
+
+      $scope.empresaType = 1
+
+      function visible(){
+      	debugger
+      	return true
+      }
+
+      $scope.change = function() {
+       debugger
+      };
+
+      $scope.submit = function() {
+	      if($scope.empresaType == 1)
+	      {
+	      		$('.fiscal').hide();	
+	      }
+      };
+
+      $('.clinica').hide();	
+      $('.advocacia').hide();	
+      $('.condominio').hide();	
+
 		tasks = $scope.tasks = TaskStorage.get();
 		$scope.taskRemainingCount = filterFilter(tasks, {
 			completed: false
 		}).length;
 
-		return $scope.$on('taskRemaining:changed', function(event, count) {
-			return $scope.taskRemainingCount = count;
-		});
+		
+		return $scope.empresaType;
     }]);
 
 	commonControllers.controller('DashboardController', ['$scope', function($scope) {

@@ -1,65 +1,61 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="dist/css/formValidation.css"/>
 <link rel="stylesheet" href="dist/css/select2.css"/>
-
 <script src="dist/js/select2.min.js"></script>
-<script src="dist/js/formValidation.js"></script>
-<script src="dist/js/framework/bootstrap.js"></script>
 
 <style type="text/css">
 	.wash {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	}
-	.tabs-was {
-	float: left;
-	border: 1px solid #000;
-	border-bottom-width: 0;
-	margin: 3px 3px 0px 3px;
-	padding: 5px 5px 0px 5px;
-	background-color: #CCC;
-	color: ##3767B9;
-	}
-	#mainView {
-	border: 1px solid black;
-	clear: both;
-	}
-	.active {
-	background-color: #FFF;
-	color: #000;
-	}
-	* {margin: 0; padding: 0; box-sizing: border-box;}
-	.tabs-nav {padding: 20px 0 0; list-style: none;}
-	.tabs-nav li {display: inline;}
-	.tabs-nav a {
-	display:inline-block;
-	border: 1px solid #ddd;
-	border-bottom: none;
-	padding: 15px;
-	cursor: pointer;
-	border-radius: 5px 5px 0 0;
-	font-size: 14px;
-	color: #fff;
-	background: rgba(20, 144, 64, 0.7);
-	}
-	.tabs-nav .active {
-	background: #fff;
-	color: rgba(20, 144, 64, 0.7);
-	border-bottom: 1px solid #fff;
-	margin-bottom: -1px;
-	}
-	.tab-content {
-	border: 1px solid #ddd;
-	padding: 20px;
-	}
-	.tab-content1 {
-	border: 1px solid #ddd;
-	padding: 20px;
-	}
-	p {
-	margin-bottom: 15px;
-	}
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        }
+        .tabs-was {
+        float: left;
+        border: 1px solid #000;
+        border-bottom-width: 0;
+        margin: 3px 3px 0px 3px;
+        padding: 5px 5px 0px 5px;
+        background-color: #CCC;
+        color: ##3767B9;
+        }
+        #mainView {
+        border: 1px solid black;
+        clear: both;
+        }
+        .active {
+        background-color: #FFF;
+        color: #000;
+        }
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        .tabs-nav {padding: 20px 0 0; list-style: none;}
+        .tabs-nav li {display: inline;}
+        .tabs-nav a {
+        display:inline-block;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        padding: 15px;
+        cursor: pointer;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+        color: #fff;
+        background: #1B3975;
+        }
+        .tabs-nav .active {
+        background: #fff;
+        color: #000;
+        border-bottom: 1px solid #fff;
+        margin-bottom: -1px;
+        }
+        .tab-content {
+        border: 1px solid #ddd;
+        padding: 20px;
+        }
+        .tab-content1 {
+        border: 1px solid #ddd;
+        padding: 20px;
+        }
+        p {
+        margin-bottom: 15px;
+        }
 </style>
 <div ng-controller="ProdutoController as showCase">
 	<table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -88,7 +84,7 @@
 	</table>
 </div>
 <div class="container">
-	<script type="text/ng-template" id="modalProdutoCreate.html">
+	<script type="text/ng-template" id="cadProduto.html">
 		<div class="modal fade">
 		 <div class="modal-dialog" style="width : 80%">
 		   <div class="modal-content">
@@ -725,7 +721,7 @@
 
 
 <div class="container">
-	<script type="text/ng-template" id="modalProduto.html">
+	<script type="text/ng-template" id="editProduto.html">
 		<div class="modal fade">
 		 <div class="modal-dialog" style="width : 80%">
 		   <div class="modal-content">
@@ -1365,7 +1361,7 @@
 
 
 <div class="container">
-	<script type="text/ng-template" id="cfopDelete.html">
+	<script type="text/ng-template" id="deleteProduto.html">
 		<div class="modal fade">
 		 <div class="modal-dialog">
 		   <div class="modal-content">
@@ -1385,19 +1381,3 @@
 		</div>
 	</script>
 </div>
-<script>
-	$(document).ready(function() {
-		$('.dt-buttons').find('.dt-button:eq(0)').empty()
-	    $('.dt-buttons').find('.dt-button:eq(0)').append(
-
-	    '<select class="form-control btn btn-primary dropdown-toggle" data-ng-options="t.name for t in vm.types"'+
-	    'data-ng-model="vm.object.type">'+
-	      
-	        '<option><a href="#">Ações</a></option>'+
-	        '<option><a href="#">Remover Todos</a></option>'+
-	        '<option><a href="#">Solicitar Compra</a></option>'+
-	       '</select>'
-
-	    )
-	});
-</script>
