@@ -17,7 +17,7 @@ function servicoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('unimed.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('servico.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -128,7 +128,7 @@ function servicoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'modalServico.html',
+                        templateUrl: 'cadServico.html',
                         controller: "PdVendasController"
                     }).then(function(modal) {
                         modal.element.modal();
@@ -145,11 +145,13 @@ function servicoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
             .renderWith(function(data, type, full, meta) {
                 vm.selected[full.id] = false;
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
-        }),
+        }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').withOption('width', '10px').notVisible(),
         DTColumnBuilder.newColumn('servico').withTitle('Serviço'), 
         DTColumnBuilder.newColumn('preco').withTitle('Preço'), 
         DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
+         DTColumnBuilder.newColumn('status').withTitle('Status'),
+        DTColumnBuilder.newColumn('data').withTitle('Data Cadastro').notVisible(),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '100px')
@@ -229,7 +231,7 @@ function servicoController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'modalServico.html',
+            templateUrl: 'cadServico.html',
             controller: "PdVendasController"
         }).then(function(modal) {
             modal.element.modal();

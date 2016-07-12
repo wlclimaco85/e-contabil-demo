@@ -127,12 +127,26 @@ function RowSelect($compile, $scope, DTOptionsBuilder, DTColumnBuilder) {
     }
     function actionsHtml(data, type, full, meta) {
         vm.persons[data.id] = data;
-        return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
+
+
+        return ' <div class="dropdown">'+
+          '<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'+
+           ' Açoes'+
+            '<span class="caret"></span>'+
+          '</button>'+
+          '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'+
+            '<li><a href="#">Deletar</a></li>'+
+            '<li><a href="javaScript:;" ng-click="showCase.edit(showCase.persons[' + data.id + '])">Alterar</a></li>'+
+            '<li role="separator" class="divider"></li>'+
+            '<li><a href="#">Transformar Em NF-e</a></li>'+
+          '</ul>'+
+        '</div>'
+     /*   return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
             '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-trash-o"></i>' +
-            '</button>';
+            '</button>';*/
     }
 
     function toggleAll (selectAll, selectedItems) {

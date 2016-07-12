@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <div class="page page-dashboard" data-ng-controller="DashboardController">
 
     <div class="row">
@@ -24,7 +24,7 @@
                         </span>
                         <div class="box-info">
                             <p class="size-h2">10 <span class="size-h4">%</span></p>
-                            <p class="text-muted"><span data-i18n="Aumento nas vendas m�s maio"></span></p>
+                            <p class="text-muted"><span data-i18n="Aumento nas vendas mês maio"></span></p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                                   data-options="simpleChart2.options"
                                   ></span>
                         </td>
-                        <td>Numero de Visitas no Site no M�s</td>
+                        <td>Numero de Visitas no Site no Mês</td>
                         <td>500</td>
                     </tr>
                     <tr>
@@ -159,7 +159,7 @@
                                   data-options="simpleChart2.options"
                                   ></span>
                         </td>
-                        <td>Numero de Pedido de Vendas Aguardando Aprova��o</td>
+                        <td>Numero de Pedido de Vendas Aguardando Aprovação</td>
                         <td>7</td>
                     </tr>
                     <tr>
@@ -169,7 +169,7 @@
                                   data-options="simpleChart2.options"
                                   ></span>
                         </td>
-                        <td>Numero de Ordem Servi�o ABERTO</td>
+                        <td>Numero de Ordem Serviço ABERTO</td>
                         <td>6</td>
                     </tr>
                     <tr>
@@ -184,7 +184,7 @@
                     </tr>
                 </tbody>
             </table>
-        <div ng-controller="RowSelectCtrl as vm"></div>
+        <div ng-controller="UtilController as vm"></div>
         </section>
 	<div data-ui-footer></div>
 </div>
@@ -192,7 +192,7 @@
 <div class="container">
      <script type="text/ng-template" id="dashboardDialog.html">
          <div class="modal fade">
-          <div class="modal-dialog">
+          <div class="modal-dialog" style="width : 80%">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -200,25 +200,119 @@
               </div>
               <div class="modal-body">
                     <div class="alert alert-warning">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>Aviso!</strong> Esta e uma vers�o de demostra��o Onde todos os dados s�o fixo e que serve apenas para mostrar algumas funcionalidades so sistema.
+                        <strong>Aviso!</strong> Esta e uma versão de demostração Onde todos os dados são fixo e que serve apenas para mostrar algumas funcionalidades do sistema.
+                       <!-- <div class="row">
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="1" /> Venda e Revenda Mercadoria ?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="2" /> Industria ?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="3" /> Industria e Comercio ?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="4" /> Outros ?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="5" /> Clinica Medica ?
+                                        <div class"row">
+                                            <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="6" /> Visão Cliente ?
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="7" /> Escritorio Advocacia ?
+                                        <div class"row">
+                                            <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="8"  /> Visão Cliente ?
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="9" /> Condominio ?
+                                        <div class"row">
+                                            <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="10" /> Visão Inquilino ?
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-top:18px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-checklist-model="empresa.types" data-checklist-value="11" /> Empregada Domestica ?
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
-                    <div class="alert alert-info fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>Informativo!</strong> Please read the comments carefully.
+                    <div class="row col-md-12 alert alert-info fade in">
+                        <div id="quadriculo1" class="col-md-4">
+                            <strong>Online</strong>
+                            <p>O E-Contábil é um sistema totalmente online, não precisa instalação, funciona diretamente no seu navegador de internet. Também em alguns celulares modernos e tablets, basta ter acesso a internet.</p>
+                        </div>
+                        <div id="quadriculo2" class="col-md-4">
+                            <strong>Fácil</strong>
+                            <p>Grande parte do nosso tempo de desenvolvimento é dedicado a tornar o E-Contábil fácil e ágil. Estamos sempre pensando em meios de evitar retrabalho para você.</p>
+                        </div>
+                        <div id="quadriculo3" class="col-md-4">
+                            <strong>Acessível</strong>
+                            <p>O E-Contábil é um software barato. Toda a infra-estrutura de servidores e sistema é mantida por nós e, dessa maneira, você não terá surpresas com o custo do sistema.</p>
+                        </div>
                     </div>
+                    <div class="row"></div>
                     <div class="alert alert-success fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>Success!</strong> Your message has been sent successfully.
+                        <strong>Modulos E-Contábil</strong>
+                        <ul>
+                            <li>Controle de Estoque</li>
+                            <li>Controle Financeiro</li>
+                            <li>Fluxo de Caixa</li>
+                            <li>Nota Fiscal Eletrônica</li>
+                            <li>Ordem de Serviço</li>
+                            <li>Emissão de relatórios e etiquetas</li>
+                            <li>Gestão de tarefas</li>
+                            <li>Controle de Produção</li>
+                        </ul>
                     </div>
                     <div class="alert alert-danger fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>Error!</strong> A problem has been occurred while submitting your data.
+                        <strong>Contato!</strong>
+
+                        <ul>
+                            <li>Email contato : econtabilsistemas@gmail.com</li>
+                            <li>Telefone      : 34988406670</li>
+                            <li>whatsapp      : 34991782776</li>
+                            <li>Skype         : econtabil.sistemas</li>
+                        </ul>
                     </div>
               </div>
               <div class="modal-footer">
-                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Sim</button>
-                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">N�o</button>
+                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" ng-click="submit()" class="btn btn-primary" data-dismiss="modal">Visualizar</button>
               </div>
             </div>
           </div>

@@ -10,7 +10,6 @@ function funcionarioController($scope, $compile, DTOptionsBuilder, DTColumnBuild
     vm.toggleOne = toggleOne;
     vm.message = '';
     vm.edit = edit;
-    vm.baixar = baixar;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
@@ -18,7 +17,7 @@ function funcionarioController($scope, $compile, DTOptionsBuilder, DTColumnBuild
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('FormaPag.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('funcionario.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -123,7 +122,7 @@ function funcionarioController($scope, $compile, DTOptionsBuilder, DTColumnBuild
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Forma Pagamento',
+                text: 'Novo Funcionario',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
@@ -155,7 +154,26 @@ function funcionarioController($scope, $compile, DTOptionsBuilder, DTColumnBuild
         DTColumnBuilder.newColumn('nunCartTrab').withTitle('Nº Cart. Trab.'),
         DTColumnBuilder.newColumn('dtNasc').withTitle('Data Nasc.'),
         DTColumnBuilder.newColumn('cargHor').withTitle('Carga Hor. Semanal').notVisible(),
-        DTColumnBuilder.newColumn('horarios').withTitle('Horarios'),
+         DTColumnBuilder.newColumn(null).withTitle('Horarios')
+            .renderWith(function(data, type, full, meta) {
+                var sReturn = "";
+                if(data.horarios != undefined)
+                {
+                    if(data.horarios.length > 0){
+                        for(var x = 0;x<data.horarios.length;x++)
+                        {
+                            if((data.horarios[x].Entrada !== "")&&(data.horarios[x].Entrada != undefined)){
+                                sReturn = sReturn + "<a> Entrada "+data.horarios[x].Entrada +"  </a><br>";
+                            }else {
+                                sReturn = sReturn + "<a> Saida "+data.horarios[x].Saida +"  </a><br>";
+                            }
+                        }
+                    }     
+                }
+                
+                return sReturn;
+                
+            }).withOption('width', '130px'),
         DTColumnBuilder.newColumn('cargo').withTitle('Cargo').notVisible(),
         DTColumnBuilder.newColumn('salario').withTitle('Salario').notVisible(),
         DTColumnBuilder.newColumn('dtAdmissao').withTitle('Data Admissão').notVisible(),
@@ -302,3 +320,22 @@ function funcionarioController($scope, $compile, DTOptionsBuilder, DTColumnBuild
     }
 }
 })();
+
+
+angular.module('wdApp.apps.funcionarios', ['datatables', 'datatables.bootstrap'])
+.controller('WithResponsiveCtrl', WithResponsiveCtrl);
+
+function WithResponsiveCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withPaginationType('full_numbers')
+        // Active Responsive plugin
+        .withOption('responsive', true);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        // .notVisible() does not work in this case. Use .withClass('none') instead
+        DTColumnBuilder.newColumn('lastName').withTitle('Saldo Total').withClass('none'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Saldo Total 2 ').withClass('none')
+    ];
+}

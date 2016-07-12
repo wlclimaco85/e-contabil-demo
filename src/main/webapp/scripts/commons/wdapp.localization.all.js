@@ -90,7 +90,8 @@
     }]);
   
 	commonLocale.controller('LangController', ['$scope', 'Localize', function($scope, Localize) {
-		$scope.lang = 'English';
+		$scope.lang = 'Portugal';
+		Localize.setLanguage('PT-BR');
 		$scope.setLang = function(lang) {
 			switch (lang) {
 			  case 'English':
@@ -98,6 +99,9 @@
 				break;
 			  case 'Español':
 				Localize.setLanguage('ES-ES');
+				break;
+			 case 'Portugal':
+				Localize.setLanguage('PT-BR');
 				break;
 			  case '日本語':
 				Localize.setLanguage('JA-JP');

@@ -1,0 +1,1470 @@
+<link rel="stylesheet" href="dist/css/formValidation.css"/>
+<link rel="stylesheet" href="dist/css/select2.css"/>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
+<link href="thirdparty/twitter-bootstrap-wizard-master/prettify.css" rel="stylesheet">
+<link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload.css">
+<link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
+<!-- CSS adjustments for browsers with JavaScript disabled -->
+<noscript>
+    <link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload-noscript.css">
+</noscript>
+<noscript>
+    <link rel="stylesheet" href="thirdparty/jQuery-File-Upload-master/css/jquery.fileupload-ui-noscript.css">
+</noscript>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<!-- The main application script
+    <script src="thirdparty/jQuery-File-Upload-master/js/main.js"></script>-->
+<script src="vendor/bootstrap/js/bootstrap.js"></script>
+<script src="dist/js/select2.min.js"></script>
+<script src="dist/js/formValidation.js"></script>
+<script src="dist/js/framework/bootstrap.js"></script>
+<script src="thirdparty/twitter-bootstrap-wizard-master/jquery.bootstrap.wizard.js"></script>
+<script src="thirdparty/twitter-bootstrap-wizard-master/prettify.js"></script>
+<style>
+    .mbr-plan__number1 :{
+    font-size: 40px!Important;
+    }
+</style>
+<div class='container' data-ng-controller="EmpresaController as cc">
+    <section id="wizard" style="background : white">
+        <div id="rootwizard">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul>
+                            <li><a href=".tab1" data-toggle="tab">InformaÁıes do Usuario</a></li>
+                            <li><a href=".tab2" data-toggle="tab">InformaÁıes da Empresa</a></li>
+                            <li><a href=".tab3" data-toggle="tab">InformaÁıes de Socios</a></li>
+                            <li><a href=".tab4" data-toggle="tab">InformaÁıes Plano ServiÁoes</a></li>
+                            <li><a href=".tab5" data-toggle="tab">Contrato Social</a></li>
+                            <li><a href=".tab6" data-toggle="tab">Pagamento</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="bar" class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;background : red"></div>
+            </div>
+            <form ng-submit="submit()" id="empresaForm">
+                <div class="tab-content">
+                    <div class="tab-pane tab1" id="tab1">
+                        <div class="panel-body" >
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nome Completo</label>
+                                        <input type="text"  ng-model="empresa.usuarios[0].nome" name="nome" class="form-control" placeholder="Nome Completo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">CPF</label>
+                                        <input type="text" id="cpf"  class="form-control" name="cpf" ng-model="empresa.usuarios[0].cpf.numero"  placeholder="CPF">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Telefone</label>
+                                        <input type="text" class="form-control" ng-model="empresa.usuarios[0].telefone" name="telefone" placeholder="Telefone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        <input type="email" id='email' class="form-control" ng-model="empresa.usuarios[0].email" name="email" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Senha</label>
+                                        <input type="password" class="form-control" ng-model="empresa.usuarios[0].senha" name="password" placeholder="Senha">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Confirmar Senha</label>
+                                        <input type="password" class="form-control" ng-model="senha"  name="confirmPassword" placeholder="Confirmar Senha">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane tab2" id="tab2">
+                        <div class="panel-body" >
+                            <div class="col-md-12">
+                                <!-- Info alert -->
+                                <div class="alert alert-info alert-styled-left alert-arrow-left">
+                                    <button type="button" class="close" data-dismiss="alert"><span>◊</span><span class="sr-only">Close</span></button>
+                                    <h4 class="alert-heading text-semibold">Agendas:</h4>
+                                    <p>- Neste passo vamos configurar a agenda do profissional executante que foi cadastrado no passo 1;</p>
+                                    <p>- Na tela de ConfiguraÁıes de Agendas (menu 4.6) È possÌvel criar uma grade de hor·rios, utilizando recursos que permitem informar horarios diferenciados em cada dia da semana e atÈ especificar uma grade de hor·rios que passe a vigorar a partir de uma data especÌficada.</p>
+                                </div>
+                                <!-- /info alert -->
+                                <div class="form-group col-sm-6" style="padding-left: 0;">
+                                    <label for="agenda_tipo_agenda">Tipo de Agenda<span class="text-danger">*</span></label>
+                                    <select name="agenda_tipo_agenda" id="agenda_tipo_agenda" class="form-control input-sm" disabled="disabled">
+                                        <option value="0" selected="selected">Selecione ---</option>
+                                        <option value="1">Agenda de Consultas</option>
+                                        <option value="2">Agenda de Procedimentos</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6" style="padding-left: 0;">
+                                    <div id="nm_prof_exe" class="form-group" style="padding-left: 0;">
+                                        <label for="agenda_exe_nome">Nome do Profissional Executante<span class="text-danger">*</span></label> 
+                                        <select name="agenda_exe_nome" id="agenda_exe_nome" class="form-control input-sm" disabled="true">
+                                            <option value="0">Selecione ---</option>
+                                            <option value="220">5555 - WASHINGTON CLIMACO888.888.888-88</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="heading-block">
+                                    <h4>
+                                        Grade de hor·rios:
+                                    </h4>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-group col-sm-3">
+                                    <label for="agenda_periodo_agenda"><font class="text-danger">*</font> Tempo de duraÁ„o dos atendimentos (consultas)</label>
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="number" placeholder="em minutos" name="agenda_periodo_agenda" id="agenda_periodo_agenda" class="form-control input-sm" aria-invalid="false">
+                                    <label for="agenda_periodo_agenda"></label>
+                                </div>
+                                <!--div class="form-group col-sm-1">
+                                    <label for="agenda_periodo_agenda">minutos</label>
+                                    </div-->
+                                <div class="form-group col-sm-1"></div>
+                                <div class="form-group col-sm-2">
+                                    <label for="">Primeiro turno:</label>
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="text" placeholder="hora inÌcio" name="agenda_hr_ini_1_turno" id="agenda_hr_ini_1_turno" class="form-control input-sm" data-mask="99:99" onblur="checkValor(this)">
+                                    <label for="agenda_hr_ini_1_turno"></label>
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="text" placeholder="hora tÈrmino" name="agenda_hr_fim_1_turno" id="agenda_hr_fim_1_turno" class="form-control input-sm" data-mask="99:99" onblur="checkValor2(this)">
+                                    <label for="agenda_hr_fim_1_turno"></label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+                                <div class="form-group col-sm-2">
+                                    <label for="">Segundo turno:</label>                
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="text" placeholder="hora inÌcio" name="agenda_hr_ini_2_turno" id="agenda_hr_ini_2_turno" class="form-control input-sm" data-mask="99:99" onblur="checkValor(this)">
+                                    <label for="agenda_hr_ini_2_turno"></label>
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="text" placeholder="hora tÈrmino" name="agenda_hr_fim_2_turno" id="agenda_hr_fim_2_turno" class="form-control input-sm" data-mask="99:99" onblur="checkValor2(this)">
+                                    <label for="agenda_hr_fim_2_turno"></label>
+                                </div>
+                                <!--div class="form-group col-sm-1"></div-->
+                                <div class="form-group col-sm-2">
+                                    <label for="">Terceiro turno:</label>                
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="text" placeholder="hora inÌcio" name="agenda_hr_ini_3_turno" id="agenda_hr_ini_3_turno" class="form-control input-sm" data-mask="99:99" onblur="checkValor(this)">
+                                    <label for="agenda_hr_ini_3_turno"></label>
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <input type="text" placeholder="hora tÈrmino" name="agenda_hr_fim_3_turno" id="agenda_hr_fim_3_turno" class="form-control input-sm" data-mask="99:99" onblur="checkValor2(this)">
+                                    <label for="agenda_hr_fim_3_turno"></label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-group col-md-3">
+                                    <label for="">Dias de atendimento</label>
+                                </div>
+                                <div class="form-group col-md-9">
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_domingo" id="agenda_domingo" class="control-primary">
+                                        Domingo
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_segunda" id="agenda_segunda" class="control-primary" checked="checked">
+                                        Segunda
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_terca" id="agenda_terca" class="control-primary" checked="checked">
+                                        TerÁa
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_quarta" id="agenda_quarta" class="control-primary" checked="checked">
+                                        Quarta
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_quinta" id="agenda_quinta" class="control-primary" checked="checked">
+                                        Quinta
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_sexta" id="agenda_sexta" class="control-primary" checked="checked">
+                                        Sexta
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                        <input type="checkbox" name="agenda_sabado" id="agenda_sabado" class="control-primary">
+                                        S·bado
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane tab3" id="tab3">
+                        <div class="content">
+                            <div class="container">
+                                <script type="text/javascript" src="https://app.4clinics.software/skin/home/app_theme/js/validate.min.js"></script>
+                                <script type="text/javascript" src="https://app.4clinics.software/skin/default/plugins/forms/inputmask.js"></script>
+                                <script type="text/javascript" src="https://app.4clinics.software/skin/home/app_theme/js/executante_cadastro.js"></script>
+                                <script type="text/javascript" src="https://app.4clinics.software/skin/home/app_theme/js/plugins/forms/styling/switchery.min.js"></script>
+                                <script type="text/javascript" src="https://app.4clinics.software/skin/home/app_theme/js/plugins/forms/styling/switch.min.js"></script>
+                                <script type="text/javascript" src="https://app.4clinics.software/skin/home/app_theme/js/tinymce/tinymce.min.js"></script>
+                                <script src="https://app.4clinics.software/skin/home/app_theme/js/jquery.maskMoney.min.js"></script>
+                                <style>
+                                    td a:focus, td a:hover {
+                                    color: #23527c;
+                                    text-decoration: none !important;
+                                    }
+                                </style>
+                                <!-- MODAL GERAL INICIO -->
+                                <button id="btnModalGeral" style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalGeral">Open Modal</button>
+                                <!-- Modal -->    
+                                <div class="modal fade" id="myModalGeral" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog modal-sm">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-darkblue">
+                                                <button type="button" class="close" data-dismiss="modal">◊</button>
+                                            </div>
+                                            <div class="modal-body"></div>
+                                            <div class="modal-footer"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- MODAL GERAL FIM -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="portlet portlet-boxed">
+                                            <div class="portlet-header_rev">
+                                                <h4 class="portlet-title">
+                                                    <u>
+                                                        <i class="fa fa-edit fa_rev"></i>
+                                                        <spam class="painel-fonte-titulo_rev"> Cadastro de Profissionais Executantes</spam>
+                                                    </u>
+                                                </h4>
+                                            </div>
+                                            <div class="tabbable">
+                                                <ul class="nav nav-tabs nav-tabs-highlight">
+                                                    <li class="active"><a href="#left-icon-tab1" data-toggle="tab"><i class="icon-menu7 position-left"></i> <strong>INFORMA«’ES CADASTRAIS</strong></a></li>
+                                                    <li><a href="#left-icon-tab2" data-toggle="tab"><i class="icon-mention position-left"></i> <strong>PERSONALIZA«√O DO RECEITU¡RIO</strong></a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="left-icon-tab1">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="portlet portlet-boxed">
+                                                                    <div class="portlet-body">
+            <form action="https://app.4clinics.software/executante/cadastro" id="formDados" method="post" accept-charset="utf-8" novalidate="novalidate">
+            <input type="hidden" name="id_executantes" value="">
+            <!--?php echo form_hidden('id_contratados', $form_value->id_contratados); ?-->
+            <div class="form-group col-sm-9" style="padding-left: 0;">
+            <label for="exe_nome">1 - Nome<span class="text-danger">*</span></label>
+            <input type="text" name="exe_nome" value="" id="exe_nome" class="form-control input-sm" onblur="this.value=this.value.toUpperCase();">
+            </div>
+            <div class="form-group col-sm-3" style="padding-left: 0;">
+            <label for="exe_cpf">2 - CPF<span class="text-danger">*</span></label>
+            <input type="text" name="exe_cpf" value="" id="exe_cpf" class="form-control input-sm" onblur="validatePessoa();">
+            </div>
+            <div class="form-group col-sm-5" style="padding-left: 0;">
+            <label for="id_aux_conselho">3 - Conselho<span class="text-danger">*</span></label>
+            <select name="id_aux_conselho" id="id_aux_conselho" class="form-control input-sm">
+            <option value="">Selecione ---</option>
+            <option value="2">COREN - Conselho Regional de Enfermagem</option>
+            <option value="1">CRAS - Conselho Regional de AssistÍncia Social</option>
+            <option value="5">CREFITO - Conselho Regional de Fisioterapia e Terapia Ocupacional</option>
+            <option value="3">CRF - Conselho Regional de Farm·cia</option>
+            <option value="4">CRFA - Conselho Regional de Fonoaudiologia</option>
+            <option value="6">CRM - Conselho Regional de Medicina</option>
+            <option value="7">CRN - Conselho Regional de NutriÁ„o</option>
+            <option value="8">CRO - Conselho Regional de Odontologia</option>
+            <option value="9">CRP - Conselho Regional de Psicologia</option>
+            <option value="10">OUT - Outros Conselhos</option>
+            </select>
+            </div>
+            <div class="form-group col-sm-3" style="padding-left: 0;">
+            <label for="exe_numero_conselho">4 - N∞ no Conselho<span class="text-danger">*</span></label>
+            <input type="text" name="exe_numero_conselho" value="" id="exe_numero_conselho" class="form-control input-sm">
+            </div> 
+            <div class="form-group col-sm-4" style="padding-left: 0;">
+            <label for="id_aux_uf">5 - UF Conselho<span class="text-danger">*</span></label>
+            <select name="id_aux_uf" id="id_aux_uf" class="form-control input-sm">
+            <option value="">Selecione ---</option>
+            <option value="12">AC - Acre</option>
+            <option value="27">AL - Alagoas</option>
+            <option value="13">AM - Amazonas</option>
+            <option value="16">AP - Amapa</option>
+            <option value="29">BA - Bahia</option>
+            <option value="23">CE - Ceara</option>
+            <option value="53">DF - Distrito federal</option>
+            <option value="32">ES - Espirito santo</option>
+            <option value="98">EX - Pais estrangeiro</option>
+            <option value="52">GO - Goias</option>
+            <option value="21">MA - Maranh„o</option>
+            <option value="31">MG - Minas gerais</option>
+            <option value="50">MS - Mato grosso do sul</option>
+            <option value="51">MT - Mato grosso</option>
+            <option value="15">PA - Par·</option>
+            <option value="25">PB - Paraiba</option>
+            <option value="26">PE - Pernanbuco</option>
+            <option value="22">PI - Piaui</option>
+            <option value="41">PR - Paran·</option>
+            <option value="33">RJ - Rio de janeiro</option>
+            <option value="24">RN - Rio grande do norte</option>
+            <option value="11">RO - Rondonia</option>
+            <option value="14">RR - Roraima</option>
+            <option value="43">RS - Rio grande do sul</option>
+            <option value="42">SC - Santa catarina</option>
+            <option value="28">SE - Sergipe</option>
+            <option value="34">SP - S„o paulo</option>
+            <option value="17">TO - Tocantins</option>
+            </select>
+            </div>
+            <div class="form-group col-sm-6" style="padding-left: 0;">
+            <label for="id_aux_especialidades_cbos">6 - Especialidade CBO-S<span class="text-danger">*</span></label>
+            <div class="select2-container form-control input-sm" id="s2id_id_aux_especialidades_cbos"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-1">Selecione ---</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen1" class="select2-offscreen">6 - Especialidade CBO-S*</label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-1" id="s2id_autogen1"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen1_search" class="select2-offscreen">6 - Especialidade CBO-S*</label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-1" id="s2id_autogen1_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-1">   </ul></div></div><select name="id_aux_especialidades_cbos" id="id_aux_especialidades_cbos" class="form-control input-sm" tabindex="-1" title="6 - Especialidade CBO-S*" style="display: none;">
+            <option value="">Selecione ---</option>
+            <option value="201115">201115 - GENETICISTA</option>
+            <option value="203015">203015 - PESQUISADOR EM BIOLOGIA DE MICROORGANISMOS E PARASITAS </option>
+            <option value="213150">213150 - FÌSICO MÈDICO </option>
+            <option value="221105">221105 - BIÛLOGO </option>
+            <option value="223204">223204 - CIRURGI„O DENTISTA - AUDITOR </option>
+            <option value="223208">223208 - CIRURGI„O DENTISTA - CLÌNICO GERAL </option>
+            <option value="223212">223212 - CIRURGI„O DENTISTA - ENDODONTISTA </option>
+            <option value="223216">223216 - CIRURGI„O DENTISTA - EPIDEMIOLOGISTA </option>
+            <option value="223220">223220 - CIRURGI„O DENTISTA - ESTOMATOLOGISTA </option>
+            <option value="223224">223224 - CIRURGI„O DENTISTA - IMPLANTODONTISTA </option>
+            <option value="223228">223228 - CIRURGI„O DENTISTA - ODONTOGERIATRA </option>
+            <option value="223232">223232 - CIRURGI„O DENTISTA - ODONTOLOGISTA LEGAL </option>
+            <option value="223236">223236 - CIRURGI„O DENTISTA - ODONTOPEDIATRA </option>
+            <option value="223240">223240 - CIRURGI„O DENTISTA - ORTOPEDISTA E ORTODONTISTA </option>
+            <option value="223244">223244 - CIRURGI„O DENTISTA - PATOLOGISTA BUCAL </option>
+            <option value="223248">223248 - CIRURGI„O DENTISTA - PERIODONTISTA </option>
+            <option value="223252">223252 - CIRURGI„O DENTISTA - PROTESIÛLOGO BUCOMAXILOFACIAL </option>
+            <option value="223256">223256 - CIRURGI„O DENTISTA - PROTESISTA </option>
+            <option value="223260">223260 - CIRURGI„O DENTISTA - RADIOLOGISTA </option>
+            <option value="223264">223264 - CIRURGI„O DENTISTA - REABILITADOR ORAL </option>
+            <option value="223268">223268 - CIRURGI„O DENTISTA - TRAUMATOLOGISTA BUCOMAXILOFACIAL </option>
+            <option value="223272">223272 - CIRURGI„O DENTISTA DE SA˙DE COLETIVA </option>
+            <option value="223276">223276 - CIRURGI„O DENTISTA - ODONTOLOGIA DO TRABALHO</option>
+            <option value="223280">223280 - CIRURGI„O DENTISTA - DENTÌSTICA</option>
+            <option value="223284">223284 - CIRURGI„O DENTISTA - DISFUNÁ„O TEMPOROMANDIBULAR E DOR OROFACIAL</option>
+            <option value="223288">223288 - CIRURGI„O DENTISTA - ODONTOLOGIA PARA PACIENTES COM NECESSIDADES ESPECIAIS</option>
+            <option value="223293">223293 - CIRURGI„O-DENTISTA DA ESTRATÈGIA DE SA˙DE DA FAMÌLIA</option>
+            <option value="223505">223505 - ENFERMEIRO </option>
+            <option value="223605">223605 - FISIOTERAPEUTA GERAL</option>
+            <option value="223710">223710 - NUTRICIONISTA </option>
+            <option value="223810">223810 - FONOAUDIÛLOGO </option>
+            <option value="223905">223905 - TERAPEUTA OCUPACIONAL </option>
+            <option value="223910">223910 - ORTOPEDISTA</option>
+            <option value="225103">225103 - MÈDICO INFECTOLOGISTA </option>
+            <option value="225105">225105 - MÈDICO ACUPUNTURISTA </option>
+            <option value="225106">225106 - MÈDICO LEGISTA</option>
+            <option value="225109">225109 - MÈDICO NEFROLOGISTA</option>
+            <option value="225110">225110 - MÈDICO ALERGISTA E IMUNOLOGISTA</option>
+            <option value="225112">225112 - MÈDICO NEUROLOGISTA </option>
+            <option value="225115">225115 - MÈDICO ANGIOLOGISTA </option>
+            <option value="225118">225118 - MÈDICO NUTROLOGISTA </option>
+            <option value="225120">225120 - MÈDICO CARDIOLOGISTA </option>
+            <option value="225121">225121 - MÈDICO ONCOLOGISTA CLÌNICO</option>
+            <option value="225122">225122 - MÈDICO CANCEROLOGISTA PEDI·TRICO</option>
+            <option value="225124">225124 - MÈDICO PEDIATRA</option>
+            <option value="225125">225125 - MÈDICO CLÌNICO</option>
+            <option value="225127">225127 - MÈDICO PNEUMOLOGISTA </option>
+            <option value="225130">225130 - MÈDICO DE FAMÌLIA E COMUNIDADE</option>
+            <option value="225133">225133 - MÈDICO PSIQUIATRA </option>
+            <option value="225135">225135 - MÈDICO DERMATOLOGISTA </option>
+            <option value="225136">225136 - MÈDICO REUMATOLOGISTA </option>
+            <option value="225139">225139 - MÈDICO SANITARISTA</option>
+            <option value="225140">225140 - MÈDICO DO TRABALHO </option>
+            <option value="225142">225142 - MÈDICO DA ESTRATÈGIA DE SA˙DE DA FAMÌLIA</option>
+            <option value="225145">225145 - MÈDICO EM MEDICINA DE TR·FEGO </option>
+            <option value="225148">225148 - MÈDICO ANATOMOPATOLOGISTA</option>
+            <option value="225150">225150 - MÈDICO EM MEDICINA INTENSIVA </option>
+            <option value="225151">225151 - MÈDICO ANESTESIOLOGISTA</option>
+            <option value="225155">225155 - MÈDICO ENDOCRINOLOGISTA E METABOLOGISTA </option>
+            <option value="225160">225160 - MÈDICO FISIATRA </option>
+            <option value="225165">225165 - MÈDICO GASTROENTEROLOGISTA </option>
+            <option value="225170">225170 - MÈDICO GENERALISTA </option>
+            <option value="225175">225175 - MÈDICO GENETICISTA </option>
+            <option value="225180">225180 - MÈDICO GERIATRA </option>
+            <option value="225185">225185 - MÈDICO HEMATOLOGISTA</option>
+            <option value="225195">225195 - MÈDICO HOMEOPATA</option>
+            <option value="225203">225203 - MÈDICO EM CIRURGIA VASCULAR</option>
+            <option value="225210">225210 - MÈDICO CIRURGI„O CARDIOVASCULAR </option>
+            <option value="225215">225215 - MÈDICO CIRURGI„O DE CABEÁA E PESCOÁO </option>
+            <option value="225220">225220 - MÈDICO CIRURGI„O DO APARELHO DIGESTIVO </option>
+            <option value="225225">225225 - MÈDICO CIRURGI„O GERAL </option>
+            <option value="225230">225230 - MÈDICO CIRURGI„O PEDI·TRICO </option>
+            <option value="225235">225235 - MÈDICO CIRURGI„O PL·STICO </option>
+            <option value="225240">225240 - MÈDICO CIRURGI„O TOR·CICO </option>
+            <option value="225250">225250 - MÈDICO GINECOLOGISTA E OBSTETRA </option>
+            <option value="225255">225255 - MÈDICO MASTOLOGISTA</option>
+            <option value="225260">225260 - MÈDICO  NEUROCIRURGI„O</option>
+            <option value="225265">225265 - MÈDICO OFTALMOLOGISTA</option>
+            <option value="225270">225270 - MÈDICO ORTOPEDISTA E TRAUMATOLOGISTA </option>
+            <option value="225275">225275 - MÈDICO OTORRINOLARINGOLOGISTA </option>
+            <option value="225280">225280 - MÈDICO PROCTOLOGISTA </option>
+            <option value="225285">225285 - MÈDICO UROLOGISTA </option>
+            <option value="225290">225290 - MÈDICO CANCEROLOGISTA CIR˙RGICO</option>
+            <option value="225295">225295 - MÈDICO CIRURGI„O DA M„O</option>
+            <option value="225305">225305 - MÈDICO CITOPATOLOGISTA </option>
+            <option value="225310">225310 - MÈDICO EM ENDOSCOPIA </option>
+            <option value="225315">225315 - MÈDICO EM MEDICINA NUCLEAR </option>
+            <option value="225320">225320 - MÈDICO EM RADIOLOGIA E DIAGNÛSTICO POR IMAGEM </option>
+            <option value="225325">225325 - MÈDICO PATOLOGISTA</option>
+            <option value="225330">225330 - MÈDICO RADIOTERAPEUTA </option>
+            <option value="225335">225335 - MÈDICO PATOLOGISTA CLÌNICO / MEDICINA LABORATORIAL</option>
+            <option value="225340">225340 - MÈDICO HEMOTERAPEUTA</option>
+            <option value="225345">225345 - MÈDICO HIPERBARISTA</option>
+            <option value="225350">225350 - MÈDICO NEUROFISIOLOGISTA </option>
+            <option value="239425">239425 - PSICOPEDAGOGO </option>
+            <option value="251510">251510 - PSICÛLOGO CLÌNICO </option>
+            <option value="251545">251545 - NEUROPSICÛLOGO </option>
+            <option value="251550">251550 - PSICANALISTA </option>
+            <option value="251605">251605 - ASSISTENTE SOCIAL </option>
+            <option value="322205">322205 - TÈCNICO DE ENFERMAGEM </option>
+            <option value="322220">322220 - TÈCNICO DE ENFERMAGEM PSIQUI·TRICA </option>
+            <option value="322225">322225 - INSTRUMENTADOR CIR˙RGICO</option>
+            <option value="322230">322230 - AUXILIAR DE ENFERMAGEM </option>
+            <option value="516210">516210 - CUIDADOR DE IDOSOS</option>
+            <option value="999999">999999 - CBO DESCONHECIDO OU N„O INFORMADO PELO SOLICITANTE</option>
+            </select>
+            </div>                
+            <div class="clearfix"></div> 
+            <br>
+            <div class="heading-block">
+            <h4>
+            Cadastro Procedimentos do Profissional
+            </h4>
+            </div>
+            <div>
+            <div>
+            <table class="table table-striped table-bordered table-hover ui-datatable">
+            <thead>
+            <tr>
+            <th width="70%">Procedimento</th>
+            <th class="text-left">Valor</th>
+            <th class="text-left">Padr„o</th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody id="procedimento_valor">
+            </tbody>                            
+            </table>
+            </div>
+            </div>
+            <div class="clearfix"></div>
+            <br>
+            <div id="procedimento_valor_data" class="bg-color-gray2">
+            <div class="form-group col-sm-3">
+            <label>7 - Procedimento</label>
+            <div class="select2-container form-control input-sm" id="s2id_id_aux_tuss"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-2">Buscar...</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen2" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2"><div class="select2-drop select2-display-none bigdrop select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen2_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-2" id="s2id_autogen2_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-2">   </ul></div></div><input type="text" name="id_aux_tuss" value="" id="id_aux_tuss" class="form-control input-sm" tabindex="-1" title="" style="display: none;">
+            </div>
+            <div class="form-group col-sm-3">
+            <label>8 - Valor</label>
+            <div class="input-group margin-botton-sm">
+            <span class="input-group-addon"><i class="fa fa-money fa-fw" aria-hidden="true"></i></span>
+            <input type="text" name="valor_procedimento" value="" id="valor_procedimento" placeholder="0,00" class="form-control input-sm">
+            </div>
+            </div>
+            <div class="form-group col-sm-3">
+            <label>9 - Padr„o</label>
+            <select name="prv_padrao" id="prv_padrao" class="form-control input-sm">
+            <option value="">Selecione ---</option>
+            <option value="S">Sim</option>
+            <option value="N">N„o</option>
+            </select>
+            </div>
+            <div class="col-sm-2" style="margin-top:20px;">
+            <button type="button" class="btn btn-info pull-left" onclick="addProcedimentoValor();">
+            <i class="fa fa-plus"></i>&nbsp;&nbsp; 
+            Adicionar Procedimento
+            </button>
+            </div>
+            </div>
+            <div class="clearfix" style="margin-bottom: 30px;"></div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+            <button type="submit" style="margin-left: 10px;" id="btn_submit" class="btn btn-info pull-right">Gravar InformaÁıes do Profissional</button>
+            <button type="button" onclick="window.location='https://app.4clinics.software/executante/listar'" style="margin-left: 10px;" class="btn btn-default pull-right">Cancelar</button>
+            </div>
+            <div class="clearfix"></div>   
+            </form></div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="tab-pane" id="left-icon-tab2">
+            <div class="row">
+            <div class="col-sm-12">
+            <div class="portlet portlet-boxed">
+            <div class="portlet-body">
+            <form id="formReceituario" action="https://app.4clinics.software/executante/receituario" method="post">
+            <input type="hidden" name="id_executantes" value="">
+            <div class="form-group col-sm-12">
+            <div class="form-group col-sm-12">
+            <div class="checkbox checkbox-switch">
+            <label>
+            <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-off bootstrap-switch-id-ureceituario"><div class="bootstrap-switch-container"><span class="bootstrap-switch-handle-on bootstrap-switch-primary">On</span><span class="bootstrap-switch-label">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default">Off</span><input name="ureceituario" id="ureceituario" type="checkbox" class="switch" data-on-text="On" data-off-text="Off"></div></div>
+            <strong>Utilizar receitu·rio personalizado</strong>
+            <br>No momento da emiss„o das receitas se esta opÁ„o estiver marcada, ser· utilizado o layout abaixo.
+            </label>
+            </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-sm-12">
+            <label for="tag_repeticao"><strong>TAG repetiÁıes</strong></label>
+            <br>
+            <select class="form-group input-sm" name="tag_repeticao" id="tag_repeticao">
+            <option value="1">[medicamento_uso]</option>
+            <option value="2">[medicamento_apresentaÁ„o]</option>
+            </select>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-sm-12">
+            <label for="receituario"><strong>PersonalizaÁ„o do Receitu·rio:</strong></label>
+            </div>                
+            <div class="form-group col-sm-1"></div>
+            <div class="form-group col-sm-10">
+            <div id="mceu_14" class="mce-tinymce mce-container mce-panel" hidefocus="1" tabindex="-1" role="application" style="visibility: hidden; border-width: 1px;"><div id="mceu_14-body" class="mce-container-body mce-stack-layout"><div id="mceu_15" class="mce-toolbar-grp mce-container mce-panel mce-stack-layout-item mce-first" hidefocus="1" tabindex="-1" role="group"><div id="mceu_15-body" class="mce-container-body mce-stack-layout"><div id="mceu_16" class="mce-container mce-toolbar mce-stack-layout-item mce-first mce-last" role="toolbar"><div id="mceu_16-body" class="mce-container-body mce-flow-layout"><div id="mceu_17" class="mce-container mce-flow-layout-item mce-first mce-btn-group" role="group"><div id="mceu_17-body"><div id="mceu_0" class="mce-widget mce-btn mce-first mce-disabled" tabindex="-1" aria-labelledby="mceu_0" role="button" aria-label="Undo" aria-disabled="true"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-undo"></i></button></div><div id="mceu_1" class="mce-widget mce-btn mce-last mce-disabled" tabindex="-1" aria-labelledby="mceu_1" role="button" aria-label="Redo" aria-disabled="true"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-redo"></i></button></div></div></div><div id="mceu_18" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_18-body"><div id="mceu_2" class="mce-widget mce-btn mce-first" tabindex="-1" aria-labelledby="mceu_2" role="button" aria-label="Bold"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-bold"></i></button></div><div id="mceu_3" class="mce-widget mce-btn" tabindex="-1" aria-labelledby="mceu_3" role="button" aria-label="Italic"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-italic"></i></button></div><div id="mceu_4" class="mce-widget mce-btn mce-last" tabindex="-1" aria-labelledby="mceu_4" role="button" aria-label="Underline"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-underline"></i></button></div></div></div><div id="mceu_19" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_19-body"><div id="mceu_5" class="mce-widget mce-btn mce-splitbtn mce-menubtn mce-first mce-last" role="button" tabindex="-1" aria-label="Bullet list" aria-haspopup="true"><button type="button" hidefocus="1" tabindex="-1"><i class="mce-ico mce-i-bullist"></i></button><button type="button" class="mce-open" hidefocus="1" tabindex="-1"> <i class="mce-caret"></i></button></div></div></div><div id="mceu_20" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_20-body"><div id="mceu_6" class="mce-widget mce-btn mce-first" tabindex="-1" aria-labelledby="mceu_6" role="button" aria-label="Decrease indent"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-outdent"></i></button></div><div id="mceu_7" class="mce-widget mce-btn mce-last" tabindex="-1" aria-labelledby="mceu_7" role="button" aria-label="Increase indent"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-indent"></i></button></div></div></div><div id="mceu_21" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_21-body"><div id="mceu_8" class="mce-widget mce-btn mce-menubtn mce-fixed-width mce-listbox mce-first" tabindex="-1" aria-labelledby="mceu_8" role="button" aria-label="Font Family" aria-haspopup="true"><button id="mceu_8-open" role="presentation" type="button" tabindex="-1">Fonte <i class="mce-caret"></i></button></div><div id="mceu_9" class="mce-widget mce-btn mce-menubtn mce-fixed-width mce-listbox mce-last" tabindex="-1" aria-labelledby="mceu_9" role="button" aria-label="Font Sizes" aria-haspopup="true"><button id="mceu_9-open" role="presentation" type="button" tabindex="-1">Tamanho <i class="mce-caret"></i></button></div></div></div><div id="mceu_22" class="mce-container mce-flow-layout-item mce-last mce-btn-group" role="group"><div id="mceu_22-body"><div id="mceu_10" class="mce-widget mce-btn mce-first" tabindex="-1" aria-labelledby="mceu_10" role="button" aria-label="Align left"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-alignleft"></i></button></div><div id="mceu_11" class="mce-widget mce-btn" tabindex="-1" aria-labelledby="mceu_11" role="button" aria-label="Align center"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-aligncenter"></i></button></div><div id="mceu_12" class="mce-widget mce-btn" tabindex="-1" aria-labelledby="mceu_12" role="button" aria-label="Align right"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-alignright"></i></button></div><div id="mceu_13" class="mce-widget mce-btn mce-last" tabindex="-1" aria-labelledby="mceu_13" role="button" aria-label="Justify"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-alignjustify"></i></button></div></div></div></div></div></div></div><div id="mceu_23" class="mce-edit-area mce-container mce-panel mce-stack-layout-item mce-last" hidefocus="1" tabindex="-1" role="group" style="border-width: 1px 0px 0px;"><iframe id="receituario_ifr" frameborder="0" allowtransparency="true" title="¡rea de texto formatado. Pressione ALT-F9 para exibir o menu, ALT-F10 para exibir a barra de ferramentas ou ALT-0 para exibir a ajuda" src='javascript:""' style="width: 100%; height: 600px; display: block;"></iframe></div></div></div><textarea name="receituario" id="receituario" cols="50" rows="30" aria-hidden="true" style="display: none;"></textarea>
+            </div>
+            <div class="form-group col-sm-1"></div>
+            <div class="clearfix"></div>
+            <div class="form-group col-sm-10">
+            </div>
+            <div class="form-group col-sm-1">
+            <input type="button" class="btn btn-primary" value="Salvar >>" onclick="salvar_form_receituario()">
+            </div>
+            <div class="form-group col-sm-2"></div>
+            <div class="clearfix"></div>
+            <div class="form-group col-sm-12">
+            VocÍ pode utilizar os tags abaixo para personalizar o receitu·rio. Para adicionar ao campo basta clicar sobre o tag:
+            <br><br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('nome_clÌnica')">[nome_clÌnica]</strong>: Nome da clÌnica cadastrada no cadastro de Empresa.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('endereÁo_clÌnica')">[endereÁo_clÌnica]</strong>: O endereÁo da clÌnica, com n˙mero, complemento ñ bairro ñ CEP ñ Cidade e Sigla do estado.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('telefone_clÌnica')">[telefone_clÌnica]</strong>: O telefone da clÌnica.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('cidade_clÌnica')">[cidade_clÌnica]</strong>: A cidade da clÌnica.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('nome_paciente')">[nome_paciente]</strong>: Nome do paciente para o qual estiver sendo emitido o receitu·rio.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('data_atendimento')">[data_atendimento]</strong>: Data do atendimento, formatada como: dd/mm/yyyy.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('data_atendimento_extenso')">[data_atendimento_extenso]</strong>: Data do atendimento, formatada como: dd de mÍs de yyyy.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('nome_profissional_executante')">[nome_profissional_executante]</strong>: Nome do profissional executante.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('especialidade')">[especialidade]</strong>: Especialidade do profissional executante.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('sigla_conselho')">[sigla_conselho]</strong>: Sigla do conselho do profissional executante.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('descriÁ„o_conselho')">[descriÁ„o_conselho]</strong>: A descriÁ„o do conselho do profissional executante.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('n˙mero_conselho')">[n˙mero_conselho]</strong>: O n˙mero de cadastro do profissional executante no conselho.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('medicamento_uso')">[medicamento_uso]</strong>: Tipo de uso do medicamento.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('medicamento_numeraÁ„o')">[medicamento_numeraÁ„o]</strong>: Sequencial da quantidade de medicamentos na receita.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('nome_medicamento')">[nome_medicamento]</strong>: Nome do medicamento.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('apresentaÁ„o_medicamento')">[apresentaÁ„o_medicamento]</strong>: ApresentaÁ„o do medicamento.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('prescriÁ„o_medicamento')">[prescriÁ„o_medicamento]</strong>: PrescriÁ„o do medicamento.
+            <br>
+            - <strong style="cursor: pointer" onclick="adicionarTextoReceituario('medicamento_descriÁ„o')">[medicamento_descriÁ„o]</strong>: DescriÁ„o do medicamento.
+            </div>
+            </div>
+            </form>
+            <div class="clearfix"></div>
+            </div>
+            </div>
+            </div>
+            </div>              
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <script src="https://app.4clinics.software/skin/home/app_theme/js/select2/select2.min.js"></script>
+            <script src="https://app.4clinics.software/skin/home/app_theme/js/select2/select2_pt_br.js"></script>
+            <script type="text/javascript">
+                /*-----------------------------------------------------------------------
+                | Contador para os procedimentos
+                | Por: Richardson S. Westphal   <rsw.empresa@gmail.com>
+                | Em : 28/06/2016
+                |----------------------------------------------------------------------*/
+                var count_proc_val = '0';
+                var remove_codigo_ProcedimentoValor = 'https://app.4clinics.software/executante/removeProcedimentoValor';
+                $(function () {
+                    $('#id_aux_especialidades_cbos').select2({
+                        allowClear: true,
+                        placeholder: "Selecione..."
+                    });
+                    
+                    $('#exe_cpf').inputmask({mask: '999.999.999-99'});
+                    $('select option[value=0]').attr('value', '');        
+                
+                    $('#formDados').validate({
+                        rules: {
+                            exe_nome: {
+                                required: true,
+                            },
+                            exe_cpf: {
+                                required: true,
+                            },
+                            id_aux_conselho: {
+                                required: true
+                            },
+                            exe_numero_conselho: {
+                                required: true,
+                            },
+                            id_aux_uf: {
+                                required: true,
+                            },
+                            id_aux_especialidades_cbos: {
+                                required: true,
+                            }
+                        },
+                        messages: {
+                            exe_nome: {
+                                required: 'Por favor preencha o campo "1 - Nome".',
+                            },
+                            exe_cpf: {
+                                required: 'Por favor preencha o campo "2 - CPF".',
+                            },
+                            id_aux_conselho: {
+                                required: 'Por favor preencha o campo "3 - Conselho".',
+                            },
+                            exe_numero_conselho: {
+                                required: 'Por favor preencha o campo "4 - N∞ no Conselho".',
+                            },
+                            id_aux_uf: {
+                                required: 'Por favor preencha o campo "5 - UF Conselho".',
+                            },
+                            id_aux_especialidades_cbos: {
+                                required: 'Por favor preencha o campo "6 - Especialidade CBO-S".',
+                            }
+                        },
+                    });
+                });
+                
+                
+                function validatePessoa() {
+                    $('.error[for="exe_cpf"]').remove();
+                    var cpf = $('#exe_cpf').val().replace(/[^0-9]+/g, '');
+                    if (cpf.length != 11) {
+                        return false;
+                    }
+                    var msg = '';
+                    if (cpf) {
+                        $('.error[for="exe_cpf"]').remove();
+                        if (!isCPF(cpf)) {
+                            msg = 'Por favor informe um "CPF" v·lido.';
+                            msg = '<label class="error manual" for="exe_cpf">' + msg + '</label>';
+                            $('#exe_cpf').after(msg);
+                        } else {
+                            checkDuplicateData(cpf);
+                        }
+                    }
+                }
+                
+                function checkDuplicateData(data_field) {
+                    $.post(
+                            'https://app.4clinics.software/executante/checkDuplicateData' ,
+                            {data_field: data_field},
+                    function (res) {
+                        if (res == 'true') {
+                            $('.error[for="exe_cpf"]').remove();
+                            msg = 'O "CPF" informado j· esta em uso.';
+                            msg = '<label class="error manual" for="exe_cpf">' + msg + '</label>';
+                            $('#exe_cpf').after(msg);
+                        }
+                    });
+                }
+                
+                function isCPF(num) {
+                    var i, j, k, soma, digito, iguais;
+                    if (num.length != 11) {
+                        return false;
+                    }
+                
+                    iguais = true;
+                    for (i = 1; i < num.length; i++) {
+                        if (num.charAt(i - 1) != num.charAt(i) && iguais) {
+                            iguais = false;
+                        }
+                    }
+                    if (iguais) {
+                        return false;
+                    }
+                
+                    for (j = 10; j <= 11; j++) {
+                        soma = 0;
+                        for (i = 0, k = j; i < j - 1; i++, k--) {
+                            soma += eval(num.charAt(i)) * k;
+                        }
+                
+                        digito = 11 - (soma % 11);
+                        if (digito > 9) {
+                            digito = 0;
+                        }
+                
+                        if (eval(num.charAt(j - 1)) != eval(digito)) {
+                            return false;
+                        }
+                    }
+                
+                    return true;
+                }
+                
+                $('#ureceituario').bootstrapSwitch();
+                
+                $('#tag_repeticao').change(function(){
+                    if($(this).val() != 0){
+                        var html = tinymce.activeEditor.getContent();        
+                        if($(this).val() == 1){
+                            html = html.replace('[medicamento_apresenta&ccedil;&atilde;o]','[medicamento_uso]');
+                        }else{
+                            html = html.replace('[medicamento_uso]','[medicamento_apresenta&ccedil;&atilde;o]');
+                        }
+                        tinymce.activeEditor.setContent(html);
+                    }
+                });
+                
+                
+                function startTinyMCE(){
+                    tinymce.init({
+                        selector: "#receituario", 
+                        theme: "modern",
+                        language : "pt_BR",
+                        height: "600px",
+                        statusbar: false,
+                        plugins : [
+                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                        "emoticons template paste textcolor colorpicker textpattern imagetools"
+                        ],
+                        theme_advanced_buttons3_add : "print",
+                        toolbar1: "undo redo | bold italic underline | bullist | outdent indent | fontselect fontsizeselect | alignleft aligncenter alignright alignjustify", 
+                        menubar: false
+                    });
+                    
+                    /*-----------------------------------------------------------------------
+                    | Texto padr„o
+                    | Por: Richardson S. Westphal     <rsw.empresa@gmail.com>
+                    | Em : 22/06/2016
+                    |----------------------------------------------------------------------*/
+                    var html = '<p style="text-align: center;">&nbsp;</p><p style="text-align: center;">[nome_cl&iacute;nica]</p><p style="text-align: center;"><br />________________________________________________________________________________</p><p style="text-align: center;">Receitu&aacute;rio para</p><p style="text-align: center;">[nome_paciente]</p><p style="text-align: left;">&nbsp;</p><p style="text-align: left;">[In&iacute;cio_bloco_repeti&ccedil;&atilde;o]</p><p style="text-align: center;">[medicamento_uso]</p><div style="text-align: left;">[medicamento_numera&ccedil;&atilde;o] [nome_medicamento] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [apresenta&ccedil;&atilde;o_medicamento]</div><p style="text-align: left;">[prescri&ccedil;&atilde;o_medicamento]</p><p style="text-align: left;">[Fim_bloco_repeti&ccedil;&atilde;o]</p><p style="text-align: center;">&nbsp;</p><p style="text-align: center;">[data_atendimento_extenso]</p><p style="text-align: center;">&nbsp;</p><p style="text-align: center;">[nome_profissional_executante]<br />[especialidade]<br />[sigla_conselho] &ndash; [n&uacute;mero_conselho]</p><p style="text-align: center;"><br />__________________________________________________________________________________<br />[endere&ccedil;o_cl&iacute;nica] [telefone_cl&iacute;nica]</p>';
+                    
+                    /*-----------------------------------------------------------------------
+                    | Se n„o tiver texto mostra o padr„o
+                    | Por: Richardson S. Westphal     <rsw.empresa@gmail.com>
+                    | Em : 22/06/2016
+                    |----------------------------------------------------------------------*/
+                                setTimeout(function(){
+                            tinymce.activeEditor.setContent(html);
+                        },500); 
+                            
+                }
+                
+                setTimeout(function(){
+                    startTinyMCE();
+                    $('#valor_procedimento').maskMoney({showSymbol:false, symbol:"R$", decimal:",", thousands:"."});
+                }, 200);
+                
+                function adicionarTextoReceituario(nome){
+                    var html = tinymce.activeEditor.getContent();
+                    tinymce.activeEditor.setContent(html+'['+nome+']');
+                }
+                
+                /*-----------------------------------------------------------------------
+                | Verificar se possui os laÁos de repetiÁ„o, sÛ barra se tiver 1 e outro n„o
+                | Por: Richardson S. Westphal     <rsw.empresa@gmail.com>
+                | Em : 23/06/2016
+                |----------------------------------------------------------------------*/
+                function salvar_form_receituario(){
+                    var texto = tinymce.activeEditor.getContent();
+                    var continuar = true;
+                
+                    if(texto.indexOf('[In&iacute;cio_bloco_repeti&ccedil;&atilde;o]') > -1){
+                        if(texto.indexOf('[Fim_bloco_repeti&ccedil;&atilde;o]') < 0){
+                            continuar = false;
+                        }
+                    }else{
+                        /*-----------------------------------------------------------------------
+                        | Aqui, obrigo a ter os laÁos de repetiÁ„o
+                        | para desobrigar, È sÛ decomentar as linhas abaixo
+                        | e comentar o primeiro continuar antes do if
+                        | Por: Richardson S. Westphal     <rsw.empresa@gmail.com>
+                        | Em : 23/06/2016
+                        |----------------------------------------------------------------------*/
+                        continuar = false;
+                        // if(texto.indexOf('[Fim_bloco_repeti&ccedil;&atilde;o]') > -1){
+                        //     continuar = false;
+                        // }
+                    }
+                
+                    if(continuar){
+                        $('#formReceituario').submit();
+                    }else{
+                        $('#myModalGeral .modal-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title modal-title-darkblue">ERRO:</h4>');
+                        $('#myModalGeral .modal-body').html('Deve conter no receituario, [In&iacute;cio_bloco_repeti&ccedil;&atilde;o] e [Fim_bloco_repeti&ccedil;&atilde;o].');
+                        $('#myModalGeral .modal-footer').html('<button type="button" class="btn btn-default pull-right" data-dismiss="modal" onclick="">OK</button>');
+                        $('#btnModalGeral').trigger('click');
+                    }
+                }
+                
+                $(function () {
+                    $("#id_aux_tuss").select2({
+                        locale: 'pt',
+                        placeholder: "Buscar...",
+                        minimumInputLength: 5,
+                        ajax: {
+                            url: "https://app.4clinics.software/cadastro/buscar_procedimento",
+                            dataType: 'json',
+                            quietMillis: 250,
+                            width: 400,
+                            data: function (term, page) {
+                                return {
+                                    q: term,
+                                }
+                            },
+                            results: function (data, page) {
+                                return {results: data.items}
+                            },
+                            cache: false
+                        },
+                        initSelection: function (element, callback) {
+                            var id = $(element).val();
+                            if (id !== "") {
+                                $.ajax("https://app.4clinics.software/cadastro/buscar_procedimento/?value=" + id, {
+                                    dataType: "json"
+                                }).done(function (data) {
+                                    callback(data);
+                                })
+                            }
+                        },
+                        formatResult: repoFormatResult4,
+                        formatSelection: repoFormatSelection4,
+                        dropdownCssClass: "bigdrop",
+                        escapeMarkup: function (m) {
+                            return m
+                        }
+                    }); 
+                    
+                    function repoFormatResult4(repo) {
+                        var markup = '<div class="row">' +
+                                '<div class="col-xs-12">' +
+                                '<div class="row">' +
+                                '<div class="col-xs-12">' + repo.resultado + '</div>' +
+                                '</div>';
+                        markup += '</div></div>';
+                
+                        return markup;
+                    }
+                    
+                    function repoFormatSelection4(repo) {
+                        // $('#id_tuss_procedimento').val(repo.id);
+                        return repo.resultado;
+                    }
+                });
+                
+                /*-----------------------------------------------------------------------
+                | CÛdigo para adicionar os procedimentos
+                | Por: Richardson S. Westphal   <rsw.empresa@gmail.com>
+                | Em : 28/06/2016
+                |----------------------------------------------------------------------*/
+                function addProcedimentoValor(last_id) {
+                    var mostrou_mensagem = false;
+                    if(last_id >= 0){
+                        count_proc_val = last_id;
+                        count_proc_val++;
+                    }
+                    count_proc_val++;
+                    var row = '<tr id="row_proc_' + count_proc_val + '" class="rows_proc">';
+                    $('#procedimento_valor_data input, #procedimento_valor_data select').each(function () {
+                        if($(this).attr('id') != 'id_aux_tuss' && $(this).attr('id') != 'valor_procedimento'){
+                            obrigatorio = false;
+                        } else {
+                            obrigatorio = true;
+                        }
+                        if (obrigatorio && !$(this).val()) {
+                            if(! mostrou_mensagem){
+                                swal({
+                                    title: "Campos vazios:",
+                                    text: "Por favor, preencha os campos Procedimento e Valor.",
+                                    type: "info",
+                                    confirmButtonColor: "#2196F3",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: true,
+                                    closeOnCancel: true
+                                });
+                                row = '';
+                                mostrou_mensagem = true;
+                            }               
+                        } else {
+                            if ($(this).attr('id')) {
+                                var _class = 'text-left';
+                                if (! $(this).hasClass('select2-focusser')) {
+                                    var new_name = $(this).attr('id') + '_' + count_proc_val;
+                                    row += '<td class="' + _class + '">';
+                                    row += '<input type="hidden" value="' + $(this).val() + '" name="' + new_name + '">';
+                                    if ($(this).attr('id') == 'id_aux_tuss') {
+                                        /*-----------------------------------------------------------------------
+                                        | Se for adicionar o select2 para as operadoras que hoje est„o falso,
+                                        | Verificar, pois o chosen-2 pode ser chosen-3
+                                        | Por: Richardson S. Westphal   <rsw.empresa@gmail.com>
+                                        | Em : 28/06/2016
+                                        |----------------------------------------------------------------------*/
+                                        row += $('#select2-chosen-2').text();
+                                    } else {
+                                        if($(this).attr('id') == 'prv_padrao'){
+                                            row += '<span class="prv_padrao_texto">'+$(this).val()+'</span>';
+                                        }else{
+                                            row += $(this).val();
+                                        }                           
+                                    }
+                                    row += '</td>';
+                                }
+                            }
+                        }
+                    });
+                
+                    if (row) {
+                        row += '<td class="text-left">'
+                                + '<a href="javascript:;" onclick="removeProcedimentoValor(\'row_proc_' + count_proc_val + '\')";>'
+                                + '<i class="fa fa-times text-danger" style="font-size: 16px;"></i>'
+                                + '</a> &nbsp; '
+                                + '<a href="javascript:;" onclick="editarProcedimentoValor(\'' + count_proc_val + '\')";>'
+                                + '<i class="fa fa-edit" style="font-size: 16px;"></i>'
+                                + '</a>'
+                                + '</td>';
+                        row += '</tr>';
+                        $('#procedimento_valor').append(row);
+                        $('#procedimento_valor_data input, #procedimento_valor_data select').val('');
+                        $('#select2-chosen-2').text('');
+                    }
+                }
+                
+                function removeProcedimentoValor(row, id_procedimentos_valores, id_executantes) {
+                    count_proc_val--;
+                    $('#' + row).remove();
+                    if((typeof id_procedimentos_valores != 'undefined') && (typeof id_executantes != 'undefined')){
+                        removeProcedimentoValor_registro(id_procedimentos_valores, id_executantes);
+                    }
+                }
+                
+                function removeProcedimentoValor_registro(id_procedimentos_valores, id_executantes) {
+                    $.get(remove_codigo_ProcedimentoValor+'/'+id_procedimentos_valores+'/'+id_executantes);
+                }
+                
+                function mensagemRemoverProcedimentoValor(row, id_procedimentos_valores, id_executantes) {
+                    swal({
+                        title: "Exclus„o:",
+                        text: "\nDeseja realmente excluir este registro do cadastro do paciente?\nSe a operaÁ„o for confirmada o registro ser· removido, mesmo que o cadastro n„o seja gravado.\n",
+                        type: "info",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancelar",
+                        cancelButtonColor: "#2196F3",
+                        confirmButtonColor: "#2196F3",
+                        confirmButtonText: "Confirmar",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    },
+                    function(isConfirm){
+                        if (isConfirm) {
+                            removeProcedimentoValor(row, id_procedimentos_valores, id_executantes);
+                        }
+                    });
+                }
+                
+                /*-----------------------------------------------------------------------
+                | Para editar o padr„o
+                | Por: Richardson S. Westphal   <rsw.empresa@gmail.com>
+                | Em : 29/06/2016
+                |----------------------------------------------------------------------*/
+                function editarProcedimentoValor(id) {
+                    var select, option, button;
+                    
+                    select = $('<select></select>');
+                    select.attr('name', 'prv_padrao_temp');
+                    select.attr('id', 'prv_padrao_temp');
+                    select.addClass('form-control');
+                    select.addClass('input-sm');
+                
+                    option = $('<option></option>');
+                    option.attr('value', '');
+                    option.text('Selecione ---');
+                    select.append(option);
+                
+                    option = $('<option></option>');
+                    option.attr('value', 'S');
+                    option.text('Sim');
+                    select.append(option);
+                
+                    option = $('<option></option>');
+                    option.attr('value', 'N');
+                    option.text('N„o');
+                    select.append(option);
+                
+                    button = $('<button></button>');
+                    button.attr('id', 'prv_padrao_temp_button');
+                    button.addClass('btn');
+                    button.addClass('btn-primary');
+                    button.text('OK');
+                    button.attr('type','button');
+                    button.attr('onclick','salvarNovaEscolha(\''+id+'\')');
+                
+                    $('.prv_padrao_texto_'+id).remove();
+                    $('input[name=prv_padrao_'+id+']').parent().append(select);
+                    $('input[name=prv_padrao_'+id+']').parent().append(button);
+                }
+                
+                function salvarNovaEscolha(id){
+                    var valor = $('#prv_padrao_temp').val();
+                    if(valor == ''){
+                        swal({
+                            title: "OpÁ„o:",
+                            text: "\nPor favor selecione uma opÁ„o.\n",
+                            type: "info",
+                            confirmButtonColor: "#2196F3",
+                            confirmButtonText: "OK",
+                            closeOnConfirm: true
+                        });
+                    }else{
+                        $('input[name=prv_padrao_'+id+']').parent().append('<span class="prv_padrao_texto_'+id+'">'+valor+'</span>');
+                        $('input[name=prv_padrao_'+id+']').val(valor);
+                        $('#prv_padrao_temp').remove();
+                        $('#prv_padrao_temp_button').remove();
+                    }
+                }
+            </script>
+            </div>
+            </div>
+            </div>
+            <div class="tab-pane tab4 col-sm-12" id="tab4" data-ng-controller="SiteController as cc">
+            <div class="col-sm-8">
+            <div class="panel panel-default">
+            <div class="panel-heading">
+            <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href=".collapseThree">1 - Planos</a>
+            </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse collapseThree">
+            <div class="panel-body">
+            <section class="mbr-section mbr-section--relative mbr-section--fixed-size " id="pricing-table1-11" style="background-color: rgb(240, 240, 240);">
+            <div class="mbr-section__container mbr-section__container--std-top-padding  container" style="padding-top: 93px; margin-bottom: 0px;width:100%">
+            <div class="row" >
+            <div class="mbr-plan col-xs-12 mbr-plan--first col-md-3 col-sm-6" ng-repeat="plano in cc.site.planoList">
+            <div class="mbr-plan__box planos">
+            <div class="mbr-plan__header">
+            <div class="mbr-header mbr-header--reduce mbr-header--center mbr-header--wysiwyg">
+            <h3 class="mbr-header__text">{{plano.titulo}}</h3>
+            </div>
+            </div>
+            <div class="mbr-plan__number">
+            <div class="mbr-number mbr-number--price">
+            <div class="mbr-number__num">
+            <div class="{{plano.id}} hide id"></div>
+            <div class="hide type plano"></div>
+            <div class="mbr-number__group">
+            <sup class="mbr-number__left">$</sup><span class="mbr-number__value mbr-plan__number1 valor">{{plano.precoList[0].valor || 0}}</span>
+            </div>
+            </div>
+            <div class="mbr-number__caption">Mensal</div>
+            </div>
+            </div>
+            <div class="mbr-plan__details">
+            <ul ng-repeat="servico in plano.servicoList">
+            <li><strong>{{servico.servico.nome}}</strong> {{servico.servico.descricao}}</li>
+            </ul>
+            </div>
+            <div class="mbr-plan__buttons">
+            <div class="mbr-buttons mbr-buttons--center">
+            <label>Contratar - <input type='checkbox' class="plano" ng-init='checkStatus=false' ng-model='checkStatus' ng-click='doIfChecked(checkStatus)'></label>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default">
+            <div class="panel-heading">
+            <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href=".collapseFour">2 - ServiÁos</a>
+            </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse collapseFour">
+            <div class="panel-body">
+            <section class="mbr-section mbr-section--relative mbr-section--fixed-size planos" id="pricing-table1-11" style="background-color: rgb(240, 240, 240);">
+            <div class="mbr-section__container mbr-section__container--std-top-padding container" style="padding-top: 93px; margin-bottom: 0px;">
+            <div class="row" >
+            <div class="mbr-plan col-xs-8 mbr-plan--first col-md-3 col-sm-6" ng-repeat="servico in cc.site.servicoList">
+            <div class="mbr-plan__box">
+            <div class="mbr-plan__header">
+            <div class="mbr-header mbr-header--reduce mbr-header--center mbr-header--wysiwyg">
+            <h3 class="mbr-header__text">{{servico.nome}}</h3>
+            </div>
+            </div>
+            <div class="mbr-plan__number">
+            <div class="{{servico.id}} hide id"></div>
+            <div class="hide type servico"></div>
+            <div class="mbr-number mbr-number--price">
+            <div class="mbr-number__num">
+            <div class="mbr-number__group">
+            <sup class="mbr-number__left" >$</sup><span class="mbr-number__value mbr-plan__number1 valor" style="font-size:40%">{{servico.precoList[0].valor || 0}}</span>
+            </div>
+            </div>
+            <div class="mbr-number__caption">Mensal</div>
+            </div>
+            </div>
+            <div class="mbr-plan__details">
+            <ul>
+            <li><strong>{{servico.servico.descricao}}</strong></li>
+            </ul>
+            </div>
+            <div class="mbr-plan__buttons">
+            <div class="mbr-buttons mbr-buttons--center">
+            <label>Contratar - <input type='checkbox' class="plano" ng-init='checkStatus=false' ng-model='checkStatus' ng-click='doIfChecked(checkStatus,10,nome)'></label>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="col-sm-4" >
+            <div class="panel-heading">
+            <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href=".collapseten" style="font-size:24px">Total</a>
+            </h4>
+            </div>
+            <div id="collapseten" class="panel-collapse collapse collapseten">
+            <div class="panel-body">
+            <div>
+            <div class="mbr-plan__number">
+            <div class="mbr-number mbr-number--price">
+            <div class="mbr-number__num">
+            <div class="mbr-number__group">
+            <sup class="mbr-number__left" >$</sup><span class="mbr-number__value mbr-plan__number1" style="font-size:40%">{{cc.total}}</span>
+            </div>
+            </div>
+            <div class="mbr-number__caption">Mensal</div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="tab-pane tab5" id="tab5">
+            </div>
+            <div class="tab-pane" id="tab6">
+            6
+            </div>
+            <ul class="pager wizard">
+            <li class="previous first" style="display:none;"><a href="javascript:;">First</a></li>
+            <li class="previous"><a href="javascript:;">Previous</a></li>
+            <li class="next last" style="display:none;"><a href="javascript:;">Last</a></li>
+            <li class="next"><a href="javascript:;">Next</a></li>
+            <li class="hide save-empresa"><input type="submit" id="submit" value="Submit" ng-click="cc.submit()"/></li>
+            </ul>
+            </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script>
+    $(document).ready(function() {
+    
+        bookIndex = 0;
+    
+    $('#empresaForm')
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+    
+            'book[0].cpf': notEmptyStringMinMaxRegexp,
+            'book[0].nome': notEmptyStringMinMax,
+            'book[0].cota': integerNotEmptyValidation,
+             nome: notEmptyStringMinMax,
+             nunFunc: integerNotEmptyValidation,
+            razao:notEmptyStringMinMax,
+            logradouro:notEmptyStringMinMax,
+            cpf: notEmptyStringMinMaxRegexp,
+            cep: notEmptyStringMinMax,
+            cnpj: notEmptyStringMinMax,
+            email: emailValidation,
+            telefone: telefoneValidation,
+            phone: telefoneValidation,
+            cep: cepNotEmptyValidation,
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and can\'t be empty'
+                    }
+                }
+            },
+            confirmPassword: {
+                validators: {
+                    notEmpty: {
+                        message: 'The confirm password is required and can\'t be empty'
+                    },
+                    identical: {
+                        field: 'password',
+                        message: 'The password and its confirm are not the same'
+                    }
+                }
+            }
+    
+        }
+        })
+        // Add button click handler
+        .on('click', '.addButton', function() {
+            bookIndex++;
+            var $template = $('#bookTemplate'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('data-book-index', bookIndex)
+                                .insertBefore($template);
+    
+            // Update the name attributes
+            $clone
+                .find('[name="cpf-socio"]').attr('name', 'book[' + bookIndex + '].cpf').end()
+                .find('[name="nome-socio"]').attr('name', 'book[' + bookIndex + '].nome').end()
+                .find('[name="cota-socio"]').attr('name', 'book[' + bookIndex + '].cota').end();
+    
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            $('#empresaForm')
+                .formValidation('addField', 'book[' + bookIndex + '].cpf',notEmptyStringMinMaxRegexp)
+                .formValidation('addField', 'book[' + bookIndex + '].nome',notEmptyStringMinMaxRegexp)
+                .formValidation('addField', 'book[' + bookIndex + '].cota',integerNotEmptyValidation);
+        });
+        $("select").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+    
+        $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
+            /*  if(index==2) {
+                    // Make sure we entered the name
+                    if(!$('#name').val()) {
+                        alert('You must enter your name');
+                        $('#name').focus();
+                        return false;
+                    }
+                }
+    
+                // Set the name for the next tab
+                $('#tab3').html('Hello, ' + $('#name').val());
+            */
+            }, onTabShow: function(tab, navigation, index) {
+    
+                var $total = navigation.find('li').length;
+                var $current = index+1;
+                var $percent = ($current/$total) * 100;
+                $('#rootwizard .progress-bar').css({width:$percent+'%'});
+                if($percent == 100)
+                {
+                    $('.save-empresa').removeClass('hide');
+                }else{
+                    $('.save-empresa').addClass('hide');
+                }
+            },
+            onNext: function(tab, navigation, index) {
+                var numTabs    = $('#installationForm').find('.tab-pane').length,
+                    isValidTab = validateTab(index - 1);
+                if (!isValidTab) {
+                    return false;
+                }
+    
+                if (index === numTabs) {
+                    alert('agora');
+                    // We are at the last tab
+    
+                    // Uncomment the following line to submit the form using the defaultSubmit() method
+                    // $('#installationForm').formValidation('defaultSubmit');
+    
+                    // For testing purpose
+                    $('#completeModal').modal();
+                }
+    
+                return true;
+            }});
+        window.prettyPrint && prettyPrint();
+    
+        //============================= Telefone
+        $('.addPhoneButton').on('click', function() {
+    
+            var $that     = $(this),
+            $template = $('#template'),
+            $newRow   = $template.clone().removeAttr('id').insertBefore($template).show();
+    
+            $that.parent().addClass('disabled');
+    
+            // Set the label and field name
+            var fieldName = $that.attr('data-name');
+            $newRow
+                .find('.control-label')
+                    .html($that.html())
+                    .end()
+                .find('input')
+                    .attr('name', fieldName)
+                    .end()
+                .on('click', '.removeButton', function() {
+                    // Remove field when clicking the Remove button
+                    $('#contactForm').formValidation('removeField', fieldName);
+    
+                    // Enable the Add button
+                    $that.parent().removeClass('disabled');
+    
+                    // Remove element
+                    $newRow.remove();
+                });
+    
+            // Add new field
+            $('#empresaForm').formValidation('addField', fieldName, {
+                message: 'The phone number is not valid',
+                validators: {
+                    digits: {
+                        message: 'The value can contain only digits'
+                    }
+                }
+            });
+        });
+        //============================= Telefone fim
+    
+        //============================= Email
+        $('.addEmailButton').on('click', function() {
+            var $that     = $(this),
+                $template = $('#template-email'),
+                $newRow   = $template.clone().removeAttr('id').insertBefore($template).show();
+    
+            $that.parent().addClass('disabled');
+    
+            // Set the label and field name
+            var fieldName = $that.attr('data-name');
+            $newRow
+                .find('.control-label')
+                    .html($that.html())
+                    .end()
+                .find('input')
+                    .attr('name', fieldName)
+                    .end()
+                .on('click', '.removeButton', function() {
+                    // Remove field when clicking the Remove button
+                    $('#contactForm').formValidation('removeField', fieldName);
+    
+                    // Enable the Add button
+                    $that.parent().removeClass('disabled');
+    
+                    // Remove element
+                    $newRow.remove();
+                });
+    
+            // Add new field
+            $('#empresaForm').formValidation('addField', fieldName, {
+                message: 'The phone number is not valid',
+                validators: {
+                    digits: {
+                        message: 'The value can contain only digits'
+                    }
+                }
+            });
+        });
+        //============================= Email fim
+         function validateTab(index) {
+            var fv   = $('#empresaForm').data('formValidation'), // FormValidation instance
+                // The current tab
+                $tab = $('#empresaForm').find('.tab-pane').eq(index);
+    
+            // Validate the container
+            fv.validateContainer($tab);
+    
+            var isValidStep = fv.isValidContainer($tab);
+            if (isValidStep === false || isValidStep === null) {
+                // Do not jump to the target tab
+                return false;
+            }
+    
+            return true;
+        }
+    
+        //Tab 1
+    $('#empresaForm').find('[name="nome"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="cpf"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="telefone"]').val('34988406670');
+    $('#empresaForm').find('[name="email"]').val('wlclimaco@gmail.com');
+    $('#empresaForm').find('[name="password"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="confirmPassword"]').val('099.099.099.099');
+    
+    //Tab 2
+    $('#empresaForm').find('[name="cnpj"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="numfunc"]').val('8');
+    $('#empresaForm').find('[name="razao"]').val('34988406670');
+    $('#empresaForm').find('[name="cep"]').val('38082243');
+    $('#empresaForm').find('[name="numero"]').val('686');
+    $('#empresaForm').find('[name="complemento"]').val('complemento');
+    $('#empresaForm').find('[name="logradouro"]').val('logradouro');
+    
+    });
+    //prencher form
+    /*
+    //Tab 1
+    $('#empresaForm').find('[name="nome"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="cpf"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="telefone"]').val('34988406670');
+    $('#empresaForm').find('[name="email"]').val('wlclimaco@gmail.com');
+    $('#empresaForm').find('[name="password"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="confirmPassword"]').val('099.099.099.099');
+    
+    //Tab 2
+    $('#empresaForm').find('[name="cnpj"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="nunfunc"]').val('8');
+    $('#empresaForm').find('[name="razao"]').val('34988406670');
+    $('#empresaForm').find('[name="cep"]').val('38082243');
+    $('#empresaForm').find('[name="numero"]').val('686');
+    $('#empresaForm').find('[name="complemento"]').val('complemento');
+    
+    //Tab 3
+    $('#empresaForm').find('[name="nome"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="cpf"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="telefone"]').val('34988406670');
+    $('#empresaForm').find('[name="email"]').val('wlclimaco@gmail.com');
+    $('#empresaForm').find('[name="password"]').val('099.099.099.099');
+    $('#empresaForm').find('[name="confirmPassword"]').val('099.099.099.099');
+    */
+</script>

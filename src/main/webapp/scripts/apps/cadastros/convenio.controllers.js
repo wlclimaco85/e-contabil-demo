@@ -10,7 +10,6 @@ function convenioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     vm.toggleOne = toggleOne;
     vm.message = '';
     vm.edit = edit;
-    vm.baixar = baixar;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
@@ -18,7 +17,7 @@ function convenioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('FormaPag.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('convenio.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -123,11 +122,11 @@ function convenioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Forma Pagamento',
+                text: 'Novo Convenio',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'agencia.html',
+                        templateUrl: 'cadConvenio.html',
                         controller: "ContasPagarController"
                     }).then(function(modal) {
 
@@ -149,17 +148,14 @@ function convenioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
-        DTColumnBuilder.newColumn('banco').withTitle('Banco'),
-        DTColumnBuilder.newColumn('numAgencia').withTitle('Nº Agencia'),
-        DTColumnBuilder.newColumn('cep').withTitle('Cep'),    
-        DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro'),
-        DTColumnBuilder.newColumn('numero').withTitle('Numero'),
-        DTColumnBuilder.newColumn('cidade').withTitle('Cidade'),
-        DTColumnBuilder.newColumn('estado').withTitle('Estado').notVisible(),
-        DTColumnBuilder.newColumn('pais').withTitle('Pais').notVisible(),
+        DTColumnBuilder.newColumn('nome').withTitle('Convenio'),
+        DTColumnBuilder.newColumn('empresa').withTitle('Empresa'),
+        DTColumnBuilder.newColumn('desconto').withTitle('Desconto'),    
+        DTColumnBuilder.newColumn('contato').withTitle('Contato'),
         DTColumnBuilder.newColumn('telefone').withTitle('Telefone'),
-        DTColumnBuilder.newColumn('email').withTitle('Email').notVisible(),
-        DTColumnBuilder.newColumn('obs').withTitle('Observações').notVisible(),
+        DTColumnBuilder.newColumn('email').withTitle('Email'),
+        DTColumnBuilder.newColumn('descricao').withTitle('Descrição').notVisible(),
+        DTColumnBuilder.newColumn('status').withTitle('Status'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '140px'), 
@@ -169,7 +165,7 @@ function convenioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'agencia.html',
+            templateUrl: 'cadConvenio.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             
@@ -182,7 +178,7 @@ function convenioController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     }
     function deleteRow(person) {
         ModalService.showModal({
-            templateUrl: 'formaPgDelete.html',
+            templateUrl: 'convenioDelete.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             modal.element.modal();

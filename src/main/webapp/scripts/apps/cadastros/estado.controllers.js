@@ -1,5 +1,5 @@
 (function() {
-angular.module('wdApp.apps.estados', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
+angular.module('wdApp.apps.estado', ['datatables','angularModalService', 'datatables.buttons', 'datatables.light-columnfilter'])
 .controller('EstadosController', estadosController);
 
 function estadosController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,ModalService) {
@@ -10,7 +10,6 @@ function estadosController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
     vm.toggleOne = toggleOne;
     vm.message = '';
     vm.edit = edit;
-    vm.baixar = baixar;
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.persons = {};
@@ -18,7 +17,7 @@ function estadosController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
     var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll"' +
         'ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
 
-    vm.dtOptions = DTOptionsBuilder.fromSource('FormaPag.json')
+    vm.dtOptions = DTOptionsBuilder.fromSource('estado.json')
         .withDOM('frtip')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
@@ -123,11 +122,11 @@ function estadosController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 exportData: { decodeEntities: true }
             },
             {
-                text: 'Novo Forma Pagamento',
+                text: 'Novo Estado',
                 key: '1',
                 action: function (e, dt, node, config) {
                     ModalService.showModal({
-                        templateUrl: 'agencia.html',
+                        templateUrl: 'cadEstado.html',
                         controller: "ContasPagarController"
                     }).then(function(modal) {
 
@@ -149,17 +148,9 @@ function estadosController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
                 return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
         }).withOption('width', '10px'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible().withOption('width', '10px'), 
-        DTColumnBuilder.newColumn('banco').withTitle('Banco'),
-        DTColumnBuilder.newColumn('numAgencia').withTitle('Nº Agencia'),
-        DTColumnBuilder.newColumn('cep').withTitle('Cep'),    
-        DTColumnBuilder.newColumn('logradouro').withTitle('Logradouro'),
-        DTColumnBuilder.newColumn('numero').withTitle('Numero'),
-        DTColumnBuilder.newColumn('cidade').withTitle('Cidade'),
-        DTColumnBuilder.newColumn('estado').withTitle('Estado').notVisible(),
-        DTColumnBuilder.newColumn('pais').withTitle('Pais').notVisible(),
-        DTColumnBuilder.newColumn('telefone').withTitle('Telefone'),
-        DTColumnBuilder.newColumn('email').withTitle('Email').notVisible(),
-        DTColumnBuilder.newColumn('obs').withTitle('Observações').notVisible(),
+        DTColumnBuilder.newColumn('estado').withTitle('Estado'),
+        DTColumnBuilder.newColumn('abreviacao').withTitle('Abreviação'),
+        DTColumnBuilder.newColumn('pais').withTitle('Pais'),
         DTColumnBuilder.newColumn('modifyUser').withTitle('modifyUser').notVisible(),
         DTColumnBuilder.newColumn('modifyDateUTC').withTitle('modifyDateUTC').notVisible(),
         DTColumnBuilder.newColumn(null).withTitle('Ações').notSortable().renderWith(actionsHtml).withOption('width', '140px'), 
@@ -169,7 +160,7 @@ function estadosController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,M
 
     function edit(person) {
        ModalService.showModal({
-            templateUrl: 'agencia.html',
+            templateUrl: 'cadEstado.html',
             controller: "ContasPagarController"
         }).then(function(modal) {
             
