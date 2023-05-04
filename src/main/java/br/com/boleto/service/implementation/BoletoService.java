@@ -1258,50 +1258,53 @@ public class BoletoService {
 			List<String> acoes = new ArrayList<>();
 			acoes = acoesRepository.findDistinctByAcoes();
 			for (String acoes2 : acoes) {
-				acao = acao +  acoes2.substring(0, acoes2.length() - 1) + ",";
+				acao = acao + acoes2.substring(0, acoes2.length() - 1) + ",";
 			}
-			acao = acao.substring(0, acao.length() - 1);
-			HttpEntity<?> httpEntity = new HttpEntity<>(createJSONHeaderAcao());
+			if (acao != null && acao.length() > 1) {
+				acao = acao.substring(0, acao.length() - 1);
 
-			String params = "" + acao;
+				HttpEntity<?> httpEntity = new HttpEntity<>(createJSONHeaderAcao());
 
-			try {
-				ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(getDefaultQueryParameters(params),
-						HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
-				
-				for (AcaoRetornoDto4 string : response.getBody().getResults()) {
-					if(string.getRegularMarketPrice() != null) {
-						acoesRepository.alteraPriceCurrency(string.getRegularMarketPrice(), LocalDateTime.now(), string.getShortName(), string.getSymbol());
-						List<Acoes> acoess = acoesRepository.findDistinctByAcoes(string.getSymbol());
-						for (Acoes acoesss : acoess) {
-							if("C".equals(acoesss.getTipo())) {
-								acoesss.setLucropreju(string.getRegularMarketPrice() - acoesss.getValorsuj() );
-							} else {
-								acoesss.setLucropreju(acoesss.getValorsuj() - string.getRegularMarketPrice());
+				String params = "" + acao;
+
+				try {
+					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
+							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
+
+					for (AcaoRetornoDto4 string : response.getBody().getResults()) {
+						if (string.getRegularMarketPrice() != null) {
+							acoesRepository.alteraPriceCurrency(string.getRegularMarketPrice(), LocalDateTime.now(),
+									string.getShortName(), string.getSymbol());
+							List<Acoes> acoess = acoesRepository.findDistinctByAcoes(string.getSymbol());
+							for (Acoes acoesss : acoess) {
+								if ("C".equals(acoesss.getTipo())) {
+									acoesss.setLucropreju(string.getRegularMarketPrice() - acoesss.getValorsuj());
+								} else {
+									acoesss.setLucropreju(acoesss.getValorsuj() - string.getRegularMarketPrice());
+								}
+								acoesRepository.save(acoesss);
 							}
-							acoesRepository.save(acoesss);
 						}
+
 					}
-						
+
+					System.out.println("teste");
+				} catch (HttpClientErrorException ee) {
+					httpEntity = new HttpEntity<>(createJSONHeaderAcao2());
+					params = "" + acao;
+					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
+							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
+
+					System.out.println("teste");
+				} catch (IllegalArgumentException eed) {
+					httpEntity = new HttpEntity<>(createJSONHeaderAcao3());
+					params = "" + acao;
+					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
+							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
+
+					System.out.println("teste");
 				}
-
-				System.out.println("teste");
-			} catch (HttpClientErrorException ee) {
-				httpEntity = new HttpEntity<>(createJSONHeaderAcao2());
-				params = "" + acao;
-				ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(getDefaultQueryParameters(params),
-						HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
-
-				System.out.println("teste");
-			} catch (IllegalArgumentException eed) {
-				httpEntity = new HttpEntity<>(createJSONHeaderAcao3());
-				params = "" + acao;
-				ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(getDefaultQueryParameters(params),
-						HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
-
-				System.out.println("teste");
 			}
-
 		} catch (Exception e) {
 			job.setError(e.getMessage());
 			e.printStackTrace();
@@ -1318,6 +1321,7 @@ public class BoletoService {
 				jobRepository.deleteById(job.getId());
 			}
 		}
+
 	}  
     
 	private Integer envioStatus(LoginResponseDto loginResponseDto, String status, Conta conta, String dataInicial,
