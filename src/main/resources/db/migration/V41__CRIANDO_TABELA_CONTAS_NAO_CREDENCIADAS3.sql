@@ -1,0 +1,1 @@
+ALTER TABLE acoes ADD COLUMN valor float8;

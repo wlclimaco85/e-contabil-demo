@@ -1,0 +1,20 @@
+CREATE TABLE if not exists acoes (
+	id SERIAL PRIMARY KEY,
+	acao VARCHAR,
+	dh_created_at TIMESTAMP,
+	status VARCHAR(1) NOT NULL DEFAULT 'P',
+	lucroPreju float8,
+	valorSuj float8,
+	tipo VARCHAR(1) NOT NULL DEFAULT 'C',
+	periodo INT,
+	ambiente INT  DEFAULT 0,
+	nome_robo VARCHAR(100),
+	data_venda TIMESTAMP,
+	data_compra TIMESTAMP,
+	contratos INT,
+	valoracaoatual float8,
+	dh_updated_at TIMESTAMP,
+	shortname  VARCHAR(200),
+	level INT,
+	mudou_lado INT
+);

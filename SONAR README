@@ -1,0 +1,18 @@
+# EXEMPLO UM
+
+set SONAR_HOST=http://localhost:9000/
+set ANALYSE_EXCLUSIONS=**/DIRETO.CLASSE.java,**/ws/**
+set COVERAGE_EXCLUSIONS=**/EXEMPLO/*.java,**/interceptor/**,**/enums/**,**/api/**,**/argument/**,**/builder/**,**/config/**,**/constants/**,**/controller/**,**/handler/**,**/helper/**,**/model/**,**/repository/**,**/util/**,**/ws/**
+
+
+mvn clean compile test sonar:sonar -Dsonar.host.url=%SONAR_HOST% -Dsonar.exclusions=%ANALYSE_EXCLUSIONS% -Dsonar.coverage.exclusions=%COVERAGE_EXCLUSIONS%
+
+# EXEMPLO DOIS
+
+mvn sonar:sonar \
+  -Dsonar.projectKey=api-modelo \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=3bb9d3de0b9c861e1d901736470f1666c4cb7a4e \
+  -Dsonar.coverage.exclusions=**/controller/**,**/config/**,**/persistence/**,**/util/**,**/exception/**
+
+# SE VOCE TIVER ALGUM ERRO AO EXECUTAR O COMANDO COM O TOKEN GERADO, TENTE RODAR COM SUDO

@@ -1,0 +1,1 @@
+ALTER TABLE contas ADD COLUMN dh_desativacao TIMESTAMP;

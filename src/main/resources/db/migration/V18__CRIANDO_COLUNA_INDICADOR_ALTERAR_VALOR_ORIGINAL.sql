@@ -1,0 +1,1 @@
+ALTER TABLE boletos ADD COLUMN indicador_alterar_valor_original VARCHAR (2) DEFAULT 'N';

@@ -1,0 +1,1 @@
+ALTER TABLE boletos ADD COLUMN quantidade_tentativas INT DEFAULT 0;

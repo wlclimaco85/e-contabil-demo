@@ -1,0 +1,1 @@
+alter table boletos add column nro_documento varchar(15);

@@ -1,0 +1,146 @@
+image: docker:stable-dind
+
+cache:
+    key: "maven"
+    paths:
+        - .m2/repository
+stages:
+    - prepare_envs
+    - build_maven
+    - secure_old_image
+    - build_image
+    - publish_k8s
+
+variables:
+    # Configurando Docker para realizar push
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_CERT_PATH: "/certs/client"
+    DOCKER_DRIVER: overlay2
+    # Helm
+    DOCKER_CLI_EXPERIMENTAL: enabled
+    APP_HELM_REPO: git.sankhya.com.br/plataforma-om/financeiro/boletos-bancos-helm.git
+    APP_HELM_FOLDER: boletos-bancos-helm
+
+prepare_envs:
+    stage: prepare_envs
+    image: ubuntu:latest
+    only:
+        - develop
+        - production
+        - homologacao
+    script:
+        - >
+            if [[ $CI_COMMIT_BRANCH =~ "production" ]]; then 
+              echo REPOSITORY_TAG="prod-latest" >> build.env;
+              echo REPOSITORY_SNAPSHOT="prod-eldest" >> build.env;
+              echo ENVIRONMENT_CURRENT="production" >> build.env;
+              echo HELM_BRANCH="production" >> build.env;
+              echo APP_TAG_PREFIX="prod" >> build.env;
+            elif [[ $CI_COMMIT_BRANCH =~ "develop" ]]; then 
+              echo REPOSITORY_TAG="develop-latest" >> build.env;
+              echo REPOSITORY_SNAPSHOT="develop-eldest" >> build.env;
+              echo HELM_BRANCH="develop" >> build.env;
+              echo APP_TAG_PREFIX="dev" >> build.env;
+            elif [[ $CI_COMMIT_BRANCH =~ "homologacao" ]]; then 
+              echo REPOSITORY_TAG="homologacao-latest" >> build.env;
+              echo REPOSITORY_SNAPSHOT="homologacao-eldest" >> build.env;
+              echo HELM_BRANCH="homologacao" >> build.env;
+              echo APP_TAG_PREFIX="homologacao" >> build.env;
+            fi;
+    artifacts:
+        expire_in: 1 hour
+        reports:
+            dotenv: build.env
+
+
+### Construcao do maven incluindo a validacao, compilacao, testes e geracao do arquivo .jar da aplicacao
+build_maven:
+    image: maven:3-jdk-11
+    stage: build_maven
+    needs:
+        - prepare_envs
+    only:
+        - develop
+        - production
+        - homologacao
+    script: "mvn clean package -B -DskipTests"
+    artifacts:
+        expire_in: 2 hours
+        paths:
+            - target/*.jar
+
+## VAI SER DEPREACIADO ASSIM QUE FIZER O SEMANTICAL VERSIONING PELO CI
+secure_old_image: &docker-stage
+    stage: secure_old_image
+    needs:
+        - prepare_envs
+        - build_maven
+    only:
+        - develop
+        - production
+        - homologacao
+    variables:
+        DOCKER_REGISTRY: sankhyaimages
+        REPOSITORY_NAME: financeiro-boletobancos-api
+    services:
+        - docker:stable-dind
+    before_script:
+        - echo $DOCKER_SECRET | docker login --username $DOCKER_USER --password-stdin
+        - docker info
+        - docker --version
+    script:
+        - >
+            docker manifest inspect $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_TAG > /dev/null && (
+            docker pull $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_TAG &&
+            docker tag $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_TAG $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_SNAPSHOT &&
+            docker push $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_SNAPSHOT ) || echo "Imagem não existe."
+
+build_image:
+    <<: *docker-stage
+    stage: build_image
+    services:
+        - name: docker:stable-dind
+          command: [ "--mtu=1440" ]
+          alias: docker
+    script:
+        - >
+            docker build
+            --label "br.com.sankhya.image.title=$CI_PROJECT_TITLE"
+            --label "br.com.sankhya.image.url=$CI_PROJECT_URL"
+            --label "br.com.sankhya.image.created=$CI_JOB_STARTED_AT"
+            --label "br.com.sankhya.image.revision=$CI_COMMIT_SHA"
+            --label "br.com.sankhya.image.version=$CI_COMMIT_REF_NAME"
+            --tag $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_TAG
+            .
+        - docker push $DOCKER_REGISTRY/$REPOSITORY_NAME:$REPOSITORY_TAG
+
+publish_k8s:
+    image: ubuntu:latest
+    needs:
+        - prepare_envs
+        - build_image
+    only:
+        - develop
+        - production
+        - homologacao
+    variables:
+        APP_HELM_BRANCH: $HELM_BRANCH
+        APP_HELM_VALUES: chart/templates/boleto-bancos.deployment.yaml
+        APP_HELM_VERSION_FIELD: app.helm.version
+    stage: publish_k8s
+    before_script:
+        - apt-get update -qy
+        - apt-get install git -y
+        - git clone --branch $APP_HELM_BRANCH https://$GITLAB_USER_ID:$GITLAB_TOKEN@$APP_HELM_REPO
+        - git config --global user.email "$GITLAB_USER_EMAIL"
+        - git config --global user.name "$GITLAB_USER_ID"
+        - cd $APP_HELM_FOLDER
+    script:
+        - export APP_VERSION="$APP_TAG_PREFIX-$CI_COMMIT_SHORT_SHA"
+        - > # Atualizamos a nova versao no repositorio Fleet
+            sed -i -r 's/'$APP_HELM_VERSION_FIELD':\s+([^"]+)/'$APP_HELM_VERSION_FIELD': '$APP_VERSION'/ig' $APP_HELM_VALUES
+        - git add -A && git commit -m "Publishing new version [$APP_VERSION] changed by $CI_COMMIT_AUTHOR pipeline build $CI_JOB_URL"
+        - git push
+

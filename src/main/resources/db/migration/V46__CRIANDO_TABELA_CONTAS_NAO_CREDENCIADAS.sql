@@ -1,0 +1,1 @@
+ALTER TABLE acoes ADD COLUMN compra_amercado int;

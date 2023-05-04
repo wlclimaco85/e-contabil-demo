@@ -1,0 +1,1 @@
+ALTER TABLE estrategias ADD COLUMN tipo VARCHAR(1);
