@@ -30,7 +30,8 @@ public class AcoesDto {
 	private Integer mudouLado;
 	private Double valor;
 	private Integer acaoOrigem;
-	
+	private Integer compraAmercado;
+	private Integer isPercentualLossGain;
 	
 	public AcoesDto(Acoes2Dto estrategia) {
 		this.id = estrategia.getId();
@@ -47,6 +48,8 @@ public class AcoesDto {
 			this.dataVenda = LocalDateTime.now();
 		}
 		this.contratos = estrategia.getContratos();
+		this.compraAmercado = estrategia.getCompraAmercado();
+		this.isPercentualLossGain = estrategia.getIsPercentualLossGain();
 	}
 
 }

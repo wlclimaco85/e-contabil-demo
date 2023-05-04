@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.com.boleto.persistence.dtos.AcoesDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,5 +43,6 @@ public class Acoes {
 	private Double valor;
 	private Integer acaoOrigem;
 	private Integer compraAmercado;
+	private Integer isPercentualLossGain;
 
 }
