@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -45,7 +44,6 @@ import br.com.boleto.enums.TipoEventoEnum;
 import br.com.boleto.exception.BadRequestException;
 import br.com.boleto.exception.FailedAuthenticationException;
 import br.com.boleto.exception.NotFoundException;
-import br.com.boleto.persistence.dtos.AcaoRetornoDto;
 import br.com.boleto.persistence.dtos.AcaoRetornoDto4;
 import br.com.boleto.persistence.dtos.AcaoRetornoDto5;
 import br.com.boleto.persistence.dtos.AtualizaBoletosRequestDto;
@@ -71,6 +69,7 @@ import br.com.boleto.persistence.entity.Audit;
 import br.com.boleto.persistence.entity.Boleto;
 import br.com.boleto.persistence.entity.BoletoRetorno;
 import br.com.boleto.persistence.entity.BoletoStatusFinal;
+import br.com.boleto.persistence.entity.Breakeven;
 import br.com.boleto.persistence.entity.Conta;
 import br.com.boleto.persistence.entity.Job;
 import br.com.boleto.persistence.entity.LogEnvio;
@@ -100,6 +99,9 @@ import lombok.extern.slf4j.Slf4j;
 public class BoletoService {
     @Autowired
     private BoletoRepository boletoRepository;
+    
+    @Autowired
+    private BreakevenService breakevenService;
 
     @Autowired
     private LogEnvioRepository logEnvioRepository;
@@ -1284,6 +1286,105 @@ public class BoletoService {
 								}
 								acoesRepository.save(acoesss);
 							}
+						}
+
+					}
+
+					System.out.println("teste");
+				} catch (HttpClientErrorException ee) {
+					httpEntity = new HttpEntity<>(createJSONHeaderAcao2());
+					params = "" + acao;
+					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
+							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
+
+					System.out.println("teste");
+				} catch (IllegalArgumentException eed) {
+					httpEntity = new HttpEntity<>(createJSONHeaderAcao3());
+					params = "" + acao;
+					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
+							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
+
+					System.out.println("teste");
+				}
+			}
+		} catch (Exception e) {
+			job.setError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			if (count > 0 || job.getError() != null) {
+				job.setQtdRegistro(count);
+				job.setDataFinal(Timestamp.valueOf(LocalDateTime.now()));
+				Timestamp proxEx = Timestamp
+						.valueOf(LocalDateTime.now().plusMinutes(JobEnum.valueByTempo(job.getTipo())));
+				job.setDataProxExec(proxEx);
+				job.setStatus(1);
+				jobRepository.save(job);
+			} else {
+				jobRepository.deleteById(job.getId());
+			}
+		}
+
+	}  
+	
+	public void atualizarStopLosseGain(Job job) {
+
+		Integer count = 0;
+		String acao = "";
+		try {
+			List<Acoes> acoes = new ArrayList<Acoes>();
+			Map<String,Acoes> example = new HashMap<String,Acoes>();
+			acoes = acoesRepository.findByStatus("D");
+			for (Acoes acoes3 : acoes) {
+				String acoes2 = acoes3.getAcao(); 
+				example.put( acoes2, acoes3);
+				acao = acao + acoes2.substring(0, acoes2.length() - 1) + ",";
+			}
+			if (acao != null && acao.length() > 1) {
+				acao = acao.substring(0, acao.length() - 1);
+
+				HttpEntity<?> httpEntity = new HttpEntity<>(createJSONHeaderAcao());
+
+				String params = "" + acao;
+
+				try {
+					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
+							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
+					Double pAcao = 0.0;
+					for (AcaoRetornoDto4 string : response.getBody().getResults()) {
+						if (string.getRegularMarketPrice() != null) {
+							acoesRepository.alteraPriceCurrency(string.getRegularMarketPrice(), LocalDateTime.now(),
+									string.getShortName(), string.getSymbol());
+							Acoes acao1 = example.get(string.getSymbol());
+							Double novoLoss = acao1.getLoss();
+							Double novoGain = acao1.getGain();
+							
+							if(acao1.getLossCorrente() != null) {
+								novoLoss = acao1.getLossCorrente();
+							}
+							if(acao1.getGainCorrente() != null) {
+								novoGain = acao1.getGainCorrente();
+							}
+								if ("C".equals(acao1.getTipo())) {
+									pAcao = ((acao1.getValoracaoatual() - (acao1.getValor() == null ? acao1.getValorsuj() : acao1.getValor())) / 0.01);
+								} else {
+									pAcao = (((acao1.getValor() == null ? acao1.getValorsuj() : acao1.getValor()) - acao1.getValoracaoatual()) / 0.01);
+								}
+								if(pAcao >= 1) {
+									Breakeven breakeven = new Breakeven();
+									breakeven.setAcaoId(acao1.getId());
+									breakeven.setGainAtual(novoGain*pAcao);
+									breakeven.setLossAtual(novoLoss*pAcao);
+									breakeven.setValorAtualAcao(string.getRegularMarketPrice());
+									breakeven.setDh_created_at(LocalDateTime.now());
+									breakeven.setStatus("A");
+									breakevenService.alterar(breakeven);
+									acao1.setValor(pAcao);
+									acao1.setValoracaoatual(string.getRegularMarketPrice());
+									acao1.setLossCorrente(novoLoss*pAcao);
+									acao1.setGainCorrente(novoGain*pAcao);
+									acoesRepository.save(acao1);
+								}
+							
 						}
 
 					}

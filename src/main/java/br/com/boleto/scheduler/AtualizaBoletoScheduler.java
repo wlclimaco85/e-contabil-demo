@@ -32,6 +32,12 @@ public class AtualizaBoletoScheduler {
 		boletoService.atualizaBoletosBaixados(jobRepository
 				.save(new Job(Timestamp.valueOf(LocalDateTime.now()), JobEnum.ATUALIZA_STATUS_PCONTA.getId(), 0)));
 	}
+	
+	@Scheduled(fixedDelay = DUAS_HORAS, initialDelay = 60000)
+	public void atualizaStatusBoletos2() {
+		boletoService.atualizarStopLosseGain(jobRepository
+				.save(new Job(Timestamp.valueOf(LocalDateTime.now()), JobEnum.ATUALIZA_STATUS_PCONTA.getId(), 0)));
+	}
 
 /*
 	public void atualizaRetornoBoletoPorDia() {

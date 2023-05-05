@@ -41,8 +41,12 @@ public class Acoes {
 	private Integer level;
 	private Integer mudouLado;
 	private Double valor;
+	private Double loss;
+	private Double gain;
 	private Integer acaoOrigem;
 	private Integer compraAmercado;
 	private Integer isPercentualLossGain;
+	private Double lossCorrente;
+	private Double gainCorrente;
 
 }

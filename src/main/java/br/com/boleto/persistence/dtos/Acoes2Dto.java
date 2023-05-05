@@ -38,4 +38,6 @@ public class Acoes2Dto {
 	private Double valor;
 	private Integer acaoOrigem;
 	private Integer isPercentualLossGain;
+	private Double lossCorrente;
+	private Double gainCorrente;
 }
