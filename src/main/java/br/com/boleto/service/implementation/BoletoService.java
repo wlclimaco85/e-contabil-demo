@@ -1336,7 +1336,7 @@ public class BoletoService {
 			acoes = acoesRepository.findByStatus("D");
 			for (Acoes acoes3 : acoes) {
 				String acoes2 = acoes3.getAcao(); 
-				example.put( acoes2, acoes3);
+				example.put( acoes2.substring(0, acoes2.length() - 1), acoes3);
 				acao = acao + acoes2.substring(0, acoes2.length() - 1) + ",";
 			}
 			if (acao != null && acao.length() > 1) {
@@ -1352,11 +1352,9 @@ public class BoletoService {
 					Double pAcao = 0.0;
 					for (AcaoRetornoDto4 string : response.getBody().getResults()) {
 						if (string.getRegularMarketPrice() != null) {
-							acoesRepository.alteraPriceCurrency(string.getRegularMarketPrice(), LocalDateTime.now(),
-									string.getShortName(), string.getSymbol());
 							Acoes acao1 = example.get(string.getSymbol());
-							Double novoLoss = acao1.getLoss();
-							Double novoGain = acao1.getGain();
+							Double novoLoss = acao1.getLoss() != null ? acao1.getLoss() : 0.0 ;
+							Double novoGain = acao1.getGain() != null ? acao1.getGain() : 0.0 ;
 							
 							if(acao1.getLossCorrente() != null) {
 								novoLoss = acao1.getLossCorrente();
@@ -1371,14 +1369,15 @@ public class BoletoService {
 								}
 								if(pAcao >= 1) {
 									Breakeven breakeven = new Breakeven();
+									breakeven.setAcao(acao1.getAcao());
 									breakeven.setAcaoId(acao1.getId());
 									breakeven.setGainAtual(novoGain*pAcao);
 									breakeven.setLossAtual(novoLoss*pAcao);
 									breakeven.setValorAtualAcao(string.getRegularMarketPrice());
 									breakeven.setDh_created_at(LocalDateTime.now());
 									breakeven.setStatus("A");
-									breakevenService.alterar(breakeven);
-									acao1.setValor(pAcao);
+									breakevenService.insert(breakeven);
+									acao1.setValor(string.getRegularMarketPrice());
 									acao1.setValoracaoatual(string.getRegularMarketPrice());
 									acao1.setLossCorrente(novoLoss*pAcao);
 									acao1.setGainCorrente(novoGain*pAcao);
@@ -1388,22 +1387,16 @@ public class BoletoService {
 						}
 
 					}
-
-					System.out.println("teste");
 				} catch (HttpClientErrorException ee) {
 					httpEntity = new HttpEntity<>(createJSONHeaderAcao2());
 					params = "" + acao;
 					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
 							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
-
-					System.out.println("teste");
 				} catch (IllegalArgumentException eed) {
 					httpEntity = new HttpEntity<>(createJSONHeaderAcao3());
 					params = "" + acao;
 					ResponseEntity<AcaoRetornoDto5> response = new RestTemplate().exchange(
 							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
-
-					System.out.println("teste");
 				}
 			}
 		} catch (Exception e) {

@@ -1,7 +1,11 @@
 package br.com.boleto.service.implementation;
 
+import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,27 +26,32 @@ public class BreakevenService {
 	@Autowired
 	private BreakevenMapper breakevenMapper;
 
-	public Breakeven insert(Breakeven filter) {
-		Breakeven aa = new Breakeven();
-		aa = breakevenRepository.save(filter);
-		return aa;
+	public BreakevenDto insert(Breakeven filter) {
+		return breakevenMapper.toDtoBreakeven(breakevenRepository.save(filter));
 	}
 	
 	public List<Breakeven> insert(List<Breakeven> filter) {
-		List<Breakeven> aa = new ArrayList<Breakeven>();
-		aa = breakevenRepository.saveAll(filter);
-		return aa;
+		return breakevenRepository.saveAll(filter);
 	}
-	
-	public Breakeven alterar(Breakeven filter) {
-		return breakevenRepository.save(filter);
+	@Transactional
+	public BreakevenDto alterar(Breakeven filter) {
+		try {
+			breakevenRepository.alterarStatus(filter.getStatus(),filter.getId(),filter.getErro());
+			Optional<Breakeven> op = breakevenRepository.findById(filter.getId());
+			if(op != null)
+				return breakevenMapper.toDtoBreakeven(op.get());
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new BreakevenDto();
+		}
+		return new BreakevenDto();
 	}
 	
 	public List<Breakeven> alterar(List<Breakeven> filter) {
 		return breakevenRepository.saveAll(filter);
 	}
 	
-	public List<BreakevenDto> findByStatus(String status) {
+	public ArrayList<BreakevenDto> findByStatus(String status) {
 		return  breakevenMapper.toDtoListBreakeven(breakevenRepository.findByStatus(status));
 	}
 	

@@ -23,11 +23,13 @@ public class Breakeven {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String acao;
 	private Integer acaoId;
 	private Double lossAtual;
 	private Double gainAtual;
 	private LocalDateTime dh_created_at;
 	private Double valorAtualAcao;
 	private String status;
+	private String erro;
 
 }
