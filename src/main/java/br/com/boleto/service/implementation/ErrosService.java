@@ -2,6 +2,7 @@ package br.com.boleto.service.implementation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,25 @@ public class ErrosService {
 			}
 		}
 		return resp;
+	}
+	
+	public List<Erros> getErrosAcaoId(Integer acaoId) {
+		return errosRepository.findDistinctByErros(acaoId);
+	}
+	
+	public String getErrosAcaoIdByString(Integer acaoId) {
+		StringBuffer test = new StringBuffer("");
+		boolean isValid = false;
+		List<Erros> erros = errosRepository.findDistinctByErros(acaoId);
+		for (Erros erros2 : erros) {
+			test.append(erros2.getErro());
+			test.append(" , ");
+			isValid = true;
+		}
+		if (isValid)
+			return test.deleteCharAt(3).toString();
+		else 
+			return test.toString();
 	}
 	
 }

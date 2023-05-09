@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import br.com.boleto.persistence.dtos.AcaoFilterSearchRequestDto;
+import br.com.boleto.persistence.dtos.Acoes5Dto;
+import br.com.boleto.persistence.dtos.AcoesDto;
 import br.com.boleto.persistence.entity.Acoes;
 import br.com.boleto.util.DateUtil;
 
@@ -22,7 +24,15 @@ public class AcoesCustomSearchRepository{
 	
 	public List<Acoes> findByRequest(AcaoFilterSearchRequestDto filter, Pageable pageable){
 		
-		String query = " SELECT AC FROM Acoes AC  ";
+		String query = " SELECT AC ";
+			//	+ "AC.id, AC.acao, AC.dh_created_at, AC.status, AC.lucropreju,"
+			//	+ " AC.valorsuj, AC.tipo, AC.periodo, AC.ambiente, AC.nomeRobo, AC.dataVenda, AC.dataCompra, AC.contratos, AC.valoracaoatual,"
+			//	+ " AC.dh_updated_at, AC.shortname, AC.level, AC.mudouLado, AC.valor, AC.loss, AC.gain, AC.acaoOrigem, AC.compraAmercado, AC.isPercentualLossGain, "
+			//	+ " AC.lossCorrente, AC.gainCorrente";
+			//	+ " , e.erro,  0 as qtdBreakeven" ;
+				//+ "(select count(b) from Breakeven b where b.acaoId = AC.id and b.status = P) as qtdBreakeven ";
+		query += " FROM Acoes AC ";
+		query += " left join Erros e on (e.acaoId = AC.id) ";
 		query = adicionaJoin(query, filter);
 		query += " where 1=1 ";
 		
@@ -162,5 +172,118 @@ public class AcoesCustomSearchRepository{
 		}
 		
 		return query;
+	}
+	
+public List<Acoes5Dto> findByRequestErros(AcaoFilterSearchRequestDto filter, Pageable pageable){
+		
+		String query = " SELECT AC.*, e.erro, (select count(*) from breakeven b where b.acao_Id = a.id and b.status = P) as qtdBreakeven ";
+		query += "FROM ACOES a ";
+		query += " left join erros e on (e.acao_Id = a.id) ";
+		query = adicionaJoin(query, filter);
+		query += " where 1=1 ";
+		
+		String condicao = " and ";
+
+		
+		if (filter.getOperacao() != null && !filter.getOperacao().isBlank()) {
+			query += condicao + "AC.tipo = :tipo";
+		}
+		
+		if (filter.getStatus() != null && !filter.getStatus().isBlank()) {
+			query += condicao + "AC.status = :status";
+		}
+		
+		if (filter.getAmbiente() != null) {
+			query += condicao + "AC.ambiente = :ambiente";
+		}
+		
+		
+		
+		if (filter.getId() != null && filter.getId() > 0) {
+			query += condicao + "AC.id = :id";
+		}
+		
+		if (filter.getLevel() != null) {
+			query += condicao + "AC.level = :level";
+		}
+		
+		if (filter.getMudouLado() != null && filter.getMudouLado() > 0) {
+			query += condicao + "AC.mudouLado > 0 ";
+		}
+		
+		if (filter.getNomeAcao() != null && !filter.getNomeAcao().isBlank()) {
+			query += condicao + "AC.shortname like '%:nomeAcao%'";
+		}
+		if (filter.getAcao() != null && !filter.getAcao().isBlank()) {
+			query += condicao + "AC.acao like '%"+filter.getAcao()+"%'";
+		}
+		
+		if (filter.getIsLucro() != null && filter.getIsLucro()) {
+			query += condicao + "AC.lucropreju > 0";
+		}
+		
+		if (filter.getDataIndicacaoInicio() != null && !filter.getDataIndicacaoInicio().isBlank()) {
+			query += (filter.getDataIndicacaoFinal() != null && !filter.getDataIndicacaoFinal().isBlank()) ?
+					condicao + "AC.dh_created_at between :dataVencimentoInicial and :dataVencimentoFinal" :
+						condicao + "AC.dh_created_at >= :dataVencimentoInicial";
+		}
+		
+		if (filter.getValorInicioInicio() > 0) {
+			query += (filter.getValorInicioFinal() > 0) ?
+					condicao + "AC.valorsuj >= :dataEmissaoInicial and AC.VALORSUJ <= :dataEmissaoFinal" :
+						condicao + "AC.valorsuj >= :dataEmissaoInicial";
+		}
+		query += " order by AC.level, AC.mudouLado, AC.id";
+		var q = em.createQuery(query, Acoes5Dto.class);
+		
+		if (filter.getOperacao() != null && !filter.getOperacao().isBlank()) {
+			q.setParameter("tipo", filter.getOperacao());
+		}
+		
+		if (filter.getStatus() != null && !filter.getStatus().isBlank()) {
+			q.setParameter("status", filter.getStatus());
+		}
+		
+		if (filter.getAmbiente() != null) {
+			q.setParameter("ambiente", filter.getAmbiente());
+		}
+		
+		if (filter.getId() != null && filter.getId() > 0) {
+			q.setParameter("id", filter.getId());
+		}
+		
+		if (filter.getLevel() != null && filter.getLevel() > 0) {
+			q.setParameter("level", filter.getLevel());
+		}
+		
+		if (filter.getNomeAcao() != null && !filter.getNomeAcao().isBlank()) {
+			q.setParameter("nomeAcao", filter.getLevel());
+		}
+		
+//		if (filter.getAcao() != null && !filter.getAcao().isBlank()) {
+//			q.setParameter("acaooooo", filter.getAcao());
+//		}
+		
+		
+		if (filter.getDataIndicacaoInicio() != null && !filter.getDataIndicacaoInicio().isBlank()) {
+			q.setParameter("dataVencimentoInicial", DateUtil.convertStringToTimestamp(filter.getDataIndicacaoInicio()));
+			if (filter.getDataIndicacaoInicio() != null && !filter.getDataIndicacaoFinal().isBlank()) {
+				q.setParameter("dataVencimentoFinal", DateUtil.convertStringToTimestamp(filter.getDataIndicacaoFinal()));	
+			}
+		}
+		
+		if (filter.getValorInicioInicio() > 0) {
+			q.setParameter("dataEmissaoInicial", filter.getValorInicioInicio());
+			if (filter.getValorInicioFinal() > 0) {
+				q.setParameter("dataEmissaoFinal", filter.getValorInicioFinal());
+			}
+		}
+
+		if(pageable != null){
+			q.setFirstResult((int) pageable.getOffset());
+			q.setMaxResults(pageable.getPageSize());
+		}
+		
+		return q.getResultList();
 	}
 }

@@ -20,6 +20,7 @@ import br.com.boleto.persistence.dtos.Acoes4Dto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto2;
 import br.com.boleto.persistence.dtos.AcoesResponseDto3;
+import br.com.boleto.persistence.dtos.AcoesResponseDto4;
 import br.com.boleto.service.implementation.AcoesService;
 
 @RestController
@@ -80,5 +81,10 @@ public class AcoesController {
     @PostMapping("/deletar")
 	public ResponseEntity<String>  deletar(@RequestBody ArrayList<Acoes4Dto> filter){
 		return new ResponseEntity<>(acoesService.compraVender3(filter), HttpStatus.OK);
+	}
+    
+    @PostMapping("/filtrarAcoesError")
+    public ResponseEntity<ArrayList<AcoesResponseDto4>> buscaBoletosPaginadosFiltroSearchError(@RequestBody AcaoFilterSearchRequestDto filter, Pageable pageable){
+		return new ResponseEntity<>(acoesService.buscaAcoesPaginadosSearchFiltroErros(filter,pageable), HttpStatus.OK);
 	}
 }

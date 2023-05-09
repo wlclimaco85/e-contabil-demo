@@ -13,5 +13,8 @@ import br.com.boleto.persistence.entity.Ordens;
 public interface OrdensRepository extends JpaRepository<Ordens, Integer> {
 	
 	@Query(value = "SELECT * FROM Ordens WHERE acaoid = :acaoId and  tipo = :acao " , nativeQuery = true)
+	List<Ordens> findDistinctByOrdens(@Param("acaoId")  Integer acaoId);
+	
+	@Query(value = "SELECT * FROM Ordens WHERE acaoid = :acaoId and  tipo = :acao " , nativeQuery = true)
 	List<Ordens> findDistinctByOrdens(@Param("acaoId")  Integer acaoId,@Param("acao")  String acao);
 }

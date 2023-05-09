@@ -6,6 +6,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 
 import br.com.boleto.persistence.dtos.Acoes2Dto;
+import br.com.boleto.persistence.dtos.Acoes5Dto;
 import br.com.boleto.persistence.dtos.AcoesDto;
 import br.com.boleto.persistence.entity.Acoes;
 
@@ -16,4 +17,7 @@ public interface AcoesMapper {
     
     ArrayList<AcoesDto> toDtoListAcoes(List<Acoes> list);
     ArrayList<Acoes2Dto> toDtoListAcoes2(List<Acoes> list);
+    ArrayList<Acoes2Dto> toDtoListAcoesDto(List<AcoesDto> list);
+    
+    ArrayList<Acoes5Dto> toDtoListAcoes5(List<Acoes5Dto> list);
 }

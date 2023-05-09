@@ -40,4 +40,6 @@ public class Acoes2Dto {
 	private Integer isPercentualLossGain;
 	private Double lossCorrente;
 	private Double gainCorrente;
+	private String error;
+	private Integer qtdBreakeven;
 }

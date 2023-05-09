@@ -29,13 +29,15 @@ public class AcoesDto {
 	private Integer level;
 	private Integer mudouLado;
 	private Double valor;
+	private Double loss;
+	private Double gain;
 	private Integer acaoOrigem;
 	private Integer compraAmercado;
 	private Integer isPercentualLossGain;
-	private Double loss;
-	private Double gain;
 	private Double lossCorrente;
 	private Double gainCorrente;
+	private String error;
+	private Integer qtdBreakeven;
 	
 	public AcoesDto(Acoes2Dto estrategia) {
 		this.id = estrategia.getId();
@@ -58,6 +60,8 @@ public class AcoesDto {
 		this.gain = estrategia.getGain();
 		this.lossCorrente = estrategia.getLossCorrente();
 		this.gainCorrente = estrategia.getGainCorrente();
+		this.error = estrategia.getError();
+		this.qtdBreakeven = estrategia.getQtdBreakeven();
 	}
 
 }

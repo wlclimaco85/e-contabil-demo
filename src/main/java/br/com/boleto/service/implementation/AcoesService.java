@@ -2,7 +2,6 @@ package br.com.boleto.service.implementation;
 
 import static java.util.Objects.isNull;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.boleto.enums.JobEnum;
 import br.com.boleto.exception.NotFoundException;
 import br.com.boleto.persistence.dtos.AcaoFilterSearchRequestDto;
 import br.com.boleto.persistence.dtos.AcaoRetornoDto4;
@@ -28,10 +26,12 @@ import br.com.boleto.persistence.dtos.AcaoRetornoDto5;
 import br.com.boleto.persistence.dtos.Acoes2Dto;
 import br.com.boleto.persistence.dtos.Acoes3Dto;
 import br.com.boleto.persistence.dtos.Acoes4Dto;
+import br.com.boleto.persistence.dtos.Acoes5Dto;
 import br.com.boleto.persistence.dtos.AcoesDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto2;
 import br.com.boleto.persistence.dtos.AcoesResponseDto3;
+import br.com.boleto.persistence.dtos.AcoesResponseDto4;
 import br.com.boleto.persistence.entity.Acoes;
 import br.com.boleto.persistence.entity.Estrategias;
 import br.com.boleto.persistence.entity.EstrategiasPorAcao;
@@ -54,6 +54,12 @@ public class AcoesService {
 	
 	@Autowired
 	private EstrategiaService estrategiaService;
+	
+	@Autowired
+	private BreakevenService breakevenService;
+	
+	@Autowired
+	private ErrosService errosService;
 	
 	@Autowired
 	private AcoesCustomSearchRepository acoesCustomSearchRepository;
@@ -424,21 +430,52 @@ public class AcoesService {
         }
 	}
 	
+	public ArrayList<AcoesResponseDto4> buscaAcoesPaginadosSearchFiltroErros(AcaoFilterSearchRequestDto filter, Pageable pageable) {
+		try{
+            ArrayList<AcoesResponseDto4> boletos = filtraBoletosSearchErros(filter, null);
+            return boletos;
+        }catch (Exception exception) {
+            log.error(exception.getMessage(), exception);
+            throw new RuntimeException("Erro ao buscar açoes");
+        }
+	}
+	
 	public ArrayList<AcoesResponseDto2> filtraBoletosSearch(AcaoFilterSearchRequestDto filter, Pageable pageable){
-        List<Acoes> boletolist = acoesCustomSearchRepository.findByRequest(filter,pageable);
+       // List<AcoesDto> boletolist = bancoMapper.toDtoListAcoes(acoesCustomSearchRepository.findByRequest(filter,pageable));
+        List<AcoesDto> boletolist = bancoMapper.toDtoListAcoes(acoesCustomSearchRepository.findByRequest(filter,pageable));
         return getFiltraBoletos(boletolist);
     }
 	
-	private ArrayList<AcoesResponseDto2> getFiltraBoletos(List<Acoes> boletolist) {
+	public ArrayList<AcoesResponseDto4> filtraBoletosSearchErros(AcaoFilterSearchRequestDto filter, Pageable pageable){
+        List<Acoes5Dto> boletolist = acoesCustomSearchRepository.findByRequestErros(filter,pageable);
+        return getFiltraBoletosErros(boletolist);
+    }
+	
+	private ArrayList<AcoesResponseDto2> getFiltraBoletos(List<AcoesDto> boletolist) {
 		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
-		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoes2(boletolist)) {
+		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoesDto(boletolist)) {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
+			acoesResponseDto.setError(errosService.getErrosAcaoIdByString(acoesResponseDto.getId()));
+			acoesResponseDto.setQtdBreakeven((breakevenService.findByAcaoId(acoesResponseDto.getId())).size());
+			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getId())).size());
 			response.setBanco(acoesResponseDto);
 			bancoResponseDto.add(response);
 		}
 		return bancoResponseDto;
 	}
+	
+	private ArrayList<AcoesResponseDto4> getFiltraBoletosErros(List<Acoes5Dto> boletolist) {
+		ArrayList<AcoesResponseDto4> bancoResponseDto = new ArrayList<AcoesResponseDto4>();
+		for (Acoes5Dto acoesResponseDto : bancoMapper.toDtoListAcoes5(boletolist)) {
+			AcoesResponseDto4 response = new AcoesResponseDto4();
+			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
+			response.setErros(acoesResponseDto);
+			bancoResponseDto.add(response);
+		}
+		return bancoResponseDto;
+	}
+	
 	public Acoes3Dto getAcaoById(Integer id) {
 		Acoes3Dto acao = new Acoes3Dto();
 		

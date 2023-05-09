@@ -55,5 +55,10 @@ public class BreakevenService {
 		return  breakevenMapper.toDtoListBreakeven(breakevenRepository.findByStatus(status));
 	}
 	
+	public ArrayList<BreakevenDto> findByAcaoId(Integer status) {
+		ArrayList<BreakevenDto> list = breakevenMapper.toDtoListBreakeven(breakevenRepository.findEstrategiasByAcaoId(status));
+		return  list != null ? list : new ArrayList<BreakevenDto>();
+	}
+	
 	
 }

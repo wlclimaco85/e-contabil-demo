@@ -20,9 +20,8 @@ public interface BreakevenRepository extends JpaRepository<Breakeven, Integer> {
 	@Modifying
 	@Query(value = "UPDATE breakeven SET status = :status, erro = :erro  WHERE id = :id", nativeQuery = true)
 	void alterarStatus(@Param("status")  String status, @Param("id")  Integer id,@Param("erro")  String erro);
-//	
-//	
-//	@Query(value = "SELECT E.ID,E.ESTRATEGIA,E.DESCRICAO,E.DH_CREATED_AT,E.STATUS,O.TIPO,E.MARGEMACERTO,E.QTDORDENS,E.QTDGAIN,E.QTDLOSS FROM ESTRATEGIAS E , ESTRATEGIAS_POR_ACAO O WHERE E.ID = O.ESTRATEGIAID AND ACAOID = :ACAOID", nativeQuery = true)
-//	List<Estrategias> findEstrategiasByAcaoId(@Param("ACAOID")  Integer acaoId);
+		
+	@Query(value = "SELECT * FROM breakeven WHERE status = 'P' and acao_Id = :acaoId", nativeQuery = true)
+	List<Breakeven> findEstrategiasByAcaoId(@Param("acaoId")  Integer acaoId);
  
 }

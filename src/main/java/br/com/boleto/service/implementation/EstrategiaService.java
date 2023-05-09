@@ -48,7 +48,8 @@ public class EstrategiaService {
 	}
 	
 	public List<Estrategias> getEstrategias(Integer filter) {
-		return estrategiaRepository.findEstrategiasByAcaoId(filter);
+		List<Estrategias> list= estrategiaRepository.findEstrategiasByAcaoId(filter);
+		return list == null ? new ArrayList<Estrategias>() : list;
 	}
 	
 	public String getEstrategiasString(Integer filter) {
