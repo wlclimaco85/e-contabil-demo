@@ -17,6 +17,7 @@ import br.com.boleto.persistence.dtos.AcaoFilterSearchRequestDto;
 import br.com.boleto.persistence.dtos.Acoes2Dto;
 import br.com.boleto.persistence.dtos.Acoes3Dto;
 import br.com.boleto.persistence.dtos.Acoes4Dto;
+import br.com.boleto.persistence.dtos.Acoes6Dto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto2;
 import br.com.boleto.persistence.dtos.AcoesResponseDto3;
@@ -87,4 +88,14 @@ public class AcoesController {
     public ResponseEntity<ArrayList<AcoesResponseDto4>> buscaBoletosPaginadosFiltroSearchError(@RequestBody AcaoFilterSearchRequestDto filter, Pageable pageable){
 		return new ResponseEntity<>(acoesService.buscaAcoesPaginadosSearchFiltroErros(filter,pageable), HttpStatus.OK);
 	}
+    
+    @PostMapping("/close")
+    public ResponseEntity<String>   closeAcao(@RequestBody ArrayList<Acoes4Dto> filter){
+        return   new ResponseEntity<>(acoesService.closeAcao(filter), HttpStatus.OK);
+    }
+    
+    @PostMapping("/efetivarClose")
+    public ResponseEntity<String>   efetivarClose(@RequestBody Acoes6Dto filter){
+        return   new ResponseEntity<>(acoesService.efetivarClose(filter), HttpStatus.OK);
+    }
 }

@@ -27,12 +27,14 @@ import br.com.boleto.persistence.dtos.Acoes2Dto;
 import br.com.boleto.persistence.dtos.Acoes3Dto;
 import br.com.boleto.persistence.dtos.Acoes4Dto;
 import br.com.boleto.persistence.dtos.Acoes5Dto;
+import br.com.boleto.persistence.dtos.Acoes6Dto;
 import br.com.boleto.persistence.dtos.AcoesDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto2;
 import br.com.boleto.persistence.dtos.AcoesResponseDto3;
 import br.com.boleto.persistence.dtos.AcoesResponseDto4;
 import br.com.boleto.persistence.entity.Acoes;
+import br.com.boleto.persistence.entity.Erros;
 import br.com.boleto.persistence.entity.Estrategias;
 import br.com.boleto.persistence.entity.EstrategiasPorAcao;
 import br.com.boleto.persistence.entity.Ordens;
@@ -553,6 +555,54 @@ public class AcoesService {
 		} catch (Exception e) {
 			System.out.println(e);
 			return "Erro ao deletar Ações";
+		}
+	}
+	
+	@Transactional
+	public String closeAcao(ArrayList<Acoes4Dto> filter) {
+		try {
+			for (Acoes4Dto acoes4Dto : filter) {
+				Optional<Acoes> op = bancoRepository.findById(acoes4Dto.getAcaoId());
+				if(op.isPresent()) {
+					Acoes acoes = op.get();
+					acoes.setStatus("F");
+					acoes.setDh_updated_at(LocalDateTime.now());
+					bancoRepository.save(acoes);
+				}
+				
+			}
+			return "Ações inseridas com sucesso!";
+		} catch (Exception e) {
+			System.out.println(e);
+			return "Erro ao fechar Ações = "+ e.getMessage();
+		}
+	}
+	
+	@Transactional
+	public String efetivarClose(Acoes6Dto filter) {
+		try {
+
+				Optional<Acoes> op = bancoRepository.findById(filter.getAcaoId());
+				if(op.isPresent()) {
+					Acoes acoes = op.get();
+					if(filter.getError() != null && "".equals(filter.getError().trim())) {
+						acoes.setStatus("C");						
+					}else {
+						acoes.setStatus("G");
+						Erros erro = new Erros();
+						erro.setAcaoId(acoes.getId());
+						erro.setErro(filter.getError());
+						errosService.insert(erro);
+					}
+					acoes.setDh_updated_at(LocalDateTime.now());
+					bancoRepository.save(acoes);
+				}
+				
+			
+			return "Ações inseridas com sucesso!";
+		} catch (Exception e) {
+			System.out.println(e);
+			return "Erro ao fechar Ações = "+ e.getMessage();
 		}
 	}
 }
