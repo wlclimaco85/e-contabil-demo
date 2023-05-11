@@ -33,6 +33,4 @@ ALTER TABLE boletos DROP COLUMN data_vencimento_BKP;
 ALTER TABLE logEnvios ADD COLUMN tipo_evento INT;
 ALTER TABLE logEnvios ADD COLUMN situacao INT;
 
-ALTER TABLE contas ADD COLUMN registrobase INT;
-
 ALTER TABLE pagador ADD COLUMN idparceiro INT;

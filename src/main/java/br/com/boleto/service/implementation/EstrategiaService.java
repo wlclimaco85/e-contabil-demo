@@ -28,23 +28,24 @@ public class EstrategiaService {
 
 	public EstrategiasResponseDto insertt(Estrategias filter) {
 		EstrategiasResponseDto aa = new EstrategiasResponseDto();
-		Estrategias est = insert(filter);
-		aa.setEstrategias(new EstrategiasDto(est));
+//		Estrategias est = insert(filter);
+//		aa.setEstrategias(new EstrategiasDto(est));
 		return aa;
 	}
 	
 	public Estrategias insert(Estrategias filter) {
 		//TODO verificar se 
 		List<Estrategias> estrategiaList = estrategiaRepository.findDistinctByEstrategias(filter.getEstrategia());
-		if(estrategiaList != null && !estrategiaList.isEmpty()) {
-			Estrategias est = estrategiaList.get(0);
-			Integer count = (est.getQtdordens() == null ? 0 : est.getQtdordens()) + 1;
-			est.setQtdordens(count);
-			return estrategiaRepository.save(est);
-		} else {
-			filter.setStatus("A");
-			return estrategiaRepository.save(filter);
-		}
+//		if(estrategiaList != null && !estrategiaList.isEmpty()) {
+//			Estrategias est = estrategiaList.get(0);
+//			Integer count = (est.getQtdordens() == null ? 0 : est.getQtdordens()) + 1;
+//			est.setQtdordens(count);
+//			return estrategiaRepository.save(est);
+//		} else {
+//			filter.setStatus("A");
+//			return estrategiaRepository.save(filter);
+//		}
+		return new Estrategias();
 	}
 	
 	public List<Estrategias> getEstrategias(Integer filter) {
@@ -64,14 +65,14 @@ public class EstrategiaService {
 
 	public ArrayList<EstrategiasResponseDto>   pesquisaBancoPorId(Integer id) {
 		ArrayList<EstrategiasResponseDto> list = new  ArrayList<EstrategiasResponseDto>();
-		for (Estrategias estrategiasResponseDto : estrategiaRepository.findEstrategiasByAcaoId(id)) {
-			EstrategiasResponseDto bancoResponseDto = new EstrategiasResponseDto();
-			if(estrategiasResponseDto.getDh_created_at() == null) {
-				estrategiasResponseDto.setDh_created_at(LocalDateTime.now());
-			}
-			bancoResponseDto.setEstrategias(new EstrategiasDto(estrategiasResponseDto));
-			list.add(bancoResponseDto);
-		}
+//		for (Estrategias estrategiasResponseDto : estrategiaRepository.findEstrategiasByAcaoId(id)) {
+//			EstrategiasResponseDto bancoResponseDto = new EstrategiasResponseDto();
+//			if(estrategiasResponseDto.getDh_created_at() == null) {
+//				estrategiasResponseDto.setDh_created_at(LocalDateTime.now());
+//			}
+//			bancoResponseDto.setEstrategias(new EstrategiasDto(estrategiasResponseDto));
+//			list.add(bancoResponseDto);
+//		}
 		return list;
 	}
 

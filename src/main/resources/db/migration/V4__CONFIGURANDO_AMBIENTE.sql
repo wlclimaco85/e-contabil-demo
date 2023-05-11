@@ -4,5 +4,3 @@ ALTER TABLE boletos ADD COLUMN dh_recebimento_titulo TIMESTAMP;
 ALTER TABLE boletos ADD COLUMN dh_created_at TIMESTAMP;
 ALTER TABLE boletos ADD COLUMN dh_updated_at TIMESTAMP;
 
-ALTER TABLE contas ADD COLUMN dh_created_at TIMESTAMP;
-ALTER TABLE contas ADD COLUMN dh_updated_at TIMESTAMP;

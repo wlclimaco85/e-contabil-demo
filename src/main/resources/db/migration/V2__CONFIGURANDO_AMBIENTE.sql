@@ -1,4 +1,4 @@
-create table if not exists  desconto  (
+create table   desconto  (
    id SERIAL PRIMARY KEY,
    tipo INT,
    data_Expiracao VARCHAR (100),
@@ -6,14 +6,14 @@ create table if not exists  desconto  (
    valor FLOAT
 );
 
-create table if not exists  jurosMora  (
+create table   jurosMora  (
    id SERIAL PRIMARY KEY,
    tipo INT,
    porcentagem FLOAT,
    valor FLOAT
 );
 
-create table if not exists  multa  (
+create table   multa  (
    id SERIAL PRIMARY KEY,
    tipo INT,
    data VARCHAR (100),
@@ -21,7 +21,7 @@ create table if not exists  multa  (
    valor FLOAT
 );
 
-create table if not exists  pagador  (
+create table   pagador  (
    id SERIAL PRIMARY KEY,
    tipo_Inscricao INT,
    numero_Inscricao VARCHAR (100),
@@ -34,7 +34,7 @@ create table if not exists  pagador  (
    telefone VARCHAR (20)
 );
 
-create table if not exists  boletos  (
+create table   boletos  (
    id SERIAL PRIMARY KEY,
    idapibanco  INT,
    nossonumero  INT,
@@ -90,7 +90,7 @@ create table if not exists  boletos  (
    quantidade_dias_aceite INT
 );
 
-create table if not exists  logEnvios  (
+create table   logEnvios  (
    id SERIAL PRIMARY KEY,
    nossonumero  VARCHAR,
    dhocorrencia TIMESTAMP NOT NULL,

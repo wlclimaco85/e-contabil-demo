@@ -144,79 +144,79 @@ public class AcoesService {
 
 	private AcoesDto inserirAlterarEstrategiasPorAcao(Acoes2Dto filter, Estrategias est2, AcoesDto aaa) {
 		AcoesDto aa = aaa;
-		EstrategiasPorAcao estAcao1 = new EstrategiasPorAcao();
-		estAcao1.setAcaoid(aa.getId());
-		estAcao1.setEstrategiaid(est2.getId());
-		estAcao1.setTipo(filter.getTipo());
-		List<EstrategiasPorAcao> isEstrategia = estrategiasPorAcaoService.isExitEstretegia(estAcao1);
-		if(filter.getTipo().equals(aa.getTipo())) {
-			Integer count = (aa.getLevel() == null ? 0 : aa.getLevel()) +1;
-			if(isEstrategia == null) {
-				aa.setLevel(count);
-				extracted(filter.getValorcompra(),estAcao1, 1);
-			} else {
-				if(isEstrategia.size() == 1) {
-					if(filter.getTipo().equals(isEstrategia.get(0).getTipo())) {
-						extracted(filter.getValorcompra(),isEstrategia.get(0), isEstrategia.get(0).getQuantidade());						
-					} else {
-						extracted(filter.getValorcompra(),estAcao1, 1);
-					}
-					
-					aa.setLevel(count);					
-				} else {
-					EstrategiasPorAcao estAcao2 = new EstrategiasPorAcao();
-					for (EstrategiasPorAcao estrategiasPorAcao : isEstrategia) {
-						if(filter.getTipo().equals(estrategiasPorAcao.getTipo())) {
-							estAcao2 = estrategiasPorAcao;
-						}
-					}
-					extracted(filter.getValorcompra(),estAcao2, isEstrategia.get(0).getQuantidade());
-				}
-			}
-		} else {
-			Integer count = (aa.getLevel() == null ? 0 : aa.getLevel()) +1;
-			if (isEstrategia == null) {
-				aa.setLevel(count);
-				extracted(filter.getValorcompra(),estAcao1, 1);
-			} else if(isEstrategia.size() == 1) {
-				if(filter.getTipo().equals(isEstrategia.get(0).getTipo())) {
-					extracted(filter.getValorcompra(),isEstrategia.get(0), isEstrategia.get(0).getQuantidade());						
-				} else {
-					extracted(filter.getValorcompra(),estAcao1, 1);
-				}
-				
-				aa.setLevel(count);					
-			} else {
-				EstrategiasPorAcao estAcao2 = new EstrategiasPorAcao();
-				for (EstrategiasPorAcao estrategiasPorAcao : isEstrategia) {
-					if(filter.getTipo().equals(estrategiasPorAcao.getTipo())) {
-						estAcao2 = estrategiasPorAcao;
-					}
-				}
-				extracted(filter.getValorcompra(),estAcao2, isEstrategia.get(0).getQuantidade());
-			}
-			aa.setMudouLado(1);
-		}
+//		EstrategiasPorAcao estAcao1 = new EstrategiasPorAcao();
+//		estAcao1.setAcaoid(aa.getId());
+//		estAcao1.setEstrategiaid(est2.getId());
+//		estAcao1.setTipo(filter.getTipo());
+//		List<EstrategiasPorAcao> isEstrategia = estrategiasPorAcaoService.isExitEstretegia(estAcao1);
+//		if(filter.getTipo().equals(aa.getTipo())) {
+//			Integer count = (aa.getLevel() == null ? 0 : aa.getLevel()) +1;
+//			if(isEstrategia == null) {
+//				aa.setLevel(count);
+//				extracted(filter.getValorcompra(),estAcao1, 1);
+//			} else {
+//				if(isEstrategia.size() == 1) {
+//					if(filter.getTipo().equals(isEstrategia.get(0).getTipo())) {
+//						extracted(filter.getValorcompra(),isEstrategia.get(0), isEstrategia.get(0).getQuantidade());						
+//					} else {
+//						extracted(filter.getValorcompra(),estAcao1, 1);
+//					}
+//					
+//					aa.setLevel(count);					
+//				} else {
+//					EstrategiasPorAcao estAcao2 = new EstrategiasPorAcao();
+//					for (EstrategiasPorAcao estrategiasPorAcao : isEstrategia) {
+//						if(filter.getTipo().equals(estrategiasPorAcao.getTipo())) {
+//							estAcao2 = estrategiasPorAcao;
+//						}
+//					}
+//					extracted(filter.getValorcompra(),estAcao2, isEstrategia.get(0).getQuantidade());
+//				}
+//			}
+//		} else {
+//			Integer count = (aa.getLevel() == null ? 0 : aa.getLevel()) +1;
+//			if (isEstrategia == null) {
+//				aa.setLevel(count);
+//				extracted(filter.getValorcompra(),estAcao1, 1);
+//			} else if(isEstrategia.size() == 1) {
+//				if(filter.getTipo().equals(isEstrategia.get(0).getTipo())) {
+//					extracted(filter.getValorcompra(),isEstrategia.get(0), isEstrategia.get(0).getQuantidade());						
+//				} else {
+//					extracted(filter.getValorcompra(),estAcao1, 1);
+//				}
+//				
+//				aa.setLevel(count);					
+//			} else {
+//				EstrategiasPorAcao estAcao2 = new EstrategiasPorAcao();
+//				for (EstrategiasPorAcao estrategiasPorAcao : isEstrategia) {
+//					if(filter.getTipo().equals(estrategiasPorAcao.getTipo())) {
+//						estAcao2 = estrategiasPorAcao;
+//					}
+//				}
+//				extracted(filter.getValorcompra(),estAcao2, isEstrategia.get(0).getQuantidade());
+//			}
+//			aa.setMudouLado(1);
+//		}
 		
 		return aa;
 	}
 
 	private EstrategiasPorAcao extracted(Double valorcompra, EstrategiasPorAcao estAcao1, Integer isEstrategia) {
-		estAcao1.setQuantidade(isEstrategia);
-		estAcao1.setStatus("P");
-		estAcao1.setDh_created_at(LocalDateTime.now());
-		estAcao1.setValorcompra(valorcompra);
+//		estAcao1.setQuantidade(isEstrategia);
+//		estAcao1.setStatus("P");
+//		estAcao1.setDh_created_at(LocalDateTime.now());
+//		estAcao1.setValorcompra(valorcompra);
 		return estrategiasPorAcaoService.insert(estAcao1);
 	}
 
 	private EstrategiasPorAcao insertEstrategiasPorAcao(Acoes2Dto filter, Estrategias est2, Acoes aab) {
 		EstrategiasPorAcao estAcao1 = new EstrategiasPorAcao();
-		estAcao1.setAcaoid(aab.getId());
-		estAcao1.setEstrategiaid(est2.getId());
-		estAcao1.setStatus("P");
-		estAcao1.setTipo(aab.getTipo());
-		estAcao1.setQuantidade(1);
-		estAcao1.setValorcompra(filter.getValorcompra());
+//		estAcao1.setAcaoid(aab.getId());
+//		estAcao1.setEstrategiaid(est2.getId());
+//		estAcao1.setStatus("P");
+//		estAcao1.setTipo(aab.getTipo());
+//		estAcao1.setQuantidade(1);
+//		estAcao1.setValorcompra(filter.getValorcompra());
 		return estrategiasPorAcaoService.insert(estAcao1);
 	}
 
@@ -253,54 +253,54 @@ public class AcoesService {
 			Acoes ac = new Acoes();
 			Integer totalContratos = 0;
 			if (aab.isPresent()) {
-				ac = aab.get();
-				totalContratos = 0;
-				Ordens ordem = new Ordens();
-				ordem.setAcaoid(ac.getId());
-				ordem.setTipo(acoes3Dto.getTipo());
-				ordem.setContratos(acoes3Dto.getContratos());
-				ordem.setDh_created_at(LocalDateTime.now());
-				ordem.setStatus("A");
-				ordem.setLoss(acoes3Dto.getLoss());
-				ordem.setGain(acoes3Dto.getGain());
-				ordem.setAmbiente(acoes3Dto.getAmbiente());
-				if ("V".equals(acoes3Dto.getTipo())) {
-					ordem.setValorvenda(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
-							: ac.getValoracaoatual());
-					ordem.setDh_venda_at(LocalDateTime.now());
-					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
-					if ("V".equals(ac.getTipo())) {
-						totalContratos = totalContratos + acoes3Dto.getContratos();
-					} else {
-						totalContratos = totalContratos - acoes3Dto.getContratos();
-					}
-					ac.setDataVenda(LocalDateTime.now());
-				} else {
-					ordem.setValorcompra(
-							ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
-									: ac.getValoracaoatual());
-					ordem.setDh_compra_at(LocalDateTime.now());
-					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
-					if ("C".equals(ac.getTipo())) {
-						totalContratos = totalContratos + acoes3Dto.getContratos();
-					} else {
-						totalContratos = totalContratos - acoes3Dto.getContratos();
-					}
-					ac.setDataCompra(LocalDateTime.now());
-				}
-
-				Ordens ac2 = ordensRepository.save(ordem);
-				if(totalContratos <= 0) {
-					ac.setStatus("F");
-				} else {
-					ac.setStatus("A");
-				}
-				ac.setContratos(totalContratos);
-				ac.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
-						: ac.getValoracaoatual());
-				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
-				ac.setLucropreju(lucroPrejAnt + calcularLucroPrej(ac,acoes3Dto,ac2.getId()));
-				Acoes aabb = bancoRepository.save(ac);
+//				ac = aab.get();
+//				totalContratos = 0;
+//				Ordens ordem = new Ordens();
+//				ordem.setAcaoid(ac.getId());
+//				ordem.setTipo(acoes3Dto.getTipo());
+//				ordem.setContratos(acoes3Dto.getContratos());
+//				ordem.setDh_created_at(LocalDateTime.now());
+//				ordem.setStatus("A");
+//				ordem.setLoss(acoes3Dto.getLoss());
+//				ordem.setGain(acoes3Dto.getGain());
+//				ordem.setAmbiente(acoes3Dto.getAmbiente());
+//				if ("V".equals(acoes3Dto.getTipo())) {
+//					ordem.setValorvenda(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
+//							: ac.getValoracaoatual());
+//					ordem.setDh_venda_at(LocalDateTime.now());
+//					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
+//					if ("V".equals(ac.getTipo())) {
+//						totalContratos = totalContratos + acoes3Dto.getContratos();
+//					} else {
+//						totalContratos = totalContratos - acoes3Dto.getContratos();
+//					}
+//					ac.setDataVenda(LocalDateTime.now());
+//				} else {
+//					ordem.setValorcompra(
+//							ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
+//									: ac.getValoracaoatual());
+//					ordem.setDh_compra_at(LocalDateTime.now());
+//					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
+//					if ("C".equals(ac.getTipo())) {
+//						totalContratos = totalContratos + acoes3Dto.getContratos();
+//					} else {
+//						totalContratos = totalContratos - acoes3Dto.getContratos();
+//					}
+//					ac.setDataCompra(LocalDateTime.now());
+//				}
+//
+//				Ordens ac2 = ordensRepository.save(ordem);
+//				if(totalContratos <= 0) {
+//					ac.setStatus("F");
+//				} else {
+//					ac.setStatus("A");
+//				}
+//				ac.setContratos(totalContratos);
+//				ac.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
+//						: ac.getValoracaoatual());
+//				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
+//				ac.setLucropreju(lucroPrejAnt + calcularLucroPrej(ac,acoes3Dto,ac2.getId()));
+//				Acoes aabb = bancoRepository.save(ac);
 
 			} else {
 				sRetorno = "Ação não existente.";
@@ -314,43 +314,43 @@ public class AcoesService {
 	public String compraVender2(ArrayList<Acoes3Dto> filter) {
 		String sRetorno = "";
 		for (Acoes3Dto acoes3Dto : filter) {
-			Optional<Acoes> aab = bancoRepository.findById(acoes3Dto.getAcaoId());
-			Acoes ac = new Acoes();
-			Integer totalContratos = 0;
-			if (aab.isPresent()) {
-				ac = aab.get();
-				totalContratos = 0;
-				if ("V".equals(acoes3Dto.getTipo())) {
-					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
-					if ("V".equals(ac.getTipo())) {
-						totalContratos = totalContratos + acoes3Dto.getContratos();
-					} else {
-						totalContratos = totalContratos - acoes3Dto.getContratos();
-					}
-					ac.setDataVenda(LocalDateTime.now());
-				} else {
-					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
-					if ("C".equals(ac.getTipo())) {
-						totalContratos = totalContratos + acoes3Dto.getContratos();
-					} else {
-						totalContratos = totalContratos - acoes3Dto.getContratos();
-					}
-					ac.setDataCompra(LocalDateTime.now());
-				}
-				if(totalContratos <= 0) {
-					ac.setStatus("F");
-				} else {
-					ac.setStatus("B");
-				}
-				ac.setContratos(totalContratos);
-				ac.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
-						: ac.getValoracaoatual());
-				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
-				Acoes aabb = bancoRepository.save(ac);
-
-			} else {
-				sRetorno = "Ação não existente.";
-			}
+//			Optional<Acoes> aab = bancoRepository.findById(acoes3Dto.getAcaoId());
+//			Acoes ac = new Acoes();
+//			Integer totalContratos = 0;
+//			if (aab.isPresent()) {
+//				ac = aab.get();
+//				totalContratos = 0;
+//				if ("V".equals(acoes3Dto.getTipo())) {
+//					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
+//					if ("V".equals(ac.getTipo())) {
+//						totalContratos = totalContratos + acoes3Dto.getContratos();
+//					} else {
+//						totalContratos = totalContratos - acoes3Dto.getContratos();
+//					}
+//					ac.setDataVenda(LocalDateTime.now());
+//				} else {
+//					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
+//					if ("C".equals(ac.getTipo())) {
+//						totalContratos = totalContratos + acoes3Dto.getContratos();
+//					} else {
+//						totalContratos = totalContratos - acoes3Dto.getContratos();
+//					}
+//					ac.setDataCompra(LocalDateTime.now());
+//				}
+//				if(totalContratos <= 0) {
+//					ac.setStatus("F");
+//				} else {
+//					ac.setStatus("B");
+//				}
+//				ac.setContratos(totalContratos);
+//				ac.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
+//						: ac.getValoracaoatual());
+//				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
+//				Acoes aabb = bancoRepository.save(ac);
+//
+//			} else {
+//				sRetorno = "Ação não existente.";
+//			}
 
 		}
 		return sRetorno;
@@ -370,21 +370,21 @@ public class AcoesService {
 		//	ordemContrario =  ordensRepository.findDistinctByOrdens(acoes.getId(),"V");
 			if("V".equals(acoes3Dto.getTipo())) {
 				for (Ordens ordens : ordemMae) {
-					count = ordens.getContratos() - ordens.getContratosCorrentes();
-					if (count > 0) {
-						if(contratos == count) {
-							//TODO ZERAR ORDEM MUDAR STATUS PRA F E calcular Lucro/Prej
-							ordens.setStatus("F");
-							ordens.setContratosCorrentes(contratos);
-							ordens.setValorvenda(ordens.getValorvenda());
-							ordens.setDh_venda_at(ordens.getDh_venda_at());
-							total = contratos * ordens.getValorvenda();
-							ordensRepository.save(ordens);
-							return total;
-						}
-						//TODO CALCULAR PARCIAL
-						//else if(contratos == count) {}
-					}
+//					count = ordens.getContratos() - ordens.getContratosCorrentes();
+//					if (count > 0) {
+//						if(contratos == count) {
+//							//TODO ZERAR ORDEM MUDAR STATUS PRA F E calcular Lucro/Prej
+//							ordens.setStatus("F");
+//							ordens.setContratosCorrentes(contratos);
+//							ordens.setValorvenda(ordens.getValorvenda());
+//							ordens.setDh_venda_at(ordens.getDh_venda_at());
+//							total = contratos * ordens.getValorvenda();
+//							ordensRepository.save(ordens);
+//							return total;
+//						}
+//						//TODO CALCULAR PARCIAL
+//						//else if(contratos == count) {}
+//					}
 				}
 				count = 0;
 			}
@@ -393,27 +393,27 @@ public class AcoesService {
 			//ordemContrario =  ordensRepository.findDistinctByOrdens(acoes.getId(),"C");
 			if("C".equals(acoes3Dto.getTipo())) {
 				for (Ordens ordens : ordemMae) {
-					count = ordens.getContratos() - (ordens.getContratosCorrentes() == null ? 0 : ordens.getContratosCorrentes()) ;
-					if (count > 0) {
-						if(contratos == count) {
-							//TODO ZERAR ORDEM MUDAR STATUS PRA F E calcular Lucro/Prej
-							ordemContrario.setStatus("F");
-							ordemContrario.setContratosCorrentes(contratos);
-							total = contratos * ordemContrario.getValorvenda();
-							ordensRepository.save(ordemContrario);
-							return total;
-						} else if (contratos < count) {
-							ordemContrario.setStatus("F");
-							ordemContrario.setContratosCorrentes(contratos);
-							total = contratos * (ordemContrario.getValorvenda() == null ? 0 : ordemContrario.getValorvenda());
-							ordemContrario.setValorvenda(ordens.getValorvenda());
-							ordemContrario.setDh_venda_at(ordens.getDh_venda_at());
-							ordensRepository.save(ordemContrario);
-							return total;
-						}
+//					count = ordens.getContratos() - (ordens.getContratosCorrentes() == null ? 0 : ordens.getContratosCorrentes()) ;
+//					if (count > 0) {
+//						if(contratos == count) {
+//							//TODO ZERAR ORDEM MUDAR STATUS PRA F E calcular Lucro/Prej
+//							ordemContrario.setStatus("F");
+//							ordemContrario.setContratosCorrentes(contratos);
+//							total = contratos * ordemContrario.getValorvenda();
+//							ordensRepository.save(ordemContrario);
+//							return total;
+//						} else if (contratos < count) {
+//							ordemContrario.setStatus("F");
+//							ordemContrario.setContratosCorrentes(contratos);
+//							total = contratos * (ordemContrario.getValorvenda() == null ? 0 : ordemContrario.getValorvenda());
+//							ordemContrario.setValorvenda(ordens.getValorvenda());
+//							ordemContrario.setDh_venda_at(ordens.getDh_venda_at());
+//							ordensRepository.save(ordemContrario);
+//							return total;
+//						}
 						//TODO CALCULAR PARCIAL
 						//else if(contratos == count) {}
-					}
+					//}
 				}
 				count = 0;
 			}
@@ -490,14 +490,14 @@ public class AcoesService {
 	
 	private Acoes3Dto convert(Acoes dto) {
 		Acoes3Dto acoes = new Acoes3Dto();
-		acoes.setAcaoId(dto.getId());
-		acoes.setTipo(dto.getTipo());;
-		acoes.setAmbiente(dto.getAmbiente());;
-		acoes.setData(LocalDateTime.now());
-		acoes.setValoracao(dto.getValoracaoatual());
-		acoes.setContratos(dto.getContratos());
-		acoes.setLoss(0.0);
-		acoes.setGain(0.0);
+//		acoes.setAcaoId(dto.getId());
+//		acoes.setTipo(dto.getTipo());;
+//		acoes.setAmbiente(dto.getAmbiente());;
+//		acoes.setData(LocalDateTime.now());
+//		acoes.setValoracao(dto.getValoracaoatual());
+//		acoes.setContratos(dto.getContratos());
+//		acoes.setLoss(0.0);
+//		acoes.setGain(0.0);
 		return acoes;
 	}
 
@@ -566,7 +566,7 @@ public class AcoesService {
 				if(op.isPresent()) {
 					Acoes acoes = op.get();
 					acoes.setStatus("F");
-					acoes.setDh_updated_at(LocalDateTime.now());
+					//acoes.setDh_updated_at(LocalDateTime.now());
 					bancoRepository.save(acoes);
 				}
 				
@@ -590,11 +590,11 @@ public class AcoesService {
 					}else {
 						acoes.setStatus("G");
 						Erros erro = new Erros();
-						erro.setAcaoId(acoes.getId());
+						//erro.setAcaoId(acoes.getId());
 						erro.setErro(filter.getError());
 						errosService.insert(erro);
 					}
-					acoes.setDh_updated_at(LocalDateTime.now());
+				//	acoes.setDh_updated_at(LocalDateTime.now());
 					bancoRepository.save(acoes);
 				}
 				

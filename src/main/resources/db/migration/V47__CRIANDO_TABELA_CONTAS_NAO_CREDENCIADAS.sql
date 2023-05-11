@@ -1,1 +1,0 @@
-ALTER TABLE acoes ADD COLUMN is_Percentual_Loss_Gain int;

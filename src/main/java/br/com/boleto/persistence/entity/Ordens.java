@@ -1,14 +1,21 @@
 package br.com.boleto.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import br.com.boleto.persistence.dtos.OrdensDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,38 +27,46 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Ordens {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer acaoid;
-	private String tipo;
-	private Integer contratos;
-	private Integer contratosCorrentes;
-	private LocalDateTime dh_created_at;
+	
+	@OneToOne(targetEntity = Corretora.class, cascade=CascadeType.ALL)
+    @JoinColumn(name = "corretora_id", referencedColumnName = "id")
+	private Corretora corretora;
+	
+	@OneToOne(targetEntity = Acoes.class, cascade=CascadeType.ALL)
+    @JoinColumn(name = "acao_Id", referencedColumnName = "id")
+	private Acoes acao;
 	private String status;
-	private Double valorcompra;
-	private Double valorvenda;
-	private Integer ambiente;
-	private LocalDateTime dh_compra_at;
-	private LocalDateTime dh_venda_at;
+	private Double lucropreju;
+	private Double valorsuj;
+	private String tipo;
+	private LocalDateTime dataCompra;
+	private LocalDateTime dataVenda;
+	private Integer contratos;
+	private Double valoracaoatual;
+	private String shortname;
+	private Integer mudouLado;
+	private Double valor;
 	private Double loss;
 	private Double gain;
+	private Integer compraAmercado;
+	private Integer isPercentualLossGain;
+	private Double lossCorrente;
+	private Double gainCorrente;
+	@Embedded
+	private Audit audit = new Audit();
 	
-	public Ordens(OrdensDto estrategia) {
-		this.id = estrategia.getId();
-		this.acaoid = estrategia.getAcaoId();
-		this.tipo = estrategia.getTipo();
-		this.contratos = estrategia.getContratos();
-		this.dh_created_at = estrategia.getDh_created_at() == null ? LocalDateTime.now() : estrategia.getDh_created_at();
-		this.status = estrategia.getStatus();
-		this.valorcompra = estrategia.getValorcompra();
-		this.valorvenda = estrategia.getValorvenda();
-		this.ambiente = estrategia.getAmbiente();
-		this.dh_compra_at = estrategia.getDh_compra_at();
-		this.dh_venda_at = estrategia.getDh_venda_at();
-		this.loss = estrategia.getLoss();
-		this.loss = estrategia.getGain();
-		this.contratosCorrentes = estrategia.getContratosCorrentes();
-	}
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ordemId")
+//    private List<Erros> erros = new ArrayList<Erros>();
+//	
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ordem_Id")
+//    private List<Breakeven> breakevenList = new ArrayList<Breakeven>();
+	
+	@Transient
+	private String error;
+	@Transient
+	private Integer qtdBreakeven;
+	
 }

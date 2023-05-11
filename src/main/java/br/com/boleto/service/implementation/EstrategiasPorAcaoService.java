@@ -26,12 +26,13 @@ public class EstrategiasPorAcaoService {
 	
 	public List<EstrategiasPorAcao> isExitEstretegia(EstrategiasPorAcao filter) {
 		//TODO verificar se 
-		List<EstrategiasPorAcao> estrategiaList = estrategiaRepository.findDistinctByAcoes(filter.getAcaoid(),filter.getEstrategiaid(),filter.getTipo());
-		if(estrategiaList != null && !estrategiaList.isEmpty()) {
-			return estrategiaList;
-		} else {
-			return null;
-		}
+	//	List<EstrategiasPorAcao> estrategiaList = estrategiaRepository.findDistinctByAcoes(filter.getAcaoid(),filter.getEstrategiaid(),filter.getTipo());
+//		if(estrategiaList != null && !estrategiaList.isEmpty()) {
+//			return estrategiaList;
+//		} else {
+//			return null;
+//		}
+		return null;
 	}
 
 	public List<EstrategiasPorAcao> findEstrategiaByAcaoId(Integer id) {

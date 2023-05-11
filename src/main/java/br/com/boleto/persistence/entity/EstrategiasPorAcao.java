@@ -2,10 +2,14 @@ package br.com.boleto.persistence.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,21 +27,18 @@ public class EstrategiasPorAcao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer acaoid;
-	private Integer estrategiaid;
-	private LocalDateTime dh_created_at;
+	
+	@OneToOne(targetEntity = Acoes.class, cascade=CascadeType.ALL)
+    @JoinColumn(name = "acao_Id", referencedColumnName = "id")
+	private Acoes acao;
+	
+	@OneToOne(targetEntity = Estrategias.class, cascade=CascadeType.ALL)
+    @JoinColumn(name = "estrategia_id", referencedColumnName = "id")
+	private Estrategias estrategia;
 	private String tipo;
 	private String status;
 	private Double valorcompra;
 	private Double valorcomprafinal;
-	private Integer quantidade;
-	
-//	public EstrategiasPorAcao(EstrategiasPorAcaoDto estrategia) {
-//		this.id = estrategia.getId();
-//		this.acaoid = estrategia.getAcaoid();
-//		this.dh_created_at = estrategia.getDh_created_at() == null ? LocalDateTime.now() : estrategia.getDh_created_at();
-//		this.status = estrategia.getStatus();
-//		this.estrategiaid = estrategia.getEstrategiaid();
-//		this.valorcompra = estrategia.getValorcompra();
-//	}
+	@Embedded
+	private Audit audit = new Audit();
 }

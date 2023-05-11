@@ -1351,40 +1351,41 @@ public class BoletoService {
 							getDefaultQueryParameters(params), HttpMethod.GET, httpEntity, AcaoRetornoDto5.class);
 					Double pAcao = 0.0;
 					for (AcaoRetornoDto4 string : response.getBody().getResults()) {
-						if (string.getRegularMarketPrice() != null) {
-							Acoes acao1 = example.get(string.getSymbol());
-							Double novoLoss = acao1.getLoss() != null ? acao1.getLoss() : 0.0 ;
-							Double novoGain = acao1.getGain() != null ? acao1.getGain() : 0.0 ;
-							
-							if(acao1.getLossCorrente() != null) {
-								novoLoss = acao1.getLossCorrente();
-							}
-							if(acao1.getGainCorrente() != null) {
-								novoGain = acao1.getGainCorrente();
-							}
-								if ("C".equals(acao1.getTipo())) {
-									pAcao = ((acao1.getValoracaoatual() - (acao1.getValor() == null ? acao1.getValorsuj() : acao1.getValor())) / 0.01);
-								} else {
-									pAcao = (((acao1.getValor() == null ? acao1.getValorsuj() : acao1.getValor()) - acao1.getValoracaoatual()) / 0.01);
-								}
-								if(pAcao >= 1) {
-									Breakeven breakeven = new Breakeven();
-									breakeven.setAcao(acao1.getAcao());
-									breakeven.setAcaoId(acao1.getId());
-									breakeven.setGainAtual(novoGain*pAcao);
-									breakeven.setLossAtual(novoLoss*pAcao);
-									breakeven.setValorAtualAcao(string.getRegularMarketPrice());
-									breakeven.setDh_created_at(LocalDateTime.now());
-									breakeven.setStatus("A");
-									breakevenService.insert(breakeven);
-									acao1.setValor(string.getRegularMarketPrice());
-									acao1.setValoracaoatual(string.getRegularMarketPrice());
-									acao1.setLossCorrente(novoLoss*pAcao);
-									acao1.setGainCorrente(novoGain*pAcao);
-									acoesRepository.save(acao1);
-								}
-							
-						}
+						//TODO
+//						if (string.getRegularMarketPrice() != null) {
+//							Acoes acao1 = example.get(string.getSymbol());
+//							Double novoLoss = acao1.getLoss() != null ? acao1.getLoss() : 0.0 ;
+//							Double novoGain = acao1.getGain() != null ? acao1.getGain() : 0.0 ;
+//							
+//							if(acao1.getLossCorrente() != null) {
+//								novoLoss = acao1.getLossCorrente();
+//							}
+//							if(acao1.getGainCorrente() != null) {
+//								novoGain = acao1.getGainCorrente();
+//							}
+//								if ("C".equals(acao1.getTipo())) {
+//									pAcao = ((acao1.getValoracaoatual() - (acao1.getValor() == null ? acao1.getValorsuj() : acao1.getValor())) / 0.01);
+//								} else {
+//									pAcao = (((acao1.getValor() == null ? acao1.getValorsuj() : acao1.getValor()) - acao1.getValoracaoatual()) / 0.01);
+//								}
+//								if(pAcao >= 1) {
+//									Breakeven breakeven = new Breakeven();
+//									breakeven.setAcao(acao1.getAcao());
+//									breakeven.setAcaoId(acao1.getId());
+//									breakeven.setGainAtual(novoGain*pAcao);
+//									breakeven.setLossAtual(novoLoss*pAcao);
+//									breakeven.setValorAtualAcao(string.getRegularMarketPrice());
+//									breakeven.setDh_created_at(LocalDateTime.now());
+//									breakeven.setStatus("A");
+//									breakevenService.insert(breakeven);
+//									acao1.setValor(string.getRegularMarketPrice());
+//									acao1.setValoracaoatual(string.getRegularMarketPrice());
+//									acao1.setLossCorrente(novoLoss*pAcao);
+//									acao1.setGainCorrente(novoGain*pAcao);
+//									acoesRepository.save(acao1);
+//								}
+//							
+//						}
 
 					}
 				} catch (HttpClientErrorException ee) {

@@ -2,10 +2,14 @@ package br.com.boleto.persistence.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,8 +27,9 @@ public class Erros {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer acaoId;
-	private LocalDateTime dh_created_at;
+	@OneToOne(targetEntity = Ordens.class, cascade=CascadeType.ALL)
+    @JoinColumn(name = "ordem_Id", referencedColumnName = "id")
+	private Ordens ordem;
 	private String erro;
 	private String tipo;
 	private Integer qtdTentativas;
@@ -32,6 +37,9 @@ public class Erros {
 	private Double loss;
 	private Double gain;
 	private Integer contratos;
+	@Embedded
+	private Audit audit = new Audit();
+	
 	
 
 }
