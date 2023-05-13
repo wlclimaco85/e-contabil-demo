@@ -1,16 +1,18 @@
 package br.com.boleto.persistence.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,9 +41,18 @@ public class Corretora {
 	private String banco;
 	private String agencia;
 	private String conta;
+
 	@Embedded
 	private Audit audit = new Audit();
 	
+	public Corretora(Integer id) {
+		super();
+		this.id = id;
+	}
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "corretora", cascade = CascadeType.ALL)
+    private List<Ordens> ordens;
+
 //	@OneToMany(cascade = CascadeType.ALL, mappedBy = "corretoraId")
 //    private List<Ordens> ordens = new ArrayList<Ordens>();
 	

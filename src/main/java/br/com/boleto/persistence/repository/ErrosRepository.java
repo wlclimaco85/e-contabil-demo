@@ -12,7 +12,7 @@ import br.com.boleto.persistence.entity.Erros;
 @Repository
 public interface ErrosRepository extends JpaRepository<Erros, Integer> {
 	
-	@Query(value = "SELECT * FROM erros WHERE acao_Id = :acaoId ", nativeQuery = true)
+	@Query(value = "SELECT * FROM erros WHERE ordem_Id = :acaoId ", nativeQuery = true)
 	ArrayList<Erros> findDistinctByErros(@Param("acaoId")  Integer acaoId);
 	
 	@Query(value = "UPDATE ACOES SET STATUS = 'D' WHERE ID = :acaoId", nativeQuery = true)

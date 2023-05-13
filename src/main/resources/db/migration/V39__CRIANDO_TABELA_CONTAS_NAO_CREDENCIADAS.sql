@@ -19,7 +19,6 @@ create table if not exists corretoras (
 
 create table if not exists acoes (
 	id SERIAL PRIMARY KEY,
-	corretora_id INT NOT NULL,
 	acao VARCHAR(20),
 	status VARCHAR(1) NOT NULL DEFAULT 'P',
 	lucroPreju float8,
@@ -35,8 +34,7 @@ create table if not exists acoes (
     gain float8,
 	mudou_lado INT,
 	dh_created_at TIMESTAMP,
-	dh_updated_at TIMESTAMP,
-	CONSTRAINT fk_id_conta FOREIGN KEY (corretora_id) REFERENCES corretoras(id)
+	dh_updated_at TIMESTAMP
 );
 
 CREATE TABLE if not exists estrategias (

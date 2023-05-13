@@ -1280,9 +1280,9 @@ public class BoletoService {
 							List<Acoes> acoess = acoesRepository.findDistinctByAcoes(string.getSymbol());
 							for (Acoes acoesss : acoess) {
 								if ("C".equals(acoesss.getTipo())) {
-									acoesss.setLucropreju(string.getRegularMarketPrice() - acoesss.getValorsuj());
+									acoesss.setLucropreju(string.getRegularMarketPrice() - (acoesss.getValorsuj() != null ? acoesss.getValorsuj() : 0) );
 								} else {
-									acoesss.setLucropreju(acoesss.getValorsuj() - string.getRegularMarketPrice());
+									acoesss.setLucropreju((acoesss.getValorsuj() != null ? acoesss.getValorsuj() : 0) - string.getRegularMarketPrice());
 								}
 								acoesRepository.save(acoesss);
 							}

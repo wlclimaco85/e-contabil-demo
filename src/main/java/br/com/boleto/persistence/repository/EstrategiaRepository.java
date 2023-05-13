@@ -16,7 +16,7 @@ public interface EstrategiaRepository extends JpaRepository<Estrategias, Integer
 	List<Estrategias> findDistinctByEstrategias(@Param("estrategias")  String estrategias);
 	
 	
-	@Query(value = "SELECT E.ID,E.ESTRATEGIA,E.DESCRICAO,E.DH_CREATED_AT,E.STATUS,O.TIPO,E.MARGEMACERTO,E.QTDORDENS,E.QTDGAIN,E.QTDLOSS FROM ESTRATEGIAS E , ESTRATEGIAS_POR_ACAO O WHERE E.ID = O.ESTRATEGIAID AND ACAOID = :ACAOID", nativeQuery = true)
+	@Query(value = "SELECT E.ID,E.ESTRATEGIA,E.DESCRICAO,E.STATUS,O.TIPO,E.dh_created_at,e.dh_updated_at FROM ESTRATEGIAS E , ESTRATEGIAS_POR_ACAO O WHERE E.ID = O.ESTRATEGIA_ID AND ACAO_ID = :ACAOID", nativeQuery = true)
 	List<Estrategias> findEstrategiasByAcaoId(@Param("ACAOID")  Integer acaoId);
  
 }

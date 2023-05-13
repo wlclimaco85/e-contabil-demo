@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Acoes2Dto {
 	private Integer id;
+	private Integer corretoraId;
 	private String acao;
 	private String estrategia;
 	private LocalDateTime dh_created_at;

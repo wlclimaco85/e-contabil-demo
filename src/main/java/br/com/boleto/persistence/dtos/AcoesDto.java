@@ -2,6 +2,11 @@ package br.com.boleto.persistence.dtos;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Embedded;
+
+import br.com.boleto.persistence.entity.Audit;
+import br.com.boleto.persistence.entity.Corretora;
+import br.com.boleto.persistence.entity.Ordens;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,57 +16,75 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AcoesDto {
 	private Integer id;
+	private Corretora corretora;
 	private String acao;
-	private LocalDateTime dh_created_at;
 	private String status;
 	private Double lucropreju;
 	private Double valorsuj;
 	private String tipo;
 	private Integer periodo;
-	private Integer ambiente;
 	private String nomeRobo;
-	private LocalDateTime dataCompra;
-	private LocalDateTime dataVenda;
-	private Integer contratos;
+	private LocalDateTime data;
 	private Double valoracaoatual;
-	private LocalDateTime dh_updated_at;
 	private String shortname;
 	private Integer level;
 	private Integer mudouLado;
-	private Double valor;
 	private Double loss;
 	private Double gain;
-	private Integer acaoOrigem;
-	private Integer compraAmercado;
-	private Integer isPercentualLossGain;
-	private Double lossCorrente;
-	private Double gainCorrente;
-	private String error;
-	private Integer qtdBreakeven;
+	@Embedded
+	private Audit audit = new Audit();
 	
-	public AcoesDto(Acoes2Dto estrategia) {
+	public AcoesDto(AcoesDto estrategia) {
 		this.id = estrategia.getId();
+		this.corretora = estrategia.getCorretora();
 		this.acao = estrategia.getAcao();
-		this.dh_created_at = estrategia.getDh_created_at() == null ? LocalDateTime.now() : estrategia.getDh_created_at();
-		this.status = estrategia.getStatus();
-		this.valorsuj = estrategia.getValorcompra();
+		this.lucropreju = estrategia.getLucropreju();
+		this.valorsuj = estrategia.getValorsuj();
 		this.tipo = estrategia.getTipo();
-		this.periodo = estrategia.getPeriodo();
-		this.ambiente = "T".equals(estrategia.getAmbiente()) ? 0 : 1;
-		if("C".equals(tipo)) {
-			this.dataCompra = LocalDateTime.now();
-		} else {
-			this.dataVenda = LocalDateTime.now();
-		}
-		this.contratos = estrategia.getContratos();
-		this.compraAmercado = estrategia.getCompraAmercado();
-		this.isPercentualLossGain = estrategia.getIsPercentualLossGain();
+		this.nomeRobo = estrategia.getNomeRobo();
+		this.data = LocalDateTime.now();
+		this.valoracaoatual = estrategia.getValoracaoatual();
+		this.shortname = estrategia.getShortname();
+		this.level = estrategia.getLevel();
+		this.mudouLado = estrategia.getMudouLado();
+		this.status = estrategia.getStatus();
 		this.loss = estrategia.getLoss();
 		this.gain = estrategia.getGain();
-		this.lossCorrente = estrategia.getLossCorrente();
-		this.gainCorrente = estrategia.getGainCorrente();
-		this.error = estrategia.getError();
-		this.qtdBreakeven = estrategia.getQtdBreakeven();
+	}
+	public AcoesDto(Acoes2Dto estrategia) {
+		this.id = estrategia.getId();
+		this.corretora = new Corretora(estrategia.getCorretoraId());
+		this.acao = estrategia.getAcao();
+		this.lucropreju = estrategia.getLucropreju();
+		this.valorsuj = estrategia.getValorsuj();
+		this.tipo = estrategia.getTipo();
+		this.nomeRobo = estrategia.getNomeRobo();
+		this.data = LocalDateTime.now();
+		this.valoracaoatual = estrategia.getValoracaoatual();
+		this.shortname = estrategia.getShortname();
+		this.level = estrategia.getLevel();
+		this.mudouLado = estrategia.getMudouLado();
+		this.status = estrategia.getStatus();
+		this.loss = estrategia.getLoss();
+		this.gain = estrategia.getGain();
+	}
+	
+	public AcoesDto(Ordens estrategia) {
+		this.id = estrategia.getId();
+		this.corretora = estrategia.getCorretora();
+		this.acao = estrategia.getAcao().getAcao();
+		this.lucropreju = estrategia.getLucropreju();
+		this.valorsuj = estrategia.getValorsuj();
+		this.tipo = estrategia.getTipo();
+		this.nomeRobo = "";
+		this.data = LocalDateTime.now();
+		this.valoracaoatual = estrategia.getValoracaoatual();
+		this.shortname = estrategia.getShortname();
+		this.level = 0;
+		this.mudouLado = estrategia.getMudouLado();
+		this.status = estrategia.getStatus();
+		this.loss = estrategia.getLoss();
+		this.gain = estrategia.getGain();
 	}
 
 }

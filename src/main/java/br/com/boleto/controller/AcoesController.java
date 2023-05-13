@@ -68,6 +68,11 @@ public class AcoesController {
     public ResponseEntity<ArrayList<AcoesResponseDto2>> buscaBoletosPaginadosFiltroSearch(@RequestBody AcaoFilterSearchRequestDto filter, Pageable pageable){
 		return new ResponseEntity<>(acoesService.buscaAcoesPaginadosSearchFiltro(filter,pageable), HttpStatus.OK);
 	}
+    
+    @PostMapping("/filtrarOrdens")
+    public ResponseEntity<ArrayList<AcoesResponseDto2>> buscaOrdensPaginadosFiltroSearch(@RequestBody AcaoFilterSearchRequestDto filter, Pageable pageable){
+		return new ResponseEntity<>(acoesService.buscaOrdensPaginadosSearchFiltro(filter,pageable), HttpStatus.OK);
+	}
     @GetMapping("acaoCompraVendida/{id}")
     public ResponseEntity<String>  pesquisaBancoPorId2(@PathVariable("id") Integer id) {
     	ArrayList<Acoes3Dto> acoes = new  ArrayList<Acoes3Dto>();

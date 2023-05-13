@@ -1,0 +1,22 @@
+package br.com.boleto.persistence.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import br.com.boleto.persistence.entity.Corretora;
+
+@Repository
+public interface CorretoraRepository extends JpaRepository<Corretora, Integer> {
+	
+	@Query(value = "SELECT * FROM corretoras WHERE nome like :estrategias ", nativeQuery = true)
+	List<Corretora> findDistinctByCorretoras(@Param("estrategias")  String estrategias);
+	
+	
+	@Query(value = "SELECT * FROM corretoras E WHERE E.ID = :ACAOID", nativeQuery = true)
+	List<Corretora> findCorretorasByAcaoId(@Param("ACAOID")  Integer acaoId);
+ 
+}

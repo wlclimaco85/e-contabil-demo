@@ -14,14 +14,14 @@ import br.com.boleto.persistence.entity.Breakeven;
 public interface BreakevenRepository extends JpaRepository<Breakeven, Integer> {
 
 	
-	@Query(value = "SELECT * FROM breakeven WHERE status = :status ", nativeQuery = true)
+	@Query(value = "SELECT * FROM breakevens WHERE status = :status ", nativeQuery = true)
 	List<Breakeven> findByStatus(@Param("status")  String status);
 	
 	@Modifying
-	@Query(value = "UPDATE breakeven SET status = :status, erro = :erro  WHERE id = :id", nativeQuery = true)
+	@Query(value = "UPDATE breakevens SET status = :status, erro = :erro  WHERE id = :id", nativeQuery = true)
 	void alterarStatus(@Param("status")  String status, @Param("id")  Integer id,@Param("erro")  String erro);
 		
-	@Query(value = "SELECT * FROM breakeven WHERE status = 'P' and acao_Id = :acaoId", nativeQuery = true)
+	@Query(value = "SELECT * FROM breakevens WHERE status = 'P' and ordem_Id = :acaoId", nativeQuery = true)
 	List<Breakeven> findEstrategiasByAcaoId(@Param("acaoId")  Integer acaoId);
  
 }

@@ -2,7 +2,6 @@ package br.com.boleto.service.implementation;
 
 import static java.util.Objects.isNull;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -211,12 +210,11 @@ public class AcoesService {
 
 	private EstrategiasPorAcao insertEstrategiasPorAcao(Acoes2Dto filter, Estrategias est2, Acoes aab) {
 		EstrategiasPorAcao estAcao1 = new EstrategiasPorAcao();
-//		estAcao1.setAcaoid(aab.getId());
-//		estAcao1.setEstrategiaid(est2.getId());
-//		estAcao1.setStatus("P");
-//		estAcao1.setTipo(aab.getTipo());
-//		estAcao1.setQuantidade(1);
-//		estAcao1.setValorcompra(filter.getValorcompra());
+		estAcao1.setAcao(aab);
+		estAcao1.setEstrategia(est2);
+		estAcao1.setStatus("P");
+		estAcao1.setTipo(aab.getTipo());
+		estAcao1.setValorcompra(filter.getValorcompra());
 		return estrategiasPorAcaoService.insert(estAcao1);
 	}
 
@@ -314,43 +312,42 @@ public class AcoesService {
 	public String compraVender2(ArrayList<Acoes3Dto> filter) {
 		String sRetorno = "";
 		for (Acoes3Dto acoes3Dto : filter) {
-//			Optional<Acoes> aab = bancoRepository.findById(acoes3Dto.getAcaoId());
-//			Acoes ac = new Acoes();
-//			Integer totalContratos = 0;
-//			if (aab.isPresent()) {
-//				ac = aab.get();
-//				totalContratos = 0;
-//				if ("V".equals(acoes3Dto.getTipo())) {
-//					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
-//					if ("V".equals(ac.getTipo())) {
-//						totalContratos = totalContratos + acoes3Dto.getContratos();
-//					} else {
-//						totalContratos = totalContratos - acoes3Dto.getContratos();
-//					}
-//					ac.setDataVenda(LocalDateTime.now());
-//				} else {
-//					totalContratos = ac.getContratos() == null ? 0 : ac.getContratos();
-//					if ("C".equals(ac.getTipo())) {
-//						totalContratos = totalContratos + acoes3Dto.getContratos();
-//					} else {
-//						totalContratos = totalContratos - acoes3Dto.getContratos();
-//					}
-//					ac.setDataCompra(LocalDateTime.now());
-//				}
-//				if(totalContratos <= 0) {
-//					ac.setStatus("F");
-//				} else {
-//					ac.setStatus("B");
-//				}
-//				ac.setContratos(totalContratos);
-//				ac.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
-//						: ac.getValoracaoatual());
-//				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
-//				Acoes aabb = bancoRepository.save(ac);
-//
-//			} else {
-//				sRetorno = "Ação não existente.";
-//			}
+			Optional<Acoes> aab = bancoRepository.findById(acoes3Dto.getAcaoId());
+			Acoes ac = new Acoes();
+			Integer totalContratos = 0;
+			if (aab.isPresent()) {
+				ac = aab.get();
+				Ordens ordens = new Ordens(acoes3Dto,ac);
+				totalContratos = 0;
+				if ("V".equals(acoes3Dto.getTipo())) {
+					totalContratos = acoes3Dto.getContratos() == null ? 0 : acoes3Dto.getContratos();
+					if ("V".equals(ac.getTipo())) {
+						totalContratos = totalContratos + acoes3Dto.getContratos();
+					} else {
+						totalContratos = totalContratos - acoes3Dto.getContratos();
+					}
+				} else {
+					totalContratos = acoes3Dto.getContratos() == null ? 0 : acoes3Dto.getContratos();
+					if ("C".equals(ac.getTipo())) {
+						totalContratos = totalContratos + acoes3Dto.getContratos();
+					} else {
+						totalContratos = totalContratos - acoes3Dto.getContratos();
+					}
+				}
+				if(totalContratos <= 0) {
+					ordens.setStatus("F");
+				} else {
+					ordens.setStatus("B");
+				}
+				ordens.setContratos(totalContratos);
+				ordens.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
+						: ac.getValoracaoatual());
+				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
+				Ordens aabb = ordensRepository.save(ordens);
+				sRetorno = "Ação cadastrada com sucesso.";
+			} else {
+				sRetorno = "Ação não existente.";
+			}
 
 		}
 		return sRetorno;
@@ -432,6 +429,16 @@ public class AcoesService {
         }
 	}
 	
+	public ArrayList<AcoesResponseDto2> buscaOrdensPaginadosSearchFiltro(AcaoFilterSearchRequestDto filter, Pageable pageable) {
+		try{
+            ArrayList<AcoesResponseDto2> boletos = filtraOrdensSearch(filter, null);
+            return boletos;
+        }catch (Exception exception) {
+            log.error(exception.getMessage(), exception);
+            throw new RuntimeException("Erro ao buscar açoes");
+        }
+	}
+	
 	public ArrayList<AcoesResponseDto4> buscaAcoesPaginadosSearchFiltroErros(AcaoFilterSearchRequestDto filter, Pageable pageable) {
 		try{
             ArrayList<AcoesResponseDto4> boletos = filtraBoletosSearchErros(filter, null);
@@ -448,12 +455,34 @@ public class AcoesService {
         return getFiltraBoletos(boletolist);
     }
 	
+	public ArrayList<AcoesResponseDto2> filtraOrdensSearch(AcaoFilterSearchRequestDto filter, Pageable pageable){
+	       // List<AcoesDto> boletolist = bancoMapper.toDtoListAcoes(acoesCustomSearchRepository.findByRequest(filter,pageable));
+			List<Ordens> boletolist = acoesCustomSearchRepository.findByRequestOrdens(filter,pageable);
+			List<AcoesDto> ordensList = new ArrayList<>();
+			for (Ordens ordens : boletolist) {
+				ordensList.add(new AcoesDto(ordens));
+			}
+	        return getFiltraOrdens(ordensList);
+	    }
+	
 	public ArrayList<AcoesResponseDto4> filtraBoletosSearchErros(AcaoFilterSearchRequestDto filter, Pageable pageable){
         List<Acoes5Dto> boletolist = acoesCustomSearchRepository.findByRequestErros(filter,pageable);
         return getFiltraBoletosErros(boletolist);
     }
 	
 	private ArrayList<AcoesResponseDto2> getFiltraBoletos(List<AcoesDto> boletolist) {
+		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
+		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoesDto(boletolist)) {
+			AcoesResponseDto2 response = new AcoesResponseDto2();
+			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
+			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getId())).size());
+			response.setBanco(acoesResponseDto);
+			bancoResponseDto.add(response);
+		}
+		return bancoResponseDto;
+	}
+	
+	private ArrayList<AcoesResponseDto2> getFiltraOrdens(List<AcoesDto> boletolist) {
 		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
 		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoesDto(boletolist)) {
 			AcoesResponseDto2 response = new AcoesResponseDto2();

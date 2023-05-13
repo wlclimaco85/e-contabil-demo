@@ -36,16 +36,13 @@ public class EstrategiaService {
 	public Estrategias insert(Estrategias filter) {
 		//TODO verificar se 
 		List<Estrategias> estrategiaList = estrategiaRepository.findDistinctByEstrategias(filter.getEstrategia());
-//		if(estrategiaList != null && !estrategiaList.isEmpty()) {
-//			Estrategias est = estrategiaList.get(0);
-//			Integer count = (est.getQtdordens() == null ? 0 : est.getQtdordens()) + 1;
-//			est.setQtdordens(count);
-//			return estrategiaRepository.save(est);
-//		} else {
-//			filter.setStatus("A");
-//			return estrategiaRepository.save(filter);
-//		}
-		return new Estrategias();
+		if(estrategiaList != null && !estrategiaList.isEmpty()) {
+			Estrategias est = estrategiaList.get(0);
+			return estrategiaRepository.save(est);
+		} else {
+			filter.setStatus("A");
+			return estrategiaRepository.save(filter);
+		}
 	}
 	
 	public List<Estrategias> getEstrategias(Integer filter) {
@@ -65,14 +62,11 @@ public class EstrategiaService {
 
 	public ArrayList<EstrategiasResponseDto>   pesquisaBancoPorId(Integer id) {
 		ArrayList<EstrategiasResponseDto> list = new  ArrayList<EstrategiasResponseDto>();
-//		for (Estrategias estrategiasResponseDto : estrategiaRepository.findEstrategiasByAcaoId(id)) {
-//			EstrategiasResponseDto bancoResponseDto = new EstrategiasResponseDto();
-//			if(estrategiasResponseDto.getDh_created_at() == null) {
-//				estrategiasResponseDto.setDh_created_at(LocalDateTime.now());
-//			}
-//			bancoResponseDto.setEstrategias(new EstrategiasDto(estrategiasResponseDto));
-//			list.add(bancoResponseDto);
-//		}
+		for (Estrategias estrategiasResponseDto : estrategiaRepository.findEstrategiasByAcaoId(id)) {
+			EstrategiasResponseDto bancoResponseDto = new EstrategiasResponseDto();
+			bancoResponseDto.setEstrategias(new EstrategiasDto(estrategiasResponseDto));
+			list.add(bancoResponseDto);
+		}
 		return list;
 	}
 
