@@ -66,5 +66,10 @@ public class CorretoraService {
 		}
 		return bancoResponseDto;
 	}
+
+	public Corretora corretoraByUsuario(Integer id) {
+		String usuario = id + "";
+		return corretorasRepository.findCorretoraByUsuario(usuario);
+	}
 	
 }

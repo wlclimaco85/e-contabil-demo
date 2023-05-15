@@ -147,6 +147,9 @@ public List<Ordens> findByRequestOrdens(AcaoFilterSearchRequestDto filter, Pagea
 	
 	String condicao = " and ";
 
+	if (filter.getCorretoraId() != null && filter.getCorretoraId() > 0) {
+		query += condicao + "AC.corretoraId = :coretoraId";
+	}
 	
 	if (filter.getOperacao() != null && !filter.getOperacao().isBlank()) {
 		query += condicao + "AC.tipo = :tipo";
@@ -213,6 +216,10 @@ public List<Ordens> findByRequestOrdens(AcaoFilterSearchRequestDto filter, Pagea
 	
 	if (filter.getId() != null && filter.getId() > 0) {
 		q.setParameter("id", filter.getId());
+	}
+	
+	if (filter.getCorretoraId() != null && filter.getCorretoraId() > 0) {
+		q.setParameter("corretoraId", filter.getCorretoraId());
 	}
 	
 	if (filter.getLevel() != null && filter.getLevel() > 0) {

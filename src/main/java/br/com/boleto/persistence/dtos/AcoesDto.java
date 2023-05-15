@@ -85,6 +85,7 @@ public class AcoesDto {
 		this.status = estrategia.getStatus();
 		this.loss = estrategia.getLoss();
 		this.gain = estrategia.getGain();
+		this.audit = estrategia.getAudit();
 	}
 
 }

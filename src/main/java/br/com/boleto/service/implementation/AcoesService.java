@@ -474,6 +474,8 @@ public class AcoesService {
 		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
 		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoesDto(boletolist)) {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
+			acoesResponseDto.setDh_created_at(acoesResponseDto.getAudit().getDataCreated());
+			acoesResponseDto.setDh_updated_at(acoesResponseDto.getAudit().getDataUpdated());
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
 			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getId())).size());
 			response.setBanco(acoesResponseDto);
@@ -486,6 +488,8 @@ public class AcoesService {
 		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
 		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoesDto(boletolist)) {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
+			acoesResponseDto.setDh_created_at(acoesResponseDto.getAudit().getDataCreated());
+			acoesResponseDto.setDh_updated_at(acoesResponseDto.getAudit().getDataUpdated());
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
 			acoesResponseDto.setError(errosService.getErrosAcaoIdByString(acoesResponseDto.getId()));
 			acoesResponseDto.setQtdBreakeven((breakevenService.findByAcaoId(acoesResponseDto.getId())).size());

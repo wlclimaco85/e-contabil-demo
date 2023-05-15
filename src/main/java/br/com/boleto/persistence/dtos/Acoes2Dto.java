@@ -2,6 +2,7 @@ package br.com.boleto.persistence.dtos;
 
 import java.time.LocalDateTime;
 
+import br.com.boleto.persistence.entity.Audit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,4 +44,5 @@ public class Acoes2Dto {
 	private Double gainCorrente;
 	private String error;
 	private Integer qtdBreakeven;
+	private Audit audit = new Audit();
 }

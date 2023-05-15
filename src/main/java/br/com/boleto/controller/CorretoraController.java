@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,11 @@ public class CorretoraController {
     @PostMapping("getCorretoras")
     public ResponseEntity<ArrayList<CorretoraResponseDto>>  buscaIndicacoes(@RequestBody Corretora filter) {
         return new ResponseEntity<>(corretoraService.all(filter), HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Corretora> pesquisaBancoPorId(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(corretoraService.corretoraByUsuario(id), HttpStatus.OK);
     }
     
 
