@@ -2,11 +2,16 @@ package br.com.boleto.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.boleto.persistence.dtos.Acoes3Dto;
 import br.com.boleto.persistence.dtos.OrdensResponseDto;
+import br.com.boleto.persistence.entity.Acoes;
 import br.com.boleto.persistence.entity.Ordens;
 import br.com.boleto.persistence.mapper.OrdensMapper;
 import br.com.boleto.persistence.repository.OrdensRepository;
@@ -40,6 +45,22 @@ public class OrdensService {
 			bancoResponseDto.add(dto);
 		}
 		return bancoResponseDto;
+	}
+	
+	public Ordens getAcaoById(Integer id) {
+		return estrategiaRepository.findOrdensById(id);
+	}
+
+	@Transactional
+	public String compraVender(Ordens ordens) {
+		String msg = "Ordens realizada com sucesso!";
+		try {
+			ordens.setStatus("D");
+			estrategiaRepository.save(ordens);
+		} catch (Exception e) {
+			msg = e.getMessage();
+		}
+		return msg;
 	}
 	
 }

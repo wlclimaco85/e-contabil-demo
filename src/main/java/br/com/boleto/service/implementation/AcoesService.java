@@ -32,6 +32,8 @@ import br.com.boleto.persistence.dtos.AcoesResponseDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto2;
 import br.com.boleto.persistence.dtos.AcoesResponseDto3;
 import br.com.boleto.persistence.dtos.AcoesResponseDto4;
+import br.com.boleto.persistence.dtos.Ordens2Dto;
+import br.com.boleto.persistence.dtos.OrdensResponse2Dto;
 import br.com.boleto.persistence.entity.Acoes;
 import br.com.boleto.persistence.entity.Erros;
 import br.com.boleto.persistence.entity.Estrategias;
@@ -96,6 +98,32 @@ public class AcoesService {
 		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
 		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoes2(bancoRepository.findByStatus(tipo))) {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
+			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
+			Double valor = acoesResponseDto.getValoracaoatual();
+			if(valor != null && valor > 0) {
+				if("V".equals(acoesResponseDto.getTipo())) {
+					acoesResponseDto.setGain(valor - ((valor * 10)/100));
+					acoesResponseDto.setLoss(valor + ((valor * 5)/100));
+				} else {
+					acoesResponseDto.setGain(valor + ((valor * 10)/100));
+					acoesResponseDto.setLoss(valor - ((valor * 5)/100));
+				}
+			} 
+			List<EstrategiasPorAcao> isEstrategia = estrategiasPorAcaoService.findEstrategiaByAcaoId(acoesResponseDto.getId());
+			acoesResponseDto.setQtdEstrategia(isEstrategia!= null && !isEstrategia.isEmpty() ? isEstrategia.size() : 0);
+			acoesResponseDto.setValorcompra(valor);
+			response.setBanco(acoesResponseDto);
+			bancoResponseDto.add(response);
+		}
+		return bancoResponseDto;
+	}
+	
+	public ArrayList<OrdensResponse2Dto>  findBuscarOrdensAProcessar(Integer tipo) {
+		ArrayList<OrdensResponse2Dto> bancoResponseDto = new ArrayList<OrdensResponse2Dto>();
+		
+		for (Ordens acoesResponseDto2 : ordensRepository.findBuscarOrdensAProcessar(tipo)) {
+			Ordens2Dto acoesResponseDto = new Ordens2Dto(acoesResponseDto2);
+			OrdensResponse2Dto response = new OrdensResponse2Dto();
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
 			Double valor = acoesResponseDto.getValoracaoatual();
 			if(valor != null && valor > 0) {

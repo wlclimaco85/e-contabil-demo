@@ -22,6 +22,7 @@ import br.com.boleto.persistence.dtos.AcoesResponseDto;
 import br.com.boleto.persistence.dtos.AcoesResponseDto2;
 import br.com.boleto.persistence.dtos.AcoesResponseDto3;
 import br.com.boleto.persistence.dtos.AcoesResponseDto4;
+import br.com.boleto.persistence.dtos.OrdensResponse2Dto;
 import br.com.boleto.service.implementation.AcoesService;
 
 @RestController
@@ -43,6 +44,11 @@ public class AcoesController {
     @GetMapping("/buscaPorTipos/{status}")
     public ResponseEntity<ArrayList<AcoesResponseDto2>>   buscaPorTipos(@PathVariable("status") String id) {
         return   new ResponseEntity<>(acoesService.findByStatus(id), HttpStatus.OK);
+    }
+    
+    @GetMapping("/buscarOrdensAProcessar/{corretoraId}")
+    public ResponseEntity<ArrayList<OrdensResponse2Dto>>   buscarOrdensAProcessar(@PathVariable("corretoraId") Integer id) {
+        return   new ResponseEntity<>(acoesService.findBuscarOrdensAProcessar(id), HttpStatus.OK);
     }
     
     @GetMapping("/compradas")
@@ -73,12 +79,7 @@ public class AcoesController {
     public ResponseEntity<ArrayList<AcoesResponseDto2>> buscaOrdensPaginadosFiltroSearch(@RequestBody AcaoFilterSearchRequestDto filter, Pageable pageable){
 		return new ResponseEntity<>(acoesService.buscaOrdensPaginadosSearchFiltro(filter,pageable), HttpStatus.OK);
 	}
-    @GetMapping("acaoCompraVendida/{id}")
-    public ResponseEntity<String>  pesquisaBancoPorId2(@PathVariable("id") Integer id) {
-    	ArrayList<Acoes3Dto> acoes = new  ArrayList<Acoes3Dto>();
-    	acoes.add(acoesService.getAcaoById(id));
-    	return new ResponseEntity<>(acoesService.compraVender(acoes), HttpStatus.OK);
-    }
+    
     @GetMapping("/buscaValorAtualAcao/{status}")
     public ResponseEntity<ArrayList<AcoesResponseDto3>>   buscaValorAtualAcao(@PathVariable("status") String id) {
         return   new ResponseEntity<>(acoesService.buscaValorAtualAcao(id), HttpStatus.OK);

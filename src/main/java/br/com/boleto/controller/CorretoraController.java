@@ -17,7 +17,7 @@ import br.com.boleto.persistence.entity.Corretora;
 import br.com.boleto.service.implementation.CorretoraService;
 
 @RestController
-@RequestMapping("corretoras")
+@RequestMapping("corretora")
 public class CorretoraController {
     @Autowired
     CorretoraService corretoraService;

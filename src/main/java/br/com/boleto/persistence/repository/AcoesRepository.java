@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.boleto.persistence.entity.Acoes;
+import br.com.boleto.persistence.entity.Ordens;
 
 @Repository
 public interface AcoesRepository extends JpaRepository<Acoes, Integer> {
