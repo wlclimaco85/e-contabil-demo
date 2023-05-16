@@ -13,6 +13,7 @@ import lombok.Setter;
 public class Acoes2Dto {
 	private Integer id;
 	private Integer corretoraId;
+	private Integer acaoId;
 	private String acao;
 	private String estrategia;
 	private LocalDateTime dh_created_at;

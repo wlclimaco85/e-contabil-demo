@@ -1,7 +1,5 @@
 package br.com.boleto.persistence.entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;

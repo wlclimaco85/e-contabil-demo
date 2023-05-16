@@ -365,7 +365,7 @@ public class AcoesService {
 				if(totalContratos <= 0) {
 					ordens.setStatus("F");
 				} else {
-					ordens.setStatus("B");
+					ordens.setStatus("D");
 				}
 				ordens.setContratos(totalContratos);
 				ordens.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
@@ -518,10 +518,10 @@ public class AcoesService {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
 			acoesResponseDto.setDh_created_at(acoesResponseDto.getAudit().getDataCreated());
 			acoesResponseDto.setDh_updated_at(acoesResponseDto.getAudit().getDataUpdated());
-			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
+			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getAcaoId()));
 			acoesResponseDto.setError(errosService.getErrosAcaoIdByString(acoesResponseDto.getId()));
 			acoesResponseDto.setQtdBreakeven((breakevenService.findByAcaoId(acoesResponseDto.getId())).size());
-			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getId())).size());
+			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getAcaoId())).size());
 			response.setBanco(acoesResponseDto);
 			bancoResponseDto.add(response);
 		}
@@ -643,20 +643,20 @@ public class AcoesService {
 	public String efetivarClose(Acoes6Dto filter) {
 		try {
 
-				Optional<Acoes> op = bancoRepository.findById(filter.getAcaoId());
+				Optional<Ordens> op = ordensRepository.findById(filter.getAcaoId());
 				if(op.isPresent()) {
-					Acoes acoes = op.get();
+					Ordens acoes = op.get();
 					if(filter.getError() != null && "".equals(filter.getError().trim())) {
 						acoes.setStatus("C");						
 					}else {
-						acoes.setStatus("G");
+						acoes.setStatus("E");
 						Erros erro = new Erros();
-						//erro.setAcaoId(acoes.getId());
+						erro.setOrdem(acoes);
 						erro.setErro(filter.getError());
 						errosService.insert(erro);
 					}
 				//	acoes.setDh_updated_at(LocalDateTime.now());
-					bancoRepository.save(acoes);
+					ordensRepository.save(acoes);
 				}
 				
 			

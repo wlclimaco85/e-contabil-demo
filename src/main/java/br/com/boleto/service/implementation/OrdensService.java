@@ -55,7 +55,7 @@ public class OrdensService {
 	public String compraVender(Ordens ordens) {
 		String msg = "Ordens realizada com sucesso!";
 		try {
-			ordens.setStatus("D");
+			ordens.setStatus("A");
 			estrategiaRepository.save(ordens);
 		} catch (Exception e) {
 			msg = e.getMessage();

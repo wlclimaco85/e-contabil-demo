@@ -1,5 +1,6 @@
 package br.com.boleto.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +25,20 @@ public class ErrosService {
 	public ErrosResponseDto insert(Erros filter) {
 		ErrosResponseDto resp = new ErrosResponseDto();
 		//TODO
-//		if(filter.getAcaoId() != null && filter.getAcaoId() > 0) {
-//			ArrayList<Erros> estrategiaList = errosRepository.findDistinctByErros(filter.getAcaoId());
-//			if(estrategiaList != null && !estrategiaList.isEmpty()) {
-//				if(estrategiaList.size() == 3) {
-//					errosRepository.updateStatus(filter.getAcaoId());
-//					resp.setErros(estrategiaList);
-//					return resp;
-//				} else {
-//					return resp.addArray(errosRepository.save(filter));
-//				}
-//			} else {
-//				filter.setDh_created_at(LocalDateTime.now());
-//				return resp.addArray(errosRepository.save(filter));
-//			}
-//		}
+		if(filter.getOrdem() != null && filter.getOrdem().getId() > 0) {
+			ArrayList<Erros> estrategiaList = errosRepository.findDistinctByErros(filter.getOrdem().getId());
+			if(estrategiaList != null && !estrategiaList.isEmpty()) {
+				if(estrategiaList.size() == 3) {
+					errosRepository.updateStatus(filter.getOrdem().getId());
+					resp.setErros(estrategiaList);
+					return resp;
+				} else {
+					return resp.addArray(errosRepository.save(filter));
+				}
+			} else {
+				return resp.addArray(errosRepository.save(filter));
+			}
+		}
 		return resp;
 	}
 	

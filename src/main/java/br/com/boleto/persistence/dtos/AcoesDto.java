@@ -16,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AcoesDto {
 	private Integer id;
+	private Integer acaoId;
 	private Corretora corretora;
 	private String acao;
 	private String status;
@@ -38,6 +39,7 @@ public class AcoesDto {
 		this.id = estrategia.getId();
 		this.corretora = estrategia.getCorretora();
 		this.acao = estrategia.getAcao();
+		this.acaoId = estrategia.getAcaoId();
 		this.lucropreju = estrategia.getLucropreju();
 		this.valorsuj = estrategia.getValorsuj();
 		this.tipo = estrategia.getTipo();
@@ -55,6 +57,7 @@ public class AcoesDto {
 		this.id = estrategia.getId();
 		this.corretora = new Corretora(estrategia.getCorretoraId());
 		this.acao = estrategia.getAcao();
+		this.acaoId = estrategia.getAcaoId();
 		this.lucropreju = estrategia.getLucropreju();
 		this.valorsuj = estrategia.getValorsuj();
 		this.tipo = estrategia.getTipo();
@@ -73,15 +76,16 @@ public class AcoesDto {
 		this.id = estrategia.getId();
 		this.corretora = estrategia.getCorretora();
 		this.acao = estrategia.getAcao().getAcao();
-		this.lucropreju = estrategia.getLucropreju();
-		this.valorsuj = estrategia.getValorsuj();
+		this.acaoId = estrategia.getAcao().getId();
+		this.lucropreju = estrategia.getAcao().getLucropreju();
+		this.valorsuj = estrategia.getAcao().getValorsuj();
 		this.tipo = estrategia.getTipo();
 		this.nomeRobo = "";
 		this.data = LocalDateTime.now();
-		this.valoracaoatual = estrategia.getValoracaoatual();
-		this.shortname = estrategia.getShortname();
+		this.valoracaoatual = estrategia.getAcao().getValoracaoatual();
+		this.shortname = estrategia.getAcao().getShortname();
 		this.level = 0;
-		this.mudouLado = estrategia.getMudouLado();
+		this.mudouLado = estrategia.getAcao().getMudouLado();
 		this.status = estrategia.getStatus();
 		this.loss = estrategia.getLoss();
 		this.gain = estrategia.getGain();

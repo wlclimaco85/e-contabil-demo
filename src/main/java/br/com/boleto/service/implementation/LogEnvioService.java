@@ -54,7 +54,7 @@ public class LogEnvioService {
 	
 	public ArrayList<LogEnvioResponseDto> findByNumeroTituloCliente(String numeroTituloCliente, Integer bancoId){
 		if (bancoId == 0) {
-			bancoId = boletoService.buscaBancoPorNumeroTituloCliente(numeroTituloCliente);
+			
 		}
 		
 		List<LogEnvio> logEnvioList = logEnvioRepository.findByNossonumeroOrderByDhocorrenciaAsc(numeroTituloCliente);
@@ -199,7 +199,7 @@ public class LogEnvioService {
 		if (boletoDto != null) {
 			ArrayList<BoletoDto> boletosDtoList = new ArrayList<BoletoDto>();
 			boletosDtoList.add(boletoDto);
-			boletoService.alteraBoletosRetornoBanco(boletosDtoList);
+		
 		}
 		if (response.isBlank()) {
 			logEnvioDto = GetRetornoErro.insereRetornoBancoLogEnvio(boletoDto, exception, tipoEvento);			

@@ -25,4 +25,9 @@ public interface OrdensRepository extends JpaRepository<Ordens, Integer> {
     @Query(value = "SELECT * FROM Ordens WHERE id = :acaoId " , nativeQuery = true)
     Ordens findOrdensById(@Param("acaoId")  Integer acaoId);
     
+    @Query(value = "SELECT * FROM Ordens GROUP BY acao ", nativeQuery = true)
+	List<String> findDistinctByAcoes();
+    
+    
+    
 }

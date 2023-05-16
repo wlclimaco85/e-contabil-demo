@@ -40,15 +40,10 @@ public class Ordens {
 	private Acoes acao;
 	
 	private String status;
-	private Double lucropreju;
-	private Double valorsuj;
 	private String tipo;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataVenda;
 	private Integer contratos;
-	private Double valoracaoatual;
-	private String shortname;
-	private Integer mudouLado;
 	private Double valor;
 	private Double loss;
 	private Double gain;
@@ -75,8 +70,6 @@ public class Ordens {
 		this.corretora = new Corretora(estrategia.getCorretoraId());
 		this.acao = acoes;
 		this.status = estrategia.getStatus();
-		this.lucropreju = estrategia.getLucropreju();
-		this.valorsuj = estrategia.getValor();
 		this.tipo = estrategia.getTipo();
 		if("C".equals(estrategia.getTipo())) {
 			this.dataCompra = LocalDateTime.now();
@@ -84,9 +77,6 @@ public class Ordens {
 			this.dataVenda = LocalDateTime.now();
 		}
 		this.contratos = estrategia.getContratos();
-		this.valoracaoatual = acoes.getValoracaoatual();
-		this.shortname = acoes.getShortname();
-		this.mudouLado = estrategia.getMudouLado();
 		this.valor = estrategia.getValor();
 		this.loss = estrategia.getLoss();
 		this.gain = estrategia.getGain();

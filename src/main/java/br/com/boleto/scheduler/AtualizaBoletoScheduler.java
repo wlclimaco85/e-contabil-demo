@@ -11,12 +11,10 @@ import br.com.boleto.enums.JobEnum;
 import br.com.boleto.persistence.entity.Job;
 import br.com.boleto.persistence.repository.JobRepository;
 import br.com.boleto.service.implementation.BoletoService;
-import br.com.boleto.service.implementation.ContaService;
 
 @Component
 public class AtualizaBoletoScheduler {
-	@Autowired
-	ContaService contaService;
+
 
 	@Autowired
 	BoletoService boletoService;
