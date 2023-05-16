@@ -9,12 +9,14 @@ import static java.util.Objects.isNull;
 @Slf4j
 @AllArgsConstructor
 @Getter
-public enum TipoEventoEnum {
-	EMISSAO(0, "Emissão", "Emissão de boleto enviada para o Banco"),
-	ALTERACAO(1, "Alteração", "Alteração de boleto enviada para o Banco"),
-	BAIXA_CANCELAMENTO(2, "Baixa/Cancelamento", "Baixa/cancelamento de boleto enviada para o Banco"),
-	RETORNO_BANCO(3, "Retorno recebido do Banco", "Retorno recebido do Banco"),
-	ERRO_VALIDACAO_BOLETO(4, "Erro ao validar boleto", "Emissão de boleto bloqueado pelo serviço");
+public enum StatusOrdensAcoesEnum {
+	INDICACOES(0, "Indicações", "Indicações"),
+	NEGOCIADAS(1, "Negociadas", "Negociadas"),
+	PROCESSADAS(2, "Processadas", "Processadas"),
+	ERROS(3, "Erros", "Erros"),
+	ERROS_CLOSE(4, "Erros Fechamento", "Erros Fechamento"),
+	FECHADAS(5, "Fechadas", "Fechadas"),
+	AGUARDANDO_FECHAMENTO(6, "Aguardando Fechamento", "Aguardando Fechamento");
 	
 	private Integer idTipoEvento;
 
@@ -22,8 +24,8 @@ public enum TipoEventoEnum {
 
 	private String descricaoEvento;
 	
-	public static TipoEventoEnum valueOf(Integer idTipoEvento) {
-		for (TipoEventoEnum tipoEvento : TipoEventoEnum.values()) {
+	public static StatusOrdensAcoesEnum valueOf(Integer idTipoEvento) {
+		for (StatusOrdensAcoesEnum tipoEvento : StatusOrdensAcoesEnum.values()) {
 			if (tipoEvento.getIdTipoEvento().equals(idTipoEvento)) {
 				return tipoEvento;
 			}
@@ -33,7 +35,7 @@ public enum TipoEventoEnum {
 	}
 	
 	public static String getTipoEvento(Integer idTipoEvento) {
-		for (TipoEventoEnum tipoEvento : TipoEventoEnum.values()) {
+		for (StatusOrdensAcoesEnum tipoEvento : StatusOrdensAcoesEnum.values()) {
 			if (tipoEvento.getIdTipoEvento().equals(idTipoEvento)) {
 				return tipoEvento.getTipoEvento();
 			}
@@ -43,7 +45,7 @@ public enum TipoEventoEnum {
 	}
 
 	public static String getDescricao(Integer idTipoEvento) {
-		for (TipoEventoEnum tipoEvento : TipoEventoEnum.values()) {
+		for (StatusOrdensAcoesEnum tipoEvento : StatusOrdensAcoesEnum.values()) {
 			if (tipoEvento.getIdTipoEvento().equals(idTipoEvento)) {
 				return tipoEvento.getDescricaoEvento();
 			}

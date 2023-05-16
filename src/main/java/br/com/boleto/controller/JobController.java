@@ -39,14 +39,4 @@ public class JobController {
     public ResponseEntity<JobResponseDto> buscaTodosBancos() {
         return new ResponseEntity<>(jobService.buscaTodosJobs(), HttpStatus.OK);
     }
-    
-    @PostMapping("/jobs")
-	public ResponseEntity<ArrayList<ListaStatusResponseDto>>  buscaBoletosPaginadosFiltroSearch(@RequestBody StatusBoletoFilterSearchRequestDto filter, Pageable pageable){
-		return new ResponseEntity<>(jobService.buscaBoletosPaginadosSearchFiltro(filter,pageable), HttpStatus.OK);
-	}
-    
-    @PostMapping("/jobsList")
-	public ResponseEntity<ArrayList<Job>>  findByJobRequest(@RequestBody StatusBoletoFilterSearchRequestDto filter, Pageable pageable){
-		return new ResponseEntity<>(jobService.findByJobRequest(filter,pageable), HttpStatus.OK);
-	}
 }
