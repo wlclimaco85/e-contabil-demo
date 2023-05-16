@@ -151,6 +151,8 @@ public class AcoesService {
 		List<Acoes> acoes = bancoRepository.findDistinctByAcoes(aad.getAcao());
 		//SE NAO EXISTIR INSERI A ESTRATEGIA
 		Estrategias est2 = insertEstragegia(filter);
+		aad.setValorsuj(filter.getValorcompra());
+		aad.setLucropreju(0.0);
 		if(acoes == null || acoes.isEmpty()) {
 			Acoes aab = bancoRepository.save(bancoMapper.toDtoAcoes(aad));
 			//INSERI A PRIMEIRA OPÇÂO
@@ -161,6 +163,8 @@ public class AcoesService {
 		} else {
 			//Calcula 
 			AcoesDto aa = inserirAlterarEstrategiasPorAcao(filter, est2, bancoMapper.toDtoAcoes(acoes.get(0)));
+			aa.setValorsuj(filter.getValorcompra());
+			aa.setLucropreju(0.0);
 			Acoes aab = bancoRepository.save(bancoMapper.toDtoAcoes(aa));
 			
 			bancoResponseDto.setBanco(new ArrayList<AcoesDto>());
@@ -368,9 +372,10 @@ public class AcoesService {
 					ordens.setStatus("D");
 				}
 				ordens.setContratos(totalContratos);
-				ordens.setValor(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
+				ordens.setValorsuj(ac.getValoracaoatual() == null || ac.getValoracaoatual() == 0 ? ac.getValorsuj()
 						: ac.getValoracaoatual());
 				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
+				ordens.setAcaoSigra(ac.getAcao());
 				Ordens aabb = ordensRepository.save(ordens);
 				sRetorno = "Ação cadastrada com sucesso.";
 			} else {
@@ -504,6 +509,7 @@ public class AcoesService {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
 			acoesResponseDto.setDh_created_at(acoesResponseDto.getAudit().getDataCreated());
 			acoesResponseDto.setDh_updated_at(acoesResponseDto.getAudit().getDataUpdated());
+			acoesResponseDto.setValor(null);
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
 			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getId())).size());
 			response.setBanco(acoesResponseDto);

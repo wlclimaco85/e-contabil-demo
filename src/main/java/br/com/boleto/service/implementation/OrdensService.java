@@ -52,10 +52,11 @@ public class OrdensService {
 	}
 
 	@Transactional
-	public String compraVender(Ordens ordens) {
+	public String compraVender(Ordens ordens,Double price) {
 		String msg = "Ordens realizada com sucesso!";
 		try {
 			ordens.setStatus("A");
+			ordens.setValor(price);
 			estrategiaRepository.save(ordens);
 		} catch (Exception e) {
 			msg = e.getMessage();

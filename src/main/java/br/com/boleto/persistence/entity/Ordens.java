@@ -3,6 +3,7 @@ package br.com.boleto.persistence.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,13 +39,17 @@ public class Ordens {
 	@OneToOne(targetEntity = Acoes.class, cascade=CascadeType.ALL)
     @JoinColumn(name = "acao_Id", referencedColumnName = "id")
 	private Acoes acao;
-	
+	@Column(name = "acao")
+	private String acaoSigra;
 	private String status;
 	private String tipo;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataVenda;
 	private Integer contratos;
 	private Double valor;
+	private Double valorsuj;
+	private Double lucropreju;
+	private Double valoracaoatual;
 	private Double loss;
 	private Double gain;
 	private Integer compraAmercado;
@@ -69,6 +74,7 @@ public class Ordens {
 		this.id = estrategia.getId();
 		this.corretora = new Corretora(estrategia.getCorretoraId());
 		this.acao = acoes;
+		this.acaoSigra = acoes.getAcao();
 		this.status = estrategia.getStatus();
 		this.tipo = estrategia.getTipo();
 		if("C".equals(estrategia.getTipo())) {

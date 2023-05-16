@@ -25,6 +25,7 @@ import br.com.boleto.persistence.dtos.AcaoRetornoDto5;
 import br.com.boleto.persistence.dtos.LoginResponseDto;
 import br.com.boleto.persistence.entity.Acoes;
 import br.com.boleto.persistence.entity.Job;
+import br.com.boleto.persistence.entity.Ordens;
 import br.com.boleto.persistence.repository.AcoesRepository;
 import br.com.boleto.persistence.repository.JobRepository;
 import br.com.boleto.persistence.repository.OrdensRepository;
@@ -198,19 +199,17 @@ public class BoletoService {
 
 				for (AcaoRetornoDto4 string : response.getBody().getResults()) {
 					if (string.getRegularMarketPrice() != null) {
-						acoesRepository.alteraPriceCurrency(string.getRegularMarketPrice(), LocalDateTime.now(),
-								string.getShortName(), string.getSymbol());
-						List<Acoes> acoess = acoesRepository.findDistinctByAcoes(string.getSymbol());
-						for (Acoes acoesss : acoess) {
+						ordensRepository.alteraPriceCurrency(string.getRegularMarketPrice(), LocalDateTime.now(), string.getSymbol());
+						List<Ordens> acoess = ordensRepository.findDistinctByAcoes(string.getSymbol());
+						for (Ordens acoesss : acoess) {
 							if ("C".equals(acoesss.getTipo())) {
-								acoesss.setLucropreju(string.getRegularMarketPrice() - (acoesss.getValorsuj() != null ? acoesss.getValorsuj() : 0) );
+								acoesss.setLucropreju(string.getRegularMarketPrice() - (acoesss.getValor() != null ? acoesss.getValor() : 0) );
 							} else {
-								acoesss.setLucropreju((acoesss.getValorsuj() != null ? acoesss.getValorsuj() : 0) - string.getRegularMarketPrice());
+								acoesss.setLucropreju((acoesss.getValor() != null ? acoesss.getValor() : 0) - string.getRegularMarketPrice());
 							}
-							acoesRepository.save(acoesss);
+							ordensRepository.save(acoesss);
 						}
 					}
-
 				}
 
 				System.out.println("teste");

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.boleto.persistence.dtos.OrdensResponseDto;
@@ -37,10 +38,10 @@ public class OrdensController {
         return new ResponseEntity<>(ordensService.all(), HttpStatus.OK);
     }
     
-    @GetMapping("acaoCompraVendida/{id}")
-    public ResponseEntity<String>  pesquisaBancoPorId2(@PathVariable("id") Integer id) {
+    @GetMapping("acaoCompraVendida")
+    public ResponseEntity<String>  pesquisaBancoPorId2(@RequestParam("id") Integer id,@RequestParam("valor") Double price) {
     	Ordens ordens = ordensService.getAcaoById(id);
-    	return new ResponseEntity<>(ordensService.compraVender(ordens), HttpStatus.OK);
+    	return new ResponseEntity<>(ordensService.compraVender(ordens,price), HttpStatus.OK);
     }
     
 
