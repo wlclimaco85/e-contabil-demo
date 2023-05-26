@@ -35,6 +35,7 @@ import br.com.acoes.persistence.dtos.AcoesResponseDto4;
 import br.com.acoes.persistence.dtos.Ordens2Dto;
 import br.com.acoes.persistence.dtos.OrdensResponse2Dto;
 import br.com.acoes.persistence.entity.Acoes;
+import br.com.acoes.persistence.entity.Corretora;
 import br.com.acoes.persistence.entity.Erros;
 import br.com.acoes.persistence.entity.Estrategias;
 import br.com.acoes.persistence.entity.EstrategiasPorAcao;
@@ -42,6 +43,7 @@ import br.com.acoes.persistence.entity.Ordens;
 import br.com.acoes.persistence.mapper.AcoesMapper;
 import br.com.acoes.persistence.repository.AcoesCustomSearchRepository;
 import br.com.acoes.persistence.repository.AcoesRepository;
+import br.com.acoes.persistence.repository.CorretoraRepository;
 import br.com.acoes.persistence.repository.OrdensRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +52,10 @@ import lombok.extern.slf4j.Slf4j;
 public class AcoesService {
 	
 	@Autowired
-	private AcoesRepository bancoRepository;
+	private AcoesRepository acoesRepository;
+	
+	@Autowired
+	private CorretoraRepository corretoraRepository;
 	
 	@Autowired
 	private OrdensRepository ordensRepository;
@@ -76,7 +81,7 @@ public class AcoesService {
 	public AcoesResponseDto pesquisaBancoPorId(Integer id) {
 		ArrayList<AcoesDto> bancos = new ArrayList<>();
 		AcoesResponseDto bancoResponseDto = new AcoesResponseDto();
-		Optional<Acoes> bancoOpt = bancoRepository.findById(id);
+		Optional<Acoes> bancoOpt = acoesRepository.findById(id);
 
 		if (bancoOpt.isPresent()) {
 			bancos.add(bancoMapper.toDtoAcoes(bancoOpt.get()));
@@ -89,14 +94,14 @@ public class AcoesService {
 
 	public AcoesResponseDto buscaTodosBancos() {
 		AcoesResponseDto bancoResponseDto = new AcoesResponseDto();
-		bancoResponseDto.setBanco(bancoMapper.toDtoListAcoes(bancoRepository.findAll()));
+		bancoResponseDto.setBanco(bancoMapper.toDtoListAcoes(acoesRepository.findAll()));
 
 		return bancoResponseDto;
 	}
 	
 	public ArrayList<AcoesResponseDto2>  findByStatus(String tipo) {
 		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
-		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoes2(bancoRepository.findByStatus(tipo))) {
+		for (Acoes2Dto acoesResponseDto : bancoMapper.toDtoListAcoes2(acoesRepository.findByStatus(tipo))) {
 			AcoesResponseDto2 response = new AcoesResponseDto2();
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
 			Double valor = acoesResponseDto.getValoracaoatual();
@@ -148,13 +153,13 @@ public class AcoesService {
 	public AcoesResponseDto insert(Acoes2Dto filter) {
 		AcoesDto aad = new AcoesDto(filter); 
 		AcoesResponseDto bancoResponseDto = new AcoesResponseDto();
-		List<Acoes> acoes = bancoRepository.findDistinctByAcoes(aad.getAcao());
+		List<Acoes> acoes = acoesRepository.findDistinctByAcoes(aad.getAcao());
 		//SE NAO EXISTIR INSERI A ESTRATEGIA
 		Estrategias est2 = insertEstragegia(filter);
 		aad.setValorsuj(filter.getValorcompra());
 		aad.setLucropreju(0.0);
 		if(acoes == null || acoes.isEmpty()) {
-			Acoes aab = bancoRepository.save(bancoMapper.toDtoAcoes(aad));
+			Acoes aab = acoesRepository.save(bancoMapper.toDtoAcoes(aad));
 			//INSERI A PRIMEIRA OPÇÂO
 			insertEstrategiasPorAcao(filter, est2, aab);
 			AcoesDto aa = bancoMapper.toDtoAcoes(aab); 
@@ -165,7 +170,7 @@ public class AcoesService {
 			AcoesDto aa = inserirAlterarEstrategiasPorAcao(filter, est2, bancoMapper.toDtoAcoes(acoes.get(0)));
 			aa.setValorsuj(filter.getValorcompra());
 			aa.setLucropreju(0.0);
-			Acoes aab = bancoRepository.save(bancoMapper.toDtoAcoes(aa));
+			Acoes aab = acoesRepository.save(bancoMapper.toDtoAcoes(aa));
 			
 			bancoResponseDto.setBanco(new ArrayList<AcoesDto>());
 			bancoResponseDto.getBanco().add( bancoMapper.toDtoAcoes(aab));	
@@ -259,7 +264,7 @@ public class AcoesService {
 
 	public AcoesResponseDto compra(AcoesDto filter) {
 		AcoesResponseDto bancoResponseDto = new AcoesResponseDto();
-		Acoes aab = bancoRepository.save(bancoMapper.toDtoAcoes(filter));
+		Acoes aab = acoesRepository.save(bancoMapper.toDtoAcoes(filter));
 		AcoesDto aa = bancoMapper.toDtoAcoes(aab); 
 		bancoResponseDto.setBanco(new ArrayList<AcoesDto>());
 		bancoResponseDto.getBanco().add(aa);
@@ -268,7 +273,7 @@ public class AcoesService {
 
 	public AcoesResponseDto vendas(AcoesDto filter) {
 		AcoesResponseDto bancoResponseDto = new AcoesResponseDto();
-		Acoes aab = bancoRepository.save(bancoMapper.toDtoAcoes(filter));
+		Acoes aab = acoesRepository.save(bancoMapper.toDtoAcoes(filter));
 		AcoesDto aa = bancoMapper.toDtoAcoes(aab); 
 		bancoResponseDto.setBanco(new ArrayList<AcoesDto>());
 		bancoResponseDto.getBanco().add(aa);
@@ -279,7 +284,7 @@ public class AcoesService {
 	public String compraVender(ArrayList<Acoes3Dto> filter) {
 		String sRetorno = "";
 		for (Acoes3Dto acoes3Dto : filter) {
-			Optional<Acoes> aab = bancoRepository.findById(acoes3Dto.getAcaoId());
+			Optional<Acoes> aab = acoesRepository.findById(acoes3Dto.getAcaoId());
 			Acoes ac = new Acoes();
 			Integer totalContratos = 0;
 			if (aab.isPresent()) {
@@ -330,7 +335,7 @@ public class AcoesService {
 //						: ac.getValoracaoatual());
 //				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
 //				ac.setLucropreju(lucroPrejAnt + calcularLucroPrej(ac,acoes3Dto,ac2.getId()));
-//				Acoes aabb = bancoRepository.save(ac);
+//				Acoes aabb = acoesRepository.save(ac);
 
 			} else {
 				sRetorno = "Ação não existente.";
@@ -344,7 +349,7 @@ public class AcoesService {
 	public String compraVender2(ArrayList<Acoes3Dto> filter) {
 		String sRetorno = "";
 		for (Acoes3Dto acoes3Dto : filter) {
-			Optional<Acoes> aab = bancoRepository.findById(acoes3Dto.getAcaoId());
+			Optional<Acoes> aab = acoesRepository.findById(acoes3Dto.getAcaoId());
 			Acoes ac = new Acoes();
 			Integer totalContratos = 0;
 			if (aab.isPresent()) {
@@ -352,14 +357,12 @@ public class AcoesService {
 				Ordens ordens = new Ordens(acoes3Dto,ac);
 				totalContratos = 0;
 				if ("V".equals(acoes3Dto.getTipo())) {
-					totalContratos = acoes3Dto.getContratos() == null ? 0 : acoes3Dto.getContratos();
 					if ("V".equals(ac.getTipo())) {
 						totalContratos = totalContratos + acoes3Dto.getContratos();
 					} else {
 						totalContratos = totalContratos - acoes3Dto.getContratos();
 					}
 				} else {
-					totalContratos = acoes3Dto.getContratos() == null ? 0 : acoes3Dto.getContratos();
 					if ("C".equals(ac.getTipo())) {
 						totalContratos = totalContratos + acoes3Dto.getContratos();
 					} else {
@@ -377,6 +380,12 @@ public class AcoesService {
 				Double lucroPrejAnt = ac.getLucropreju() == null  ? 0 : ac.getLucropreju();
 				ordens.setAcaoSigra(ac.getAcao());
 				Ordens aabb = ordensRepository.save(ordens);
+				List<Corretora> a = corretoraRepository.findAll();
+				List<Ordens> aa = ordensRepository.findDistinctByAcaoId(ac.getId());
+				if(aa.size() >= a.size()) {
+					ac.setStatus("X");
+					acoesRepository.save(ac);
+				}
 				sRetorno = "Ação cadastrada com sucesso.";
 			} else {
 				sRetorno = "Ação não existente.";
@@ -512,6 +521,12 @@ public class AcoesService {
 			acoesResponseDto.setValor(null);
 			acoesResponseDto.setEstrategia(estrategiaService.getEstrategiasString(acoesResponseDto.getId()));
 			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getId())).size());
+			List<Corretora> corretoras = corretoraRepository.findCorretoraByAcaoId(acoesResponseDto.getId());
+			String corr = "";
+			for (Corretora estrategias2 : corretoras) {
+				corr += estrategias2.getNome() + " ";
+			}
+			acoesResponseDto.setCorretoras(corr);
 			response.setBanco(acoesResponseDto);
 			bancoResponseDto.add(response);
 		}
@@ -528,8 +543,21 @@ public class AcoesService {
 			acoesResponseDto.setError(errosService.getErrosAcaoIdByString(acoesResponseDto.getId()));
 			acoesResponseDto.setQtdBreakeven((breakevenService.findByAcaoId(acoesResponseDto.getId())).size());
 			acoesResponseDto.setQtdEstrategia((estrategiaService.getEstrategias(acoesResponseDto.getAcaoId())).size());
+			List<Corretora> corretoras = corretoraRepository.findCorretoraByOrdens(acoesResponseDto.getId());
+			String corr = "";
+			for (Corretora estrategias2 : corretoras) {
+				corr = estrategias2.getNome() + " ";
+			}
+			acoesResponseDto.setCorretoras(corr);
 			response.setBanco(acoesResponseDto);
 			bancoResponseDto.add(response);
+			if(acoesResponseDto.getLucropreju() == null || acoesResponseDto.getLucropreju() == 0) {
+				if("C".equals(acoesResponseDto.getTipo())) {
+					acoesResponseDto.setLucropreju(acoesResponseDto.getValoracaoatual() - (acoesResponseDto.getValorsuj() == null ? 0 : acoesResponseDto.getValorsuj()) );
+				} else {
+					acoesResponseDto.setLucropreju((acoesResponseDto.getValorsuj() == null ? 0 : acoesResponseDto.getValorsuj()) - acoesResponseDto.getValoracaoatual() );
+				}
+			}
 		}
 		return bancoResponseDto;
 	}
@@ -548,7 +576,7 @@ public class AcoesService {
 	public Acoes3Dto getAcaoById(Integer id) {
 		Acoes3Dto acao = new Acoes3Dto();
 		
-		Optional<Acoes> op = bancoRepository.findById(id);
+		Optional<Acoes> op = acoesRepository.findById(id);
 		if(op.isPresent()) {
 			acao = convert(op.get());
 		}
@@ -616,7 +644,12 @@ public class AcoesService {
 	public String compraVender3(ArrayList<Acoes4Dto> filter) {
 		try {
 			for (Acoes4Dto acoes4Dto : filter) {
-				bancoRepository.deleteById(acoes4Dto.getAcaoId());
+				Optional<Acoes> op = acoesRepository.findById(acoes4Dto.getAcaoId());
+				if(op.isPresent()) {
+					Acoes acao = op.get();
+					acao.setStatus("X");
+					acoesRepository.save(acao);
+				}
 			}
 			return "Ações deletadas com sucesso!";
 		} catch (Exception e) {
@@ -629,12 +662,12 @@ public class AcoesService {
 	public String closeAcao(ArrayList<Acoes4Dto> filter) {
 		try {
 			for (Acoes4Dto acoes4Dto : filter) {
-				Optional<Acoes> op = bancoRepository.findById(acoes4Dto.getAcaoId());
+				Optional<Acoes> op = acoesRepository.findById(acoes4Dto.getAcaoId());
 				if(op.isPresent()) {
 					Acoes acoes = op.get();
 					acoes.setStatus("F");
 					//acoes.setDh_updated_at(LocalDateTime.now());
-					bancoRepository.save(acoes);
+					acoesRepository.save(acoes);
 				}
 				
 			}

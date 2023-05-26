@@ -21,5 +21,11 @@ public interface CorretoraRepository extends JpaRepository<Corretora, Integer> {
 	
 	@Query(value = "SELECT * FROM corretoras E WHERE E.USUARIOMQ5 = :USUARIOMQ5", nativeQuery = true)
 	Corretora findCorretoraByUsuario(@Param("USUARIOMQ5")  String acaoId);
+	
+	@Query(value = "SELECT CC.* FROM CORRETORAS CC LEFT JOIN ORDENS O ON (O.CORRETORA_ID = CC.ID) WHERE O.ACAO_ID = :ACAOID", nativeQuery = true)
+	List<Corretora>  findCorretoraByAcaoId(@Param("ACAOID")  Integer acaoId);
+	
+	@Query(value = "SELECT CC.* FROM CORRETORAS CC LEFT JOIN ORDENS O ON (O.CORRETORA_ID = CC.ID) WHERE O.ID = :ORDEMID ", nativeQuery = true)
+	List<Corretora>  findCorretoraByOrdens(@Param("ORDEMID")  Integer acaoId);
  
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 public class AcaoFilterSearchRequestDto {
 	
 	private Integer ambiente;
-	private Integer corretoraId;
+	private String corretoraId;
 	private String operacao;
 	private String acao;
 	private String nomeAcao;

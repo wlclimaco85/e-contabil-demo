@@ -16,10 +16,13 @@ import br.com.acoes.persistence.entity.Ordens;
 @Repository
 public interface OrdensRepository extends JpaRepository<Ordens, Integer> {
 	
-	@Query(value = "SELECT * FROM Ordens WHERE acaoid = :acaoId and  tipo = :acao " , nativeQuery = true)
+	@Query(value = "SELECT * FROM Ordens WHERE acao_id = :acaoId and  tipo = :acao " , nativeQuery = true)
 	List<Ordens> findDistinctByOrdens(@Param("acaoId")  Integer acaoId);
 	
-	@Query(value = "SELECT * FROM Ordens WHERE acaoid = :acaoId and  tipo = :acao " , nativeQuery = true)
+	@Query(value = "SELECT * FROM Ordens WHERE acao_id = :acaoId " , nativeQuery = true)
+	List<Ordens> findDistinctByAcaoId(@Param("acaoId")  Integer acaoId);
+	
+	@Query(value = "SELECT * FROM Ordens WHERE acao_id = :acaoId and  tipo = :acao " , nativeQuery = true)
 	List<Ordens> findDistinctByOrdens(@Param("acaoId")  Integer acaoId,@Param("acao")  String acao);
 	
     @Query(value = "SELECT O.* FROM ORDENS O LEFT JOIN CORRETORAS C ON (O.CORRETORA_ID = C.ID) WHERE C.ID = :acao and o.status = 'D' ORDER BY ID ", nativeQuery = true)

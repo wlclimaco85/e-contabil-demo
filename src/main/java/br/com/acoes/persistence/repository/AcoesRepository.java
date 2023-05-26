@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.acoes.persistence.dtos.CorretoraPorOrdemDto;
 import br.com.acoes.persistence.entity.Acoes;
 
 @Repository
@@ -23,6 +24,9 @@ public interface AcoesRepository extends JpaRepository<Acoes, Integer> {
 	
 	@Query(value = "SELECT * FROM Acoes WHERE acao like :acao% ", nativeQuery = true)
 	List<Acoes> findDistinctByAcoes(@Param("acao")  String acao);
+	
+	@Query(value = "select count(o.*) as totalOrdens, (select count(*) from corretoras) as totalCorretoras  from ordens o where o.acao_id = :acaoId", nativeQuery = true)
+	CorretoraPorOrdemDto findDistinctByOrdensCorretoras(@Param("acaoId")  Integer acaoId);
 	
 	@Modifying
 	@Transactional

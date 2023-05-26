@@ -13,6 +13,7 @@ import lombok.Setter;
 public class Acoes2Dto {
 	private Integer id;
 	private Integer corretoraId;
+	private String corretoras;
 	private Integer acaoId;
 	private String acao;
 	private String estrategia;

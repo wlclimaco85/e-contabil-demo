@@ -77,7 +77,7 @@ public class AcoesDto {
 		this.corretora = estrategia.getCorretora();
 		this.acao = estrategia.getAcao().getAcao();
 		this.acaoId = estrategia.getAcao().getId();
-		this.lucropreju = 0.0;
+		this.lucropreju = estrategia.getLucropreju();
 		this.valorsuj = estrategia.getValor();
 		this.tipo = estrategia.getTipo();
 		this.nomeRobo = estrategia.getAcao().getNomeRobo();

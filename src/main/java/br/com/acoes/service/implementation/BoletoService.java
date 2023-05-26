@@ -184,7 +184,9 @@ public class BoletoService {
 		List<String> acoes = new ArrayList<>();
 		acoes = ordensRepository.findDistinctByAcoes();
 		for (String acoes2 : acoes) {
-			acao = acao + acoes2.substring(0, acoes2.length() - 1) + ",";
+			if(acoes2 != null && acoes2.trim() != "") {
+				acao = acao + acoes2.substring(0, acoes2.length() - 1) + ",";
+			}
 		}
 		if (acao != null && acao.length() > 1) {
 			acao = acao.substring(0, acao.length() - 1);

@@ -33,7 +33,7 @@ public class AcoesCustomSearchRepository{
 				//+ "(select count(b) from Breakeven b where b.acaoId = AC.id and b.status = P) as qtdBreakeven ";
 		query += " FROM Acoes AC ";
 		query = adicionaJoin(query, filter);
-		query += " where 1=1 ";
+		
 		
 		String condicao = " and ";
 
@@ -142,14 +142,9 @@ public List<Ordens> findByRequestOrdens(AcaoFilterSearchRequestDto filter, Pagea
 	query += " FROM Ordens AC ";
 	query += " left join Erros e on (e.ordem.id = AC.id) ";
 	query += " left join Acoes a on (AC.acao.id = a.id) ";
-	query = adicionaJoin(query, filter);
-	query += " where 1=1 ";
+	query = adicionaJoinOrdens(query, filter);
 	
 	String condicao = " and ";
-
-	if (filter.getCorretoraId() != null && filter.getCorretoraId() > 0) {
-		query += condicao + "AC.corretoraId = :coretoraId";
-	}
 	
 	if (filter.getOperacao() != null && !filter.getOperacao().isBlank()) {
 		query += condicao + "AC.tipo = :tipo";
@@ -218,10 +213,6 @@ public List<Ordens> findByRequestOrdens(AcaoFilterSearchRequestDto filter, Pagea
 		q.setParameter("id", filter.getId());
 	}
 	
-	if (filter.getCorretoraId() != null && filter.getCorretoraId() > 0) {
-		q.setParameter("corretoraId", filter.getCorretoraId());
-	}
-	
 	if (filter.getLevel() != null && filter.getLevel() > 0) {
 		q.setParameter("level", filter.getLevel());
 	}
@@ -279,15 +270,40 @@ public List<Ordens> findByRequestOrdens(AcaoFilterSearchRequestDto filter, Pagea
 	}
 	
 	private String adicionaJoin(String query, AcaoFilterSearchRequestDto filter) {
-		String leftJoinEstrategia = " LEFT JOIN ESTRATEGIAS_POR_ACAO EA ON (AC.ID = EA.ACAOID ) ";
+		String leftJoinEstrategia     = " LEFT JOIN ESTRATEGIAS_POR_ACAO EA ON (AC.ID = EA.ACAOID ) ";
 		String leftJoinEstrategiaAcao = " ESTRATEGIAS E ON (E.ID = EA.ESTRATEGIAID) ";
-		
-		if (filter.getNomeEstrategia() != null && !filter.getNomeEstrategia().isEmpty()) {	
+		String leftJoinOrdens         = " LEFT JOIN Ordens O ON (O.acao.id = AC.id) ";
+		String leftJoinCorretora      = " LEFT JOIN Corretora C ON (C.id = O.corretora.id) ";
+		if(filter.getCorretoraId() != null && filter.getCorretoraId().trim()!= null) {
+			query += leftJoinOrdens;
+			query += leftJoinCorretora;
+			query += "WHERE C.id IN ("+ filter.getCorretoraId() +")";
+			//query += "WHERE C.id IN (1,2)";
+		} else if (filter.getNomeEstrategia() != null && !filter.getNomeEstrategia().isEmpty()) {	
 			query += leftJoinEstrategia;
 			query += leftJoinEstrategiaAcao;
 			query += "WHERE E.ESTRATEGIA LIKE '%"+ filter.getNomeEstrategia() +"%'";
+		} else {
+			query += " where 1=1 ";			
 		}
-		
+		return query;
+	}
+	
+	private String adicionaJoinOrdens(String query, AcaoFilterSearchRequestDto filter) {
+		String leftJoinEstrategia     = " LEFT JOIN ESTRATEGIAS_POR_ACAO EA ON (AC.ID = EA.ACAOID ) ";
+		String leftJoinEstrategiaAcao = " ESTRATEGIAS E ON (E.ID = EA.ESTRATEGIAID) ";
+		String leftJoinCorretora      = " LEFT JOIN Corretora C ON (C.id = AC.corretora.id) ";
+		if(filter.getCorretoraId() != null && filter.getCorretoraId().trim()!= null) {
+			query += leftJoinCorretora;
+			query += "WHERE C.id IN ("+ filter.getCorretoraId() +")";
+			//query += "WHERE C.id IN (1,2)";
+		} else if (filter.getNomeEstrategia() != null && !filter.getNomeEstrategia().isEmpty()) {	
+			query += leftJoinEstrategia;
+			query += leftJoinEstrategiaAcao;
+			query += "WHERE E.ESTRATEGIA LIKE '%"+ filter.getNomeEstrategia() +"%'";
+		} else {
+			query += " where 1=1 ";			
+		}
 		return query;
 	}
 	

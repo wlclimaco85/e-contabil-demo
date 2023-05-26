@@ -1,13 +1,11 @@
 package br.com.acoes.service.implementation;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.acoes.persistence.dtos.AcoesResponseDto2;
 import br.com.acoes.persistence.dtos.EstrategiasDto;
 import br.com.acoes.persistence.dtos.EstrategiasResponseDto;
 import br.com.acoes.persistence.dtos.EstrategiasResponseDto2;
@@ -54,7 +52,7 @@ public class EstrategiaService {
 		String estrategias = "";
 		List<Estrategias> est = getEstrategias(filter);
 		for (Estrategias estrategias2 : est) {
-			estrategias = estrategias2.getEstrategia() + " ";
+			estrategias += estrategias2.getEstrategia() + " ";
 		}
 		
 		return estrategias;
