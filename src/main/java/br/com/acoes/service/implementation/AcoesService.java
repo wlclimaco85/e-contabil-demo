@@ -2,6 +2,7 @@ package br.com.acoes.service.implementation;
 
 import static java.util.Objects.isNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -662,12 +663,11 @@ public class AcoesService {
 	public String closeAcao(ArrayList<Acoes4Dto> filter) {
 		try {
 			for (Acoes4Dto acoes4Dto : filter) {
-				Optional<Acoes> op = acoesRepository.findById(acoes4Dto.getAcaoId());
+				Optional<Ordens> op = ordensRepository.findById(acoes4Dto.getAcaoId());
 				if(op.isPresent()) {
-					Acoes acoes = op.get();
+					Ordens acoes = op.get();
 					acoes.setStatus("F");
-					//acoes.setDh_updated_at(LocalDateTime.now());
-					acoesRepository.save(acoes);
+					ordensRepository.save(acoes);
 				}
 				
 			}

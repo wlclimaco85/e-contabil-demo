@@ -16,6 +16,11 @@ import br.com.acoes.persistence.entity.Ordens;
 @Repository
 public interface OrdensRepository extends JpaRepository<Ordens, Integer> {
 	
+	ArrayList<Ordens> findByStatus(String status);
+	
+	@Query(value = "SELECT * FROM Ordens WHERE status = :status and  corretora_id = :corretoraId " , nativeQuery = true)
+	List<Ordens> findByStatus(@Param("status")  String status,@Param("corretoraId")  Integer corretoraid);
+	
 	@Query(value = "SELECT * FROM Ordens WHERE acao_id = :acaoId and  tipo = :acao " , nativeQuery = true)
 	List<Ordens> findDistinctByOrdens(@Param("acaoId")  Integer acaoId);
 	

@@ -3,6 +3,7 @@ package br.com.acoes.persistence.dtos;
 import java.time.LocalDateTime;
 
 import br.com.acoes.persistence.entity.Audit;
+import br.com.acoes.persistence.entity.Ordens;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -47,4 +48,21 @@ public class Acoes2Dto {
 	private String error;
 	private Integer qtdBreakeven;
 	private Audit audit = new Audit();
+	
+	public Acoes2Dto(Ordens ordens) {
+		this.id = ordens.getId();
+		this.corretoraId = ordens.getCorretora().getId();
+		this.corretoras = ordens.getCorretora().getNome();
+		this.acaoId = ordens.getAcao().getId();
+		this.acao = ordens.getAcao().getAcao();
+		this.status = ordens.getStatus();
+		this.valorcompra = ordens.getValorsuj();
+		this.loss = ordens.getLoss();
+		this.gain = ordens.getGain();
+		this.valorcomprado = ordens.getValorsuj();
+		this.tipo = ordens.getTipo();
+		this.contratos = ordens.getContratos();
+		this.valorsuj = ordens.getValorsuj();
+		this.valor = ordens.getValor();
+	}
 }

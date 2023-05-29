@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.acoes.persistence.dtos.AcoesResponseDto2;
 import br.com.acoes.persistence.dtos.OrdensResponseDto;
 import br.com.acoes.persistence.entity.Ordens;
 import br.com.acoes.service.implementation.OrdensService;
@@ -39,11 +40,14 @@ public class OrdensController {
     }
     
     @GetMapping("acaoCompraVendida")
-    public ResponseEntity<String>  pesquisaBancoPorId2(@RequestParam("id") Integer id,@RequestParam("valor") Double price) {
+    public ResponseEntity<String>  pesquisaBancoPorId2(@RequestParam("id") Integer id,@RequestParam("valor") Double price,@RequestParam("sl") Double sl,@RequestParam("sg") Double sg) {
     	Ordens ordens = ordensService.getAcaoById(id);
-    	return new ResponseEntity<>(ordensService.compraVender(ordens,price), HttpStatus.OK);
+    	return new ResponseEntity<>(ordensService.compraVender(ordens,price,sl,sg), HttpStatus.OK);
     }
     
-
+    @GetMapping("/buscaPorTipos/")
+    public ResponseEntity<ArrayList<AcoesResponseDto2>>   buscaPorTipos(@PathVariable("status") String id,@RequestParam("corretoraId") Integer corretoraId) {
+        return   new ResponseEntity<>(ordensService.findByStatus(id,corretoraId), HttpStatus.OK);
+    }
     
 }
