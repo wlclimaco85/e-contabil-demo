@@ -351,10 +351,9 @@ public class AcoesService {
 		String sRetorno = "";
 		for (Acoes3Dto acoes3Dto : filter) {
 			Optional<Acoes> aab = acoesRepository.findById(acoes3Dto.getAcaoId());
-			Acoes ac = new Acoes();
 			Integer totalContratos = 0;
 			if (aab.isPresent()) {
-				ac = aab.get();
+				Acoes ac = aab.get();
 				Ordens ordens = new Ordens(acoes3Dto,ac);
 				totalContratos = 0;
 				if ("V".equals(acoes3Dto.getTipo())) {
@@ -387,7 +386,7 @@ public class AcoesService {
 					ac.setStatus("X");
 					acoesRepository.save(ac);
 				}
-				sRetorno = "Ação cadastrada com sucesso.";
+				sRetorno += "Ordem "+ aabb.getId() +" cadastrada com sucesso. ";
 			} else {
 				sRetorno = "Ação não existente.";
 			}
@@ -554,9 +553,13 @@ public class AcoesService {
 			bancoResponseDto.add(response);
 			if(acoesResponseDto.getLucropreju() == null || acoesResponseDto.getLucropreju() == 0) {
 				if("C".equals(acoesResponseDto.getTipo())) {
-					acoesResponseDto.setLucropreju(acoesResponseDto.getValoracaoatual() - (acoesResponseDto.getValorsuj() == null ? 0 : acoesResponseDto.getValorsuj()) );
+					if(acoesResponseDto.getValoracaoatual()!= null) {
+						acoesResponseDto.setLucropreju(acoesResponseDto.getValoracaoatual() - (acoesResponseDto.getValorsuj() == null ? 0 : acoesResponseDto.getValorsuj()) );
+					} else {
+						acoesResponseDto.setLucropreju(0.0);
+					}
 				} else {
-					acoesResponseDto.setLucropreju((acoesResponseDto.getValorsuj() == null ? 0 : acoesResponseDto.getValorsuj()) - acoesResponseDto.getValoracaoatual() );
+					acoesResponseDto.setLucropreju((acoesResponseDto.getValorsuj() == null ? 0 : acoesResponseDto.getValorsuj()) - (acoesResponseDto.getValoracaoatual() != null ? acoesResponseDto.getValoracaoatual() :0));
 				}
 			}
 		}

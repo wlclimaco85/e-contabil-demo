@@ -56,6 +56,7 @@ public class Ordens {
 	private Integer isPercentualLossGain;
 	private Double lossCorrente;
 	private Double gainCorrente;
+	private Integer tiketId;
 	@Embedded
 	private Audit audit = new Audit();
 	

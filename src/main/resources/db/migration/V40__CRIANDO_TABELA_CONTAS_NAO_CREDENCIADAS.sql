@@ -1,0 +1,1 @@
+ALTER TABLE ordens ADD COLUMN tiket_Id INT;

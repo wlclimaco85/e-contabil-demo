@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.acoes.persistence.dtos.Acoes2Dto;
 import br.com.acoes.persistence.dtos.AcoesResponseDto2;
@@ -56,7 +57,7 @@ public class OrdensService {
 	}
 
 	@Transactional
-	public String compraVender(Ordens ordens,Double price,Double sl,Double sg) {
+	public String compraVender(Ordens ordens,Double price,Double sl,Double sg, Integer ticket) {
 		String msg = "Ordens realizada com sucesso!";
 		try {
 			ordens.setStatus("A");
@@ -65,6 +66,7 @@ public class OrdensService {
 			ordens.setLoss(sl);
 			ordens.setGainCorrente(sg);
 			ordens.setLossCorrente(sl);
+			ordens.setTiketId(ticket);
 			Ordens orde = estrategiaRepository.save(ordens);
 			Breakeven breakean = new Breakeven();
 			breakean.setOrdem(orde);
@@ -99,5 +101,21 @@ public class OrdensService {
 		}	
 		return bancoResponseDto;
 	}
+	public ArrayList<AcoesResponseDto2>  atualizarAcao(Integer ticket, Integer corretoraId, String acao,Double priceFinal,Integer contratos,Integer tipo) {
+		ArrayList<AcoesResponseDto2> bancoResponseDto = new ArrayList<AcoesResponseDto2>();
+		if(corretoraId != null || corretoraId > 0) {
+			Ordens acoesResponseDto = estrategiaRepository.findOrdensByTicket(ticket,corretoraId, tipo == 0 ? "C" : "V" );
+			if(acoesResponseDto != null ) {//Atualizar status atualizar contratos, atualizar priço final , atualizar data final
+				//Acoes2Dto acoes = new Acoes2Dto(acoesResponseDto);
+			//	AcoesResponseDto2 response = new AcoesResponseDto2();
+				//response.setBanco(acoes);
+			//	bancoResponseDto.add(response);
+				System.out.println(ticket);
+			}
+		}
+		
+		return bancoResponseDto;
+	}
+	
 	
 }

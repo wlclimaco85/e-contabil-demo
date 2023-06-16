@@ -40,14 +40,18 @@ public class OrdensController {
     }
     
     @GetMapping("acaoCompraVendida")
-    public ResponseEntity<String>  pesquisaBancoPorId2(@RequestParam("id") Integer id,@RequestParam("valor") Double price,@RequestParam("sl") Double sl,@RequestParam("sg") Double sg) {
+    public ResponseEntity<String>  pesquisaBancoPorId2(@RequestParam("id") Integer id,@RequestParam("valor") Double price,@RequestParam("sl") Double sl,@RequestParam("sg") Double sg,@RequestParam("ticket") Integer ticket) {
     	Ordens ordens = ordensService.getAcaoById(id);
-    	return new ResponseEntity<>(ordensService.compraVender(ordens,price,sl,sg), HttpStatus.OK);
+    	return new ResponseEntity<>(ordensService.compraVender(ordens,price,sl,sg,ticket), HttpStatus.OK);
     }
     
-    @GetMapping("/buscaPorTipos/")
-    public ResponseEntity<ArrayList<AcoesResponseDto2>>   buscaPorTipos(@PathVariable("status") String id,@RequestParam("corretoraId") Integer corretoraId) {
-        return   new ResponseEntity<>(ordensService.findByStatus(id,corretoraId), HttpStatus.OK);
+    @GetMapping("buscaPorTipos")
+    public ResponseEntity<ArrayList<AcoesResponseDto2>>   buscaPorTipos(@RequestParam("status") String status,@RequestParam("corretoraId") Integer corretoraId) {
+        return   new ResponseEntity<>(ordensService.findByStatus(status,corretoraId), HttpStatus.OK);
+    }
+    @GetMapping("atualizarAcao")
+    public ResponseEntity<ArrayList<AcoesResponseDto2>>   atualizarAcao(@RequestParam("ticket") Integer ticket,@RequestParam("corretoraId") Integer corretoraId,@RequestParam("acao") String acao,@RequestParam("price") Double priceFinal,@RequestParam("contratos") Integer contratos,@RequestParam("tipo") Integer tipo) {
+        return   new ResponseEntity<>(ordensService.atualizarAcao(ticket, corretoraId, acao,priceFinal,contratos,tipo) , HttpStatus.OK);
     }
     
 }
